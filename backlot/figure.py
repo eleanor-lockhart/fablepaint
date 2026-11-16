@@ -256,21 +256,37 @@ def gait_report(fig, cycle, n=48):
     out['stride'] = float(np.mean([out.get('speedN', 0), out.get('speedF', 0)]))
     return out
 
-def draw_figure(img, fig, pose, scale, origin, colours=('#4a4f58', '#22262c', '#22262c'), grounded=True, joints=False, edge='#59606b', edge_w=1.3):
+def draw_figure(img, fig, pose, scale, origin, colours=('#4a4f58', '#22262c', '#22262c'), grounded=True, joints=False, edge='#59606b', edge_w=1.3,
+                flip=False, window=None):
     """Lay the puppet onto an image. origin = pixel position of (x=0, ground). colours = (far limbs, body, near limbs).
     Each part is laid separately with a thin lighter rim (`edge`), the way the cut edge of one piece of card
-    shows against the piece beneath it; without it an arm in front of a coat disappears. edge=None turns it off."""
+    shows against the piece beneath it; without it an arm in front of a coat disappears. edge=None turns it off.
+    flip=True faces the figure left. A part may carry its own colour as a fourth item (costume stripes, a lit lantern).
+    window='#rrggbb' cuts the lit window in the chest. Returns the image; draw_figure.lit holds a matte of everything
+    that was given its own colour or is the window (for making it glow)."""
     from .draw import raster, paint
     from .comp import grow
-    h, w = img.shape[:2]
-    for name, P, layer in fig.parts(pose, grounded):
-        m = raster([np.c_[origin[0] + P[:, 0] * scale, origin[1] - P[:, 1] * scale]], w, h)
+    h, w = img.shape[:2]; sx = -1.0 if flip else 1.0
+    px = lambda P: np.c_[origin[0] + sx * np.asarray(P)[:, 0] * scale, origin[1] - np.asarray(P)[:, 1] * scale]
+    lit = np.zeros((h, w), np.float32)
+    for part in fig.parts(pose, grounded):
+        name, P, layer = part[:3]
+        m = raster([px(P)], w, h)
+        if len(part) > 3:
+            img = paint(img, m, part[3])
+            if name.startswith('lit'): lit = np.maximum(lit, m)
+            continue
         if edge and layer >= 0:
             img = paint(img, grow(m, edge_w), edge)
         img = paint(img, m, colours[0] if layer < 0 else colours[1] if layer == 0 else colours[2])
+    if window:
+        J = fig.joints(pose, grounded)
+        m = raster([px(fig.on_trunk(J, [(.250, -.002), (.250, .030), (.205, .030), (.205, -.002)]))], w, h)
+        img = paint(img, m, window); lit = np.maximum(lit, m)
+    draw_figure.lit = lit
     if joints:
         J = fig.joints(pose, grounded)
-        dots = [capsule((origin[0] + J[k][0] * scale, origin[1] - J[k][1] * scale), (origin[0] + J[k][0] * scale + .01, origin[1] - J[k][1] * scale), 2.2, 2.2)
+        dots = [capsule((origin[0] + sx * J[k][0] * scale, origin[1] - J[k][1] * scale), (origin[0] + sx * J[k][0] * scale + .01, origin[1] - J[k][1] * scale), 2.2, 2.2)
                 for k in J if not k.startswith('_') and k not in ('ballN', 'ballF')]
         img = paint(img, raster(dots, w, h), '#e9e2cf')
     return img

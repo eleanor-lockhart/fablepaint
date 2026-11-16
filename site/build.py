@@ -17,13 +17,16 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 REPO = 'https://github.com/eleanor-lockhart/fablepaint'
 SITE = 'https://eleanor-lockhart.github.io/fablepaint/'
-THUMB = 960
+THUMB = 1400
 
 def blob(p): return f'{REPO}/blob/main/{p}'
 def tree(p): return f'{REPO}/tree/main/{p}'
 
 # (title, blurb, [(file, caption, [(label, file-or-url), ...]), ...])
 SECTIONS = [
+    ('Night Service',
+     'The world the work is growing into: part animation project, part commonplace book. On this water a light only stays lit while somebody is paying attention to it; the 1:35 sailing carries the dead; the night shift of Local 9 keeps three lights burning for it; and the power company has invented light that nobody has to watch.',
+     [('world/night-service/lineup.png', 'The lineup: everyone is a dark paper shape with one lit window', [('the bible', blob('world/night-service/BIBLE.md')), ('the Log of Local 9', blob('world/night-service/LOG.md')), ('cast code', blob('world/night-service/cast.py'))])]),
     ('Paperlight',
      'Boxes of cut paper, lit from behind and from within, built at true size in Blender and photographed with a real lens. '
      'The sheets are cut from 2D patterns; the light is traced, not painted; the loops are shot on twos like stop-motion.',
@@ -81,7 +84,7 @@ SECTIONS = [
       ('gallery/desk.png', 'Desk at night', [('in the program', 'gallery/desk_in_fpaint.png'), ('time-lapse', 'gallery/desk_timelapse.gif')]),
       ('gallery/saturn.png', 'Saturn', [('in the program', 'gallery/saturn_in_fpaint.png'), ('time-lapse', 'gallery/saturn_timelapse.gif')])]),
 ]
-DOCS = [('Paperlight guide', blob('styles/paperlight/STYLE.md')), ('Lit Window guide', blob('styles/lit-window/STYLE.md')), ('Studio pipeline manual', blob('backlot/MANUAL.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
+DOCS = [('Night Service bible', blob('world/night-service/BIBLE.md')), ('Paperlight guide', blob('styles/paperlight/STYLE.md')), ('Lit Window guide', blob('styles/lit-window/STYLE.md')), ('Studio pipeline manual', blob('backlot/MANUAL.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
 
 def thumb(rel):
     src = ROOT / rel
@@ -111,6 +114,7 @@ nav a{margin-right:1.2em;white-space:nowrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;align-items:start;margin-top:18px}
 .grid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
 .grid.big{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}
+.grid.hero{grid-template-columns:1fr}
 figure video{display:block;width:100%;height:auto;background:#000}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 figure img{display:block;width:100%;height:auto}
@@ -139,7 +143,7 @@ def main():
             cards.append(f'<figure>{media}'
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
-            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title in ('Paperlight', 'The studio (backlot)', 'Learning to draw and animate people') else ''
+            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' hero' if title == 'Night Service' else ' big' if title in ('Paperlight', 'The studio (backlot)', 'Learning to draw and animate people') else ''
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>

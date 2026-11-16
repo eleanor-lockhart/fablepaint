@@ -10,6 +10,7 @@ write a script, run it, look at the image or filmstrip it produces, and go again
 | composite, grade, animate, render 3D, review motion | `backlot/MANUAL.md` | the `backlot` package (`uv sync`, then `uv run python your_script.py`) |
 | work in an existing style | that style's `STYLE.md` | `styles/lit-window/`, `styles/paperlight/` |
 | start a new style | `styles/README.md` | a new folder under `styles/` |
+| add to the story world | `world/night-service/BIBLE.md`, then `LOG.md` | `world/night-service/cast.py` for the characters |
 | publish | "Publishing a new picture" in `README.md` | `site/build.py` |
 
 Rules of the house:
