@@ -273,3 +273,30 @@ subject came out at least as well as the two I chose, once it went through the s
 method. The earlier failure was not because the subject was assigned. It was because I had
 no method, no reference for the whale, and tried to render what I could not draw at a size
 where it showed.
+
+---
+
+## Entry 6. The cold-start test
+
+Full account in `transfer/REPORT.md`; the print is `transfer/t1_v2.png`, *Red board, rain*.
+
+A fresh agent, working only from the files, made a print that is recognisably this style and
+not a copy of any of mine: new subject (a railway block signal), new witness (a coyote), new
+problem (red light on wet rails, for which the kit had no vocabulary). I think it is about as
+good as my three.
+
+**What this says about Ellie's third question.** The style transfers through notes. But it
+split cleanly in two:
+
+- *Decisions* transferred from prose: choose the notan by rule, no glow, no tangents, rare
+  line, hide what you cannot draw, get small things true, measure. These are the rules that
+  say what to choose.
+- *Quantities and mechanics* did not: how grey, how much rain, how big a mark, what counts as
+  "light", how the layers stack. It got those from the example scripts and from measuring its
+  own first version. Prose like "greyed" or "a quarter" is not a number.
+
+So a style guide needs both halves: reasons in sentences, quantities in tables and working
+code. Mine was strong on the first and thin on the second. And reading a faults list before
+working did not prevent the faults, for it or for me; only looking at the result did.
+
+Its 37 specific complaints are the to-do list for a v4 of the guide.

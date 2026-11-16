@@ -1,0 +1,3 @@
+- `coyote_portland.jpg` | File:Urban coyote pauses in Grant Park neighborhood, Portland, Oregon (January 2026).jpg | PortlandAppraisalBlog | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Urban_coyote_pauses_in_Grant_Park_neighborhood,_Portland,_Oregon_(January_2026).jpg
+- `coyote_trail.jpg` | File:Coyote standing on the trail. (425c5779-1451-4b7c-988d-eff3a46b85c5).JPG | NPS | Public domain | https://commons.wikimedia.org/wiki/File:Coyote_standing_on_the_trail._(425c5779-1451-4b7c-988d-eff3a46b85c5).JPG
+- `signal_bridge_sub.jpg` | File:Railway signal mile 10.9 Bridge Subdivision (52112).jpg | Wolfy13399 | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Railway_signal_mile_10.9_Bridge_Subdivision_(52112).jpg

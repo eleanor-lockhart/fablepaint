@@ -1,0 +1,7 @@
+exec(open('../atelier/transfer/t1/common.py').read())
+exec(open('../atelier/transfer/t1/signal.py').read())
+window(X0, Y0, X1, Y1)
+block('signal')
+sx, sy, _ = track(SIG_S, SIG_OFF)
+info = signal(P, EYE, sx, sy, dict(key=KEY, dark2=EARTH2, plate='#8e9a98', steel='#93a09d', red=RED, case='#46545a', case2='#38454b'))
+print({k_: ([round(v) for v in val] if isinstance(val, tuple) else round(val, 1)) for k_, val in info.items()})
