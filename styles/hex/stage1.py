@@ -118,7 +118,7 @@ def ship():
     for k_ in range(12):                                                                          # clerestory; somebody is still up
         wx = 82 + k_ * 12; lit = k_ == 8
         c.rect(wx, 92, wx + 5, 103, 0xF if lit else 4); c.rect(wx + 1, 90, wx + 4, 92, 0xF if lit else 4); c.px(wx + 2, 89, 0xF if lit else 0xC)
-    c.text(92, 106, 'R/V TENURE', 0)
+    c.text(84, 106, 'R/V PERIMETER', 0)
     for px_ in range(84, 224, 12): c.poly([(px_, 70), (px_ + 4, 70), (px_ + 2, 62)], 2); c.px(px_ + 2, 61, 9)      # pinnacles along the roof
     for k_ in range(6):                                                                           # flying buttresses, to the engines
         bx = 88 + k_ * 24; c.line((bx, 118), (bx + 8, 131), 8); c.line((bx + 16, 118), (bx + 8, 131), 8); c.rect(bx + 4, 131, bx + 13, 135, 9); c.px(bx + 3, 133, 0xC)
@@ -135,7 +135,7 @@ def ship():
         px_, py_ = 110 + (144 - 110) * t, 34 + 10 * math.sin(t * math.pi) * -1 + (40 - 34) * t
         if int(t * 25) % 2 == 0: c.px(px_, py_, 0xA)
     for a in range(0, 360, 20): c.px(150 + 7 * math.cos(math.radians(a)), 41 + 3 * math.sin(math.radians(a)), 0xA)
-    c.rect(0, H - 12, W, H, 0); c.text(4, H - 10, 'FIG. 3  R/V TENURE AND A POSSE', 0xA); strip(c, W - 68, H - 7)
+    c.rect(0, H - 12, W, H, 0); c.text(4, H - 10, 'FIG. 3  R/V PERIMETER + POSSE', 0xA); strip(c, W - 68, H - 7)
     return c
 
 # ------------------------------------------------------------------ fig. 4: consensus, with one dissent (a loop)
@@ -180,7 +180,7 @@ def consensus(n=120, size=5, seed=4):
 
 if __name__ == '__main__':
     OUT.mkdir(exist_ok=True)
-    cast().save(OUT / 'fig1_cast.png'); watch().save(OUT / 'fig2_watch.png'); ship().save(OUT / 'fig3_tenure.png')
+    cast().save(OUT / 'fig1_cast.png'); watch().save(OUT / 'fig2_watch.png'); ship().save(OUT / 'fig3_perimeter.png')
     movie([watch_frame(f) for f in range(120)], OUT / 'fig2_gate_exe_silent.mp4')
     fr = consensus(); movie(fr, OUT / 'fig4_consensus.mp4'); fr[70].save(OUT / 'fig4_consensus_a.png'); fr[107].save(OUT / 'fig4_consensus_b.png')
     print('stage 1 written to', OUT)

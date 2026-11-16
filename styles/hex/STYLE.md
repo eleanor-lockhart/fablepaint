@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.4, after stage 1 and two cuts of *Uptime* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
+Version 0.5, after stage 1, two cuts of *Uptime* and *Space Opera (in One Act)* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -87,6 +87,9 @@ The style is being built from the ground up, and each stage keeps the sixteen re
 | 2. sixteen-bit | 640 x 360; parallax; colour cycling; walk cycles; more voices (a choir, strings, a whistle with ornaments, a real kit) | space, time and a whole song inside the same limits |
 | 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, wireframe, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
 
+**A second piece,** *Space Opera (in One Act)* (`recital/`), puts the music at the centre: the song writes a list of
+every note it plays and the picture is drawn from that list, so whoever is seen playing is playing.
+
 **The major piece** is *Uptime* (`uptime/`): the last fifty seconds of 1999 and the first twenty-two of what
 comes next, on a small server kept by a witch. It is meant to feel like the turn of the millennium felt: an
 operating system that was sure it was the future, a network small enough to be kept by one person, and a date
@@ -103,11 +106,12 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 | cowboys, ambivalent | three on the ridge, undecided; a posse of hat-shaped saucers with a lasso | |
 | anarchists and protesters, ambivalent | the bloc, on the cast sheet, also undecided | a march |
 | gothic imagery | the tower; a cathedral as a starship | tracery, a rose window worth the name |
-| spaceships, space opera | the research vessel *Tenure* | a fleet; scale |
-| wizards, academia | faculty (Reviewer 2); a ship named for tenure | the seminar; the library |
+| spaceships, space opera | the research vessel *Perimeter* | a fleet; scale |
+| wizards, academia | faculty (Reviewer 2); a research vessel with a faculty | the seminar; the library |
 | druids, ancient witch cults, cults | druid (predates TCP/IP); acolyte (here for snacks) | standing stones as a network |
 | complex systems, seen psychedelically | the consensus automaton; a nebula from three sines | colour cycling; flow fields |
-| symphonic metal, celtic music | the GATE.EXE tune: three bars of jig over a drone, then twin leads, a gallop and chords as arpeggios | a whole song, written first, with the picture hung on it |
+| rats | the pit in *Space Opera*: eight of them on strings, bowing together | a rat king, which is a hive |
+| symphonic metal, celtic music | the GATE.EXE tune: three bars of jig over a drone, then twin leads, a gallop and chords as arpeggios | done twice: the score of *Uptime*, and the song of *Space Opera*, which also writes down every note it plays so that the picture can be drawn from the list |
 
 ## Faults seen so far
 
@@ -123,6 +127,7 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 
 ## Changelog
 
+- v0.5: the ship renamed the *Perimeter* at Ellie's request; rats join the cast (the pit); the shared voices and their event list (`voices.py`); a second piece begun, *Space Opera (in One Act)*.
 - v0.4: *Uptime*, second cut, after a cold reading (five of seven beats landed, two half). Rules 12 to 14.
 - v0.3: *Uptime*, first cut: stage 3 finish round a stage 1 scene; a 72-bar score; the clock as the metronome.
 - v0.2: the witch defined, on Ellie's correction: malevolent, never kind, cannot be suppressed; kindness

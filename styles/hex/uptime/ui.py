@@ -18,7 +18,9 @@ def vgrad(h, c0, c1): t = np.linspace(0, 1, max(h, 1), dtype=np.float32)[:, None
 
 def rect(img, x0, y0, x1, y1, c, a=1.0):
     x0, y0, x1, y1 = max(int(x0), 0), max(int(y0), 0), min(int(x1), img.shape[1]), min(int(y1), img.shape[0])
-    if x1 > x0 and y1 > y0: img[y0:y1, x0:x1] = img[y0:y1, x0:x1] * (1 - a) + c * a
+    if x1 > x0 and y1 > y0:
+        if isinstance(c, np.ndarray) and c.ndim == 3 and len(c) != y1 - y0: c = c[np.linspace(0, len(c) - 1, y1 - y0).astype(int)]      # a gradient is stretched to fit
+        img[y0:y1, x0:x1] = img[y0:y1, x0:x1] * (1 - a) + c * a
 
 def rrect(img, x0, y0, x1, y1, r, c, a=1.0, top_only=False):
     """A rounded rectangle, anti-aliased. c is a colour or a (h, 1, 3) gradient. top_only rounds just the top corners."""

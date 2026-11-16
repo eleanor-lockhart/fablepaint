@@ -8,5 +8,7 @@ left showing, and a straight face. Start with `STYLE.md`; the reasoning is in `j
 | `kit.py` | an indexed canvas: every pixel is one hex digit. Dither, sprites, the ROM font, dialog boxes, hexagonal cells |
 | `sprites.py` | the cast, written as text |
 | `gate_exe_tune.py` | the ten-second tune for the GATE.EXE loop, and the step that puts it on the picture |
+| `voices.py` | every instrument the style has, synthesised; it also keeps the list of notes played, for a picture to be drawn from |
+| `recital/` | *Space Opera (in One Act)*: `BRIEF.md`, `music.py` (the song, and `events.json`), `film.py` |
 | `uptime/` | the major piece: `BRIEF.md` (storyboard on a bar grid), `music.py` (the score, written first), `ui.py` (a desktop of about 2000), `film.py` |
 | `stage1.py` | the eight-bit drafts: `uv run python styles/hex/stage1.py` writes `stage1/` |

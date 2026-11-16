@@ -45,7 +45,7 @@ job: the window is the only F in the picture and the eye goes straight to it. *W
 wallpaper at this size, which is right for a hive and wrong for menace. The newts are green squiggles. The
 tower was a blank slab until it was given courses of stone, and it could take a great deal more.
 
-**Fig. 3, the research vessel *Tenure* and a posse.** A cathedral as a starship: the rose window is the drive,
+**Fig. 3, the research vessel *Perimeter* and a posse.** A cathedral as a starship: the rose window is the drive,
 the exhaust is a broom, one clerestory window is lit, and five hats in formation have a lasso on the spire.
 *Works:* the nebula (three sines, quantised and dithered) is the first psychedelic system and cost four lines.
 *Weak:* the ship is still closer to a rocket than a cathedral. This is the weakest of the four.
@@ -162,3 +162,44 @@ nothing strobing.
 **Not tested.** The second cut has not been read cold: a reader works once and I have not spent another.
 Nobody has heard the score. And whether she reads as malevolent, not merely formidable, is still open: the
 reader saw someone who turns objections into newts and did not use a word like that.
+
+## Entry 5. *Space Opera (in One Act)*
+
+Ellie asked for another piece that mixes the art of now with the art of around and before 2000, with the music
+at the centre, because she liked the score of *Uptime*. While it was being made she asked for the ship to be
+renamed (it is the *Perimeter* now, everywhere) and for rats.
+
+**What it is.** Ninety-six seconds. Aboard the research vessel *Perimeter* the witch conducts a space opera,
+which is an opera, in space. She has her back to us and plays nothing. Everyone you hear is someone you can
+see: the spider on its web, which is a harp; eight rats in the pit, bowing together; a druid on the whistle;
+an acolyte on the drums; the cowboy on fiddle, once he commits; a newt on bass; the faculty at the organ, whose
+pipes are also the level meter; the drones as a choir; the bloc on guitars. Each is dark until their first
+note. She cuts the last chord off on its third beat. A dialog asks APPLAUSE? [ALLOW] [DENY] [NEWTS], she
+presses DENY, and the spider plays one more note anyway.
+
+**How it is made.** The song was written first, as before, but this time the song also writes down what it
+played: `voices.py` keeps a list of every note (when, how long, by whom), 1,382 of them, and `film.py` draws
+from that list and from nothing else. Nobody is animated. They are played.
+
+**The two eras.** From before 2000: the sprites, on twos; a tracker with the song going past as rows of notes
+and hex; a player window with a scrolling title. From now: ribbons in a flow field, on ones; a rose window
+whose twelve lights are the twelve pitch classes; and the tune drawn along the front of the stage, note by
+note, so that by the end the whole song is a skyline.
+
+**The song.** 4/4 at 120, two seconds a bar: four taps of the baton; the spider and the rats; a verse on the
+Andalusian cadence (D minor, C, B flat, A); organ and choir closing in; a chorus whose hook peaks in its last
+bar, which is what the critic of the NIGHT SERVICE theme said a chorus should do; the organ alone in a
+sequence; a short verse; the chorus again a tone higher, because that is what is done; three chords and a
+major one.
+
+**By measurement.** 18 of 19 events land in both picture and sound. The nineteenth is the cut-off, which is a
+silence and cannot have an onset. No one-frame accidents. -14.0 LUFS over a range of 17 LU.
+
+**My verdict, before anyone else has seen or heard it.** *Works:* the entrances, since a figure lighting up on
+its first note needs no explaining; the rose window; DENY. *Weak:* it is one wide shot for ninety-six seconds
+and a music video cuts; "playing" is a four-pixel bob and a moving bow, so nobody's hands do anything; the
+witch is a dark shape in a busy frame and the eye may not find her; the tracker is very small; and I have not
+heard a note of it. The key change is either the best joke in it or the corniest thing in it and I cannot tell
+which from here.
+
+**Not tested:** no cold reader has seen it.

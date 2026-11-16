@@ -119,6 +119,13 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
+    ('Space Opera (in One Act)',
+     'The music at the centre. Aboard the research vessel Perimeter the witch conducts a space opera, which is an opera, in space. She plays nothing. Everyone you hear is someone you can see: the spider on its web, which is a harp; rats in the pit, bowing together; a druid, a cowboy, a newt on bass, the faculty at the organ, drones for a choir. '
+     'The song was written first and keeps a list of every note it plays, 1,382 of them; the picture is drawn from that list and nothing else, so a player moves when, and only when, they play. '
+     'The sprites, the tracker and the player window are from before 2000. The ribbons, the rose window that lights by pitch, and the tune drawn along the front of the stage are from now.',
+     [('styles/hex/recital/space_opera_poster.png', 'SPACE OPERA (IN ONE ACT) (press play; it has sound)', [('mp4', 'styles/hex/recital/space_opera.mp4'), ('the plan', blob('styles/hex/recital/BRIEF.md')), ('journal', blob('styles/hex/journal.md')), ('the song (code)', blob('styles/hex/recital/music.py')), ('the picture (code)', blob('styles/hex/recital/film.py')), ('every note, as data', 'styles/hex/recital/events.json')], 'styles/hex/recital/space_opera.mp4'),
+      ('styles/hex/recital/recital_score.jpg', 'The song, as the listening room sees it', [('mp3', 'styles/hex/recital/recital.mp3')], None, 'styles/hex/recital/recital.mp3'),
+      ('styles/hex/recital/recital_sync.jpg', 'Picture against sound: 18 of 19 events land in both; the nineteenth is a silence', [])]),
     ('Uptime',
      'The major piece, second cut, revised after a cold reading. Seventy-two seconds: the last fifty of 1999 and the first twenty-two of what comes next, on a small server kept by a witch, staged on a desktop of the period. '
      'Everything outside is waiting for the machine to fail at midnight. The score was written first: seventy-two bars of 6/8 at one bar a second, so the clock in the corner of the screen is the metronome and every event sits on a tick. '
@@ -131,7 +138,7 @@ HEX_SECTIONS = [
      [('styles/hex/stage1/fig2_watch.png', 'Fig. 2. GATE.EXE (it has sound: unmute it). The pointer tries ALLOW, then DENY, then finds the third button', [('mp4', 'styles/hex/stage1/fig2_gate_exe.mp4'), ('still', 'styles/hex/stage1/fig2_watch.png'), ('the tune (mp3)', 'styles/hex/stage1/fig2_gate_exe.mp3'), ('the tune, as the listening room sees it', 'styles/hex/stage1/fig2_gate_exe_tune.jpg'), ('code', blob('styles/hex/stage1.py'))], 'styles/hex/stage1/fig2_gate_exe.mp4'),
       ('styles/hex/stage1/fig4_consensus_b.png', 'Fig. 4. Consensus, with one dissent. The rule: do what most of your neighbours do', [('mp4', 'styles/hex/stage1/fig4_consensus.mp4'), ('mid-way', 'styles/hex/stage1/fig4_consensus_a.png')], 'styles/hex/stage1/fig4_consensus.mp4'),
       ('styles/hex/stage1/fig1_cast.png', 'Fig. 1. Persons of interest', [('the sprites, as text', blob('styles/hex/sprites.py'))]),
-      ('styles/hex/stage1/fig3_tenure.png', 'Fig. 3. The research vessel Tenure, and a posse', [('journal: what works and what does not', blob('styles/hex/journal.md'))])]),
+      ('styles/hex/stage1/fig3_perimeter.png', 'Fig. 3. The research vessel Perimeter, and a posse', [('journal: what works and what does not', blob('styles/hex/journal.md'))])]),
 ]
 DOCS = [('Night Service bible', blob('world/night-service/BIBLE.md')), ('Paperlight guide', blob('styles/paperlight/STYLE.md')), ('Lit Window guide', blob('styles/lit-window/STYLE.md')), ('Studio pipeline manual', blob('backlot/MANUAL.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
 
@@ -196,7 +203,7 @@ def main(sections=None, out='index.html', hexpage=False):
             if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
             if audio and (ROOT / audio).exists():
