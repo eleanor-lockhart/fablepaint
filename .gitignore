@@ -1,4 +1,4 @@
-# Fable Studio working sessions: gigabytes of float layers. Exports live in gallery/ and atelier/.
+# Fable Studio working sessions: gigabytes of float layers. Exports live in gallery/ and styles/lit-window/.
 studio/sessions/
 __pycache__/
 *.pyc

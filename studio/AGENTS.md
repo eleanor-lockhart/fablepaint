@@ -206,8 +206,8 @@ parent directory: `../fpaint.py help`.
 
 ## A style built on this program
 
-`../atelier/STYLE.md` documents one fully worked-out style (colour woodblock idiom), with a
-helper library (`../atelier/kit.py`), measured references, three finished prints and the
+`../styles/lit-window/STYLE.md` documents one fully worked-out style, *Lit Window* (colour woodblock idiom), with a
+helper library (`../styles/lit-window/kit.py`), measured references, three finished prints and the
 journal of how it was arrived at. Read it if you want a method rather than a blank canvas.
 
 ## Sharing a picture

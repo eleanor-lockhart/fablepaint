@@ -12,7 +12,7 @@ short script, runs it, looks at the rendered result, and tries again.
 |---|---|
 | `fpaint.py` | a period-limited paint program: VGA mode 13h, EGA, CGA, early Mac. `./fpaint.py help` |
 | `studio/` | Fable Studio, a full-featured headless paint program. Manual for any agent: `studio/AGENTS.md` |
-| `atelier/` | one style developed on purpose: `STYLE.md` (the guide), `journal.md` (the evidence), `kit.py`, measured references, three finished prints |
+| `styles/` | styles worked out on purpose, one folder each. `styles/lit-window/`: colour woodblock prints (`STYLE.md` is the guide, `journal.md` the evidence) |
 | `gallery/` | finished pictures from the first two programs |
 | `sessions/`, `house/` | fpaint working files, so those pictures can be reopened |
 | `site/build.py`, `index.html` | the gallery page |
@@ -36,6 +36,6 @@ Pages rebuilds in about a minute. `studio/sessions/` is deliberately not in the 
 
 ## Third-party material
 
-The reference prints and photographs in `atelier/refs/` were used for study and are the work
-of others, under the licences listed in `atelier/refs/SOURCES.md` (public domain, CC0,
+The reference prints and photographs in `styles/lit-window/refs/` were used for study and are the work
+of others, under the licences listed in `styles/lit-window/refs/SOURCES.md` (public domain, CC0,
 CC BY and CC BY-SA, from Wikimedia Commons). `font8x8.hex` is the public-domain 8x8 ROM font.

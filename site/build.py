@@ -24,25 +24,25 @@ def tree(p): return f'{REPO}/tree/main/{p}'
 
 # (title, blurb, [(file, caption, [(label, file-or-url), ...]), ...])
 SECTIONS = [
-    ('Planned prints',
+    ('Lit Window',
      'A style developed on purpose: the inter-war Japanese colour woodblock idiom, applied to the Pacific Northwest at night. '
      'Each print was chosen from three three-value thumbnails, built from measured references, then revised once after its own critique.',
-     [('atelier/prints/p1_last_boat_v2.png', 'Last boat, rain', [('first pass', 'atelier/prints/p1_last_boat_v1.png'), ('thumbnails', 'atelier/prints/p1/00_notan.png'), ('time-lapse', 'atelier/prints/p1_timelapse.mp4'), ('scripts', tree('atelier/prints/p1'))]),
-      ('atelier/prints/p2_lookout_v2.png', 'Lookout, first snow', [('first pass', 'atelier/prints/p2_lookout_v1.png'), ('thumbnails', 'atelier/prints/p2/00_notan.png'), ('time-lapse', 'atelier/prints/p2_timelapse.mp4'), ('scripts', tree('atelier/prints/p2'))]),
-      ('atelier/prints/p3_full_moon_v2.png', 'Full moon over the Sound', [('first pass', 'atelier/prints/p3_full_moon_v1.png'), ('thumbnails', 'atelier/prints/p3/00_notan.png'), ('time-lapse', 'atelier/prints/p3_timelapse.mp4'), ('scripts', tree('atelier/prints/p3'))])]),
+     [('styles/lit-window/prints/p1_last_boat_v2.png', 'Last boat, rain', [('first pass', 'styles/lit-window/prints/p1_last_boat_v1.png'), ('thumbnails', 'styles/lit-window/prints/p1/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p1_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p1'))]),
+      ('styles/lit-window/prints/p2_lookout_v2.png', 'Lookout, first snow', [('first pass', 'styles/lit-window/prints/p2_lookout_v1.png'), ('thumbnails', 'styles/lit-window/prints/p2/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p2_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p2'))]),
+      ('styles/lit-window/prints/p3_full_moon_v2.png', 'Full moon over the Sound', [('first pass', 'styles/lit-window/prints/p3_full_moon_v1.png'), ('thumbnails', 'styles/lit-window/prints/p3/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p3_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p3'))])]),
     ('How the style was arrived at',
      'Side-by-side evidence, and the studies behind it. The journal has the reasoning.',
-     [('atelier/compare/1_memory_vs_reference.png', 'The same subjects from memory, then after looking at references', []),
-      ('atelier/compare/2_before_and_after_notes.png', 'One subject before any research, and after research plus notes', []),
-      ('atelier/compare/3_assigned_subject.png', 'The assigned subject without and with the method', []),
-      ('atelier/compare/4_three_prints.png', 'The three prints together', []),
-      ('atelier/studies/s00_memory.png', 'Study 0: a "woodblock print" from memory, before any research', []),
-      ('atelier/studies/s01_materials.png', 'Study 1: six material problems', []),
-      ('atelier/studies/s02a_memory_subjects.png', 'Study 2a: heron and ferry from memory', []),
-      ('atelier/studies/s02b_reference_subjects.png', 'Study 2b: the same after photographs, plus firs', [])]),
+     [('styles/lit-window/compare/1_memory_vs_reference.png', 'The same subjects from memory, then after looking at references', []),
+      ('styles/lit-window/compare/2_before_and_after_notes.png', 'One subject before any research, and after research plus notes', []),
+      ('styles/lit-window/compare/3_assigned_subject.png', 'The assigned subject without and with the method', []),
+      ('styles/lit-window/compare/4_three_prints.png', 'The three prints together', []),
+      ('styles/lit-window/studies/s00_memory.png', 'Study 0: a "woodblock print" from memory, before any research', []),
+      ('styles/lit-window/studies/s01_materials.png', 'Study 1: six material problems', []),
+      ('styles/lit-window/studies/s02a_memory_subjects.png', 'Study 2a: heron and ferry from memory', []),
+      ('styles/lit-window/studies/s02b_reference_subjects.png', 'Study 2b: the same after photographs, plus firs', [])]),
     ('Cold-start test',
      'A fresh agent that never saw the style being developed, working only from the written guide.',
-     [('atelier/transfer/t1_v2.png', 'Its print, revised', [('first pass', 'atelier/transfer/t1_v1.png'), ('thumbnails', 'atelier/transfer/t1_notan.png'), ('scripts', tree('atelier/transfer'))])]),
+     [('styles/lit-window/transfer/t1_v2.png', 'Its print, revised', [('first pass', 'styles/lit-window/transfer/t1_v1.png'), ('thumbnails', 'styles/lit-window/transfer/t1_notan.png'), ('scripts', tree('styles/lit-window/transfer'))])]),
     ('Fable Studio',
      'Pictures from the full-featured headless paint program (studio/studio.py), painted before there was a method.',
      [('gallery/studio/aurora.png', 'Aurora', [('16-bit', 'gallery/studio/aurora_16bit.png'), ('time-lapse', 'gallery/studio/aurora_timelapse.mp4')]),
@@ -61,7 +61,7 @@ SECTIONS = [
       ('gallery/desk.png', 'Desk at night', [('in the program', 'gallery/desk_in_fpaint.png'), ('time-lapse', 'gallery/desk_timelapse.gif')]),
       ('gallery/saturn.png', 'Saturn', [('in the program', 'gallery/saturn_in_fpaint.png'), ('time-lapse', 'gallery/saturn_timelapse.gif')])]),
 ]
-DOCS = [('Style guide', blob('atelier/STYLE.md')), ('Journal', blob('atelier/journal.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
+DOCS = [('Lit Window style guide', blob('styles/lit-window/STYLE.md')), ('Journal', blob('styles/lit-window/journal.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
 
 def thumb(rel):
     src = ROOT / rel
@@ -123,7 +123,7 @@ def main():
 <p class="lede">Pictures painted by an AI agent (Claude) through paint programs it wrote for itself, with no window and no stylus: it writes a short script, runs it, looks at the result, and tries again. This page collects the pictures; the repository has the programs, the scripts behind every picture, and the notes on how one style was worked out.</p>
 <nav>{nav}</nav></header>
 {"".join(parts)}
-<footer>Reference prints and photographs used for study are third-party works under their own licences, listed in <a href="{blob('atelier/refs/SOURCES.md')}">atelier/refs/SOURCES.md</a>. Every file in the repository is also reachable directly under {SITE}.</footer>
+<footer>Reference prints and photographs used for study are third-party works under their own licences, listed in <a href="{blob('styles/lit-window/refs/SOURCES.md')}">styles/lit-window/refs/SOURCES.md</a>. Every file in the repository is also reachable directly under {SITE}.</footer>
 </main></body></html>
 """
     (ROOT / 'index.html').write_text(page)
