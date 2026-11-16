@@ -4,6 +4,8 @@
     shapes  a vocabulary of carved shapes                comp    over, blend, matte algebra, multiplane, depth
     lab     colour, lens, film, print, screen finishes   anim    easing, tracks, loops, parallel render, encode
     screen  filmstrips, onion skins, scopes, statistics  model   the bridge to Blender (the model shop)
+    figure  a jointed human in profile                   sound   synthesis, mixing, mastering
+    score   notes, chords, sequences                     ear     the listening room: sound as pictures and numbers
 """
-from . import core, draw, shapes, comp, lab, anim, screen, model, figure
+from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear
 from .core import load, save, canvas, col, lum, resize, flat, read_exr

@@ -27,6 +27,11 @@ SECTIONS = [
     ('Night Service',
      'The world the work is growing into: part animation project, part commonplace book. On this water a light only stays lit while somebody is paying attention to it; the 1:35 sailing carries the dead; the night shift of Local 9 keeps three lights burning for it; and the power company has invented light that nobody has to watch.',
      [('world/night-service/lineup.png', 'The lineup: everyone is a dark paper shape with one lit window', [('the bible', blob('world/night-service/BIBLE.md')), ('the Log of Local 9', blob('world/night-service/LOG.md')), ('cast code', blob('world/night-service/cast.py'))])]),
+    ('Sound',
+     'A sound department built the same way as the picture side: every sound synthesised from arithmetic, nothing sampled. The agent cannot hear, so each cue comes with the sheet it was judged by: waveform, loudness, spectrogram, pitch classes. The lighthouse loop below has sound; unmute it.',
+     [('styles/paperlight/works/lighthouse_still.png', 'Lighthouse box with its cue, Tern Point (the lamp is the metronome)', [('sound bible', blob('world/night-service/music/MUSIC.md')), ('journal and self-critique', blob('world/night-service/music/JOURNAL.md'))], 'world/night-service/music/lighthouse_scored.mp4'),
+      ('world/night-service/music/tern_point_report.jpg', 'Tern Point: what the listening room sees', [('mp3', 'world/night-service/music/tern_point.mp3'), ('score', 'world/night-service/music/tern_point_score.png'), ('code', blob('world/night-service/music/tern_point.py'))], None, 'world/night-service/music/tern_point.mp3'),
+      ('world/night-service/music/eleven_report.jpg', 'Eleven: No. 4, in bars of eleven, on the harmonics of its own hum', [('mp3', 'world/night-service/music/eleven.mp3'), ('code', blob('world/night-service/music/eleven.py'))], None, 'world/night-service/music/eleven.mp3')]),
     ('Paperlight',
      'Boxes of cut paper, lit from behind and from within, built at true size in Blender and photographed with a real lens. '
      'The sheets are cut from 2D patterns; the light is traced, not painted; the loops are shot on twos like stop-motion.',
@@ -116,6 +121,7 @@ nav a{margin-right:1.2em;white-space:nowrap}
 .grid.big{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}
 .grid.hero{grid-template-columns:1fr}
 figure video{display:block;width:100%;height:auto;background:#000}
+figure audio{display:block;width:100%;height:36px;margin-top:2px}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 figure img{display:block;width:100%;height:auto}
 figcaption{padding:10px 12px 12px;font-size:.93rem}
@@ -131,19 +137,21 @@ def main():
     for title, blurb, items in SECTIONS:
         cards = []
         for item in items:
-            rel, cap, extras = item[:3]; video = item[3] if len(item) > 3 else None
+            rel, cap, extras = item[:3]; video = item[3] if len(item) > 3 else None; audio = item[4] if len(item) > 4 else None
             if not (ROOT / rel).exists():
                 continue
             t, w, h = thumb(rel)
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if 'scored' not in video else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
+            if audio and (ROOT / audio).exists():
+                media += f'<audio controls preload="none" src="{href(audio)}"></audio>'
             cards.append(f'<figure>{media}'
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
-            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' hero' if title == 'Night Service' else ' big' if title in ('Paperlight', 'The studio (backlot)', 'Learning to draw and animate people') else ''
+            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' hero' if title == 'Night Service' else ' big' if title in ('Paperlight', 'Sound', 'The studio (backlot)', 'Learning to draw and animate people') else ''
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>
