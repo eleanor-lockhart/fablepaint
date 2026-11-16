@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.5, after stage 1, two cuts of *Uptime* and *Space Opera (in One Act)* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
+Version 0.6, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)* and two cuts of *Base Case*. The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -74,8 +74,24 @@ Provisional. A rule that survives three pieces stays.
 11. **Neither syrup nor sneer.** Check each piece against both. The deepest instinct is protective, and it is
     the setting's instinct: the witch only keeps the wall.
 
-Kept from the house style: construct, don't guess; one thing, one model (`sprites.py`); the method and its
-instruments; a cold reader before anything is called finished.
+### In depth (from *Base Case*; `deep.py`, on `backlot/depth.py`)
+
+15. **A pixel is five centimetres.** In a place with depth, every surface and every figure is painted on one
+    grid in the world. The child is 26 pixels because she is 1.3 m. A sprite is never scaled to fit a shot; the
+    camera moves.
+16. **Light has no colour.** It only moves a thing between the void (register 0) and itself, in five or six
+    flat steps, worked out once per texel so that a shadow has the same square edge as the paint. Colour
+    belongs to things. F is still the only thing that glows, and a lamp is seen by what it lands on.
+17. **A figure is a card,** standing in the place: the place hides it, lights it, and takes its shadow. So a
+    shadow can tell the truth about someone that the sprite does not.
+18. **The camera travels on ones, on a path of its own.** Sprites may hold a pose for six frames; the camera
+    never waits for them.
+19. **One model, however many machines.** An older picture of the same place is the same model printed
+    differently (fewer colours, one bit, lines), never a second drawing. What a machine cannot show, it does not
+    show: before RETURN the older machines have no register F at all.
+
+Kept from the house style: construct, don't guess; one thing, one model (`sprites.py`, and now `house.py`); the
+method and its instruments; a cold reader before anything is called finished.
 
 ## The ladder
 
@@ -85,7 +101,12 @@ The style is being built from the ground up, and each stage keeps the sixteen re
 |---|---|---|
 | 1. eight-bit (done) | 320 x 180, hard pixels, 12 frames a second, sprites as hex text; sound from two pulse waves, a sixteen-step triangle and noise | the palette, the cast, the first rules, the first tune |
 | 2. sixteen-bit | 640 x 360; parallax; colour cycling; walk cycles; more voices (a choir, strings, a whistle with ornaments, a real kit) | space, time and a whole song inside the same limits |
-| 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, wireframe, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
+| 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
+| 4. now: depth (*Base Case*) | a place built in metres and painted on a 5 cm grid; cast light and shadows per texel; figures as cards; a camera that travels. The earlier stages are kept as ways of printing the same model | space that is real, in the same sixteen registers |
+
+**A third piece,** *Base Case* (`basecase/`), is a fairy tale told as a recursion, in her childhood home (the one painted in `gallery/house`):
+down through the pantry trap door to the basement, into the computer that is on down there, and into the one
+inside that, each an older picture of the same house, until there is no computer and there is a witch.
 
 **A second piece,** *Space Opera (in One Act)* (`recital/`), puts the music at the centre: the song writes a list of
 every note it plays and the picture is drawn from that list, so whoever is seen playing is playing.
@@ -99,18 +120,19 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 
 | motif | so far | next |
 |---|---|---|
-| a witch, sinister, Oz-green, malevolent, and ours | the keeper in the lit window; the only green thing; a process that cannot be closed | a face at close range |
+| a witch, sinister, Oz-green, malevolent, and ours | the keeper in the lit window; the only green thing; a process that cannot be closed; the base case of a recursion, and a child's shadow | a face at close range |
 | hostile crowds | 437 users at the gate, one sprite repeated | a crowd with a rule (flocking) |
 | hive minds, good and bad | the consensus field; drones (+) and (-) as one sprite in two palettes | a good hive at work: many small jobs |
-| spiders | the familiar, let down in front of the moon; a web in the corner | the web as the network |
+| spiders | the familiar, let down in front of the moon; a web in the corner; one coming down a basement post on its thread while the child comes down the stairs | the web as the network |
 | cowboys, ambivalent | three on the ridge, undecided; a posse of hat-shaped saucers with a lasso | |
 | anarchists and protesters, ambivalent | the bloc, on the cast sheet, also undecided | a march |
 | gothic imagery | the tower; a cathedral as a starship | tracery, a rose window worth the name |
 | spaceships, space opera | the research vessel *Perimeter* | a fleet; scale |
 | wizards, academia | faculty (Reviewer 2); a research vessel with a faculty | the seminar; the library |
 | druids, ancient witch cults, cults | druid (predates TCP/IP); acolyte (here for snacks) | standing stones as a network |
-| complex systems, seen psychedelically | the consensus automaton; a nebula from three sines | colour cycling; flow fields |
-| rats | the pit in *Space Opera*: eight of them on strings, bowing together | a rat king, which is a hive |
+| complex systems, seen psychedelically | the consensus automaton; a nebula from three sines; a call stack drawn as a staircase, and a value returned through four machines | colour cycling; flow fields |
+| rats | the pit in *Space Opera*: eight of them on strings, bowing together; one in the basement, leaving the torchlight, and two by the dehumidifier afterwards | a rat king, which is a hive |
+| the house | (new with *Base Case*) her childhood home, as one model in metres: the pantry trap door, the basement, the red posts, the brick chimney, the Pentium | the kitchen and the bedroom, which exist only as paintings so far; the garden under snow |
 | symphonic metal, celtic music | the GATE.EXE tune: three bars of jig over a drone, then twin leads, a gallop and chords as arpeggios | done twice: the score of *Uptime*, and the song of *Space Opera*, which also writes down every note it plays so that the picture can be drawn from the list |
 
 ## Faults seen so far
@@ -124,9 +146,21 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 - A hive turned grey at midnight and pink again at the decree: a cold reader took grey for gone and pink for a relapse.
 - Fourteen seconds of countdown in which only the number changed.
 - A shake that toggled every frame, which the pop detector rightly called a flicker.
+- The first fault on this list, again: her hat is register 0, so on a black screen she had no hat, and a cold
+  reader who had never seen her with one took her shadow for a fir tree. In a line drawing, she gets a line too.
+- A shadow that was a triangle. A silhouette needs a neck, a nose and a chin before a hat means anything, and
+  it needs clear wall to fall on: this one fell behind a water heater.
+- A camera tied to a figure's feet: she moves in steps, so it strobed.
+- Light dithered between levels: on the texel grid or not, it reads as dirt.
+- A rat that ran with the camera, at the camera's speed, and so "stays there".
+- An event at 32.8 seconds. There is no frame at 32.8 seconds at 24 a second. Times go on the frame grid.
+- A torch with no beam: nobody knew she carried one.
 
 ## Changelog
 
+- v0.6: *Base Case*: the style gets depth. Rules 15 to 19 (a pixel is five centimetres; light has no colour;
+  a figure is a card; the camera on its own path; one model, however many machines). Stage 4 on the ladder. A
+  cold reading (six of eight beats landed, one half, one missed) and a second cut.
 - v0.5: the ship renamed the *Perimeter* at Ellie's request; rats join the cast (the pit); the shared voices and their event list (`voices.py`); a second piece begun, *Space Opera (in One Act)*.
 - v0.4: *Uptime*, second cut, after a cold reading (five of seven beats landed, two half). Rules 12 to 14.
 - v0.3: *Uptime*, first cut: stage 3 finish round a stage 1 scene; a 72-bar score; the clock as the metronome.

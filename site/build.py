@@ -34,6 +34,11 @@ SECTIONS = [
       ('world/night-service/op/review/strip_2.jpg', 'Review sheet: one frame every half second (15 to 30 s)', [('0-15 s', 'world/night-service/op/review/strip_1.jpg'), ('30-45 s', 'world/night-service/op/review/strip_3.jpg'), ('45-60 s', 'world/night-service/op/review/strip_4.jpg')]),
       ('world/night-service/op/music_report.jpg', 'The theme, as the listening room sees it', [('mp3', 'world/night-service/op/night_service_op.mp3'), ('score', 'world/night-service/op/music_score.png'), ('composer brief', blob('world/night-service/op/MUSIC_BRIEF.md')), ('code', blob('world/night-service/op/music.py'))], None, 'world/night-service/op/night_service_op.mp3'),
       ('world/night-service/op/review/sync.jpg', 'Is the picture on the music? Picture change above, sound onsets below, one diamond per sync point', [('the numbers', 'world/night-service/op/review/sync.json'), ('checker', blob('world/night-service/op/sync_check.py'))])]),
+    ('Learning depth: flat drawings in deep places',
+     'The second half of the space study, set as an assignment: put flat animation in a place with depth. It comes to four rules. A pixel is a size in the world (five centimetres here), for walls and figures alike. Light is worked out once per painted square, so a shadow has the same hard edge as the paint. '
+     'A figure is a card standing in the place: the place hides it, lights it and takes its shadow. And the camera travels on its own path while the paint stays put. The exam piece is Base Case, on the HEX tab.',
+     [('styles/hex/basecase/four_prints.png', 'One model of one basement, printed four ways', [('the film', 'hex.html'), ('the study journal, entry 3', blob('studies/space/JOURNAL.md')), ('the tool', blob('backlot/depth.py')), ('manual', blob('backlot/MANUAL.md'))]),
+      ('styles/hex/basecase/travel.jpg', 'A tracking shot with a walking figure, a torch and cast shadows', [])]),
     ('Learning space: Ebb Landing',
      'The second study. Until now every picture here was a flat stage seen from the side, with things put where they looked right. '
      'This is one place from the story, thought out in metres and built once as a model; the plan, the elevations, the section and every frame below are derived from that one file. '
@@ -119,6 +124,17 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
+    ('Base Case',
+     'A fairy tale told as a recursion, set in the childhood home painted on the other tab. The power goes out; one light is left, under the pantry floor. A child lifts the trap door, goes down to the basement and finds the computer on, showing the same house. '
+     'She goes in, and there is a pantry, a trap door, a basement and a computer, drawn as a machine nine years older would draw them; and again; and again, until there is a basement with no computer in it. That is the base case, and a witch lives there. '
+     'The house is one model in metres, painted on a five-centimetre grid, with cast light and a camera that travels. The three older pictures are the same model printed three other ways; none of them was drawn. '
+     'The score is a ground bass stated twelve times: each step on the stairs is a note of the scale going down, the tune is handed to older and older machines, and RETURN is an F major chord.',
+     [('styles/hex/basecase/base_case_poster.png', 'BASE CASE (press play; it has sound)', [('mp4', 'styles/hex/basecase/base_case.mp4'), ('the brief', blob('styles/hex/basecase/BRIEF.md')), ('the cold reading, and what it changed', blob('styles/hex/basecase/COLD_READ_v1.md')), ('journal', blob('styles/hex/journal.md')), ('the house (code)', blob('styles/hex/basecase/house.py')), ('the picture (code)', blob('styles/hex/basecase/film.py')), ('the three older prints (code)', blob('styles/hex/basecase/levels.py')), ('the score (code)', blob('styles/hex/basecase/music.py'))], 'styles/hex/basecase/base_case.mp4'),
+      ('styles/hex/basecase/four_prints.png', 'One basement, four prints: the same model through the same camera, as each machine would show it', [('how depth works here', blob('studies/space/JOURNAL.md')), ('the tool', blob('backlot/depth.py')), ('what Hex does with it', blob('styles/hex/deep.py'))]),
+      ('styles/hex/basecase/travel.jpg', 'The camera travels and the paint stays: six frames of the walk. Near things pass faster than far ones because they are nearer, and for no other reason', []),
+      ('styles/hex/basecase/drawing_from_south.png', 'The house on paper, drawn from the same file: a section looking north', [('svg', 'styles/hex/basecase/drawing_from_south.svg'), ('the basement in plan', 'styles/hex/basecase/drawing_plan.png')]),
+      ('styles/hex/basecase/basecase_score.jpg', 'The score, as the listening room sees it. The row marked F lights at 70 seconds', [('mp3', 'styles/hex/basecase/basecase.mp3')], None, 'styles/hex/basecase/basecase.mp3'),
+      ('styles/hex/basecase/basecase_sync.jpg', 'Picture against sound: 37 of 37 events land in both (the first pass had 20)', [])]),
     ('Space Opera (in One Act)',
      'The music at the centre. Aboard the research vessel Perimeter the witch conducts a space opera, which is an opera, in space. She plays nothing. Everyone you hear is someone you can see: the spider on its web, which is a harp; rats in the pit, bowing together; a druid, a cowboy, a newt on bass, the faculty at the organ, drones for a choir. '
      'The song was written first and keeps a list of every note it plays, 1,382 of them; the picture is drawn from that list and nothing else, so a player moves when, and only when, they play. '
@@ -203,7 +219,7 @@ def main(sections=None, out='index.html', hexpage=False):
             if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera', 'base_case')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
             if audio and (ROOT / audio).exists():

@@ -12,14 +12,14 @@ short script, runs it, looks at the rendered result, and tries again.
 |---|---|
 | `fpaint.py` | a period-limited paint program: VGA mode 13h, EGA, CGA, early Mac. `./fpaint.py help` |
 | `studio/` | Fable Studio, a full-featured headless paint program. Manual for any agent: `studio/AGENTS.md` |
-| `backlot/` | the rest of a studio: model shop (Blender), compositing desk, lab, animation stand, screening room. Manual: `backlot/MANUAL.md` |
+| `backlot/` | the rest of a studio: model shop (Blender), compositing desk, lab, animation stand, screening room, places in metres (`space`), flat drawings in deep places (`depth`). Manual: `backlot/MANUAL.md` |
 | `STYLE.md` | the house style: what all the work has in common, the method, and what each checking instrument can and cannot see |
 | `ROADMAP.md`, `studies/` | what is being learned next, with a test for each study |
-| `styles/` | styles worked out on purpose, one folder each: `lit-window/` (colour woodblock prints) and `paperlight/` (boxes of cut paper lit from within, animated). Each has a `STYLE.md` and a `journal.md` |
+| `styles/` | styles worked out on purpose, one folder each: `lit-window/` (colour woodblock prints) and `paperlight/` (boxes of cut paper lit from within, animated), which are Fable's own; and `hex/`, which is Ellie's, drawn by Fable (sixteen registers; *Uptime*, *Space Opera (in One Act)*, *Base Case*). Each has a `STYLE.md` and a `journal.md` |
 | `world/night-service/` | the story world the work is growing into: bible, commonplace book, cast, a screen style guide, and a one-minute opening with music (`op/`) and its outside review |
 | `gallery/` | finished pictures from the first two programs |
 | `sessions/`, `house/` | fpaint working files, so those pictures can be reopened |
-| `site/build.py`, `index.html` | the gallery page |
+| `site/build.py`, `index.html`, `hex.html` | the gallery: one tab for Fable's work, one for Hex |
 
 The two paint programs are single-file Python scripts with inline dependencies; with
 [`uv`](https://docs.astral.sh/uv/) installed they run as they are. `backlot` is a package:

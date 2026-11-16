@@ -38,11 +38,15 @@ State after the first stretch (journal entries 0 to 2):
 - [x] think it out: by feel 11% of the frame and a factor of 1.8; with four rules 0.1% and within 10%
 - [x] one sky: the night is 20 November 2026; the moon comes from the almanac in every frame
 - [x] a tracking shot on ones under the strobe limit, and the giant-moon shot with its true lens ("Two lenses")
-- [ ] it reads: a cold reader lists what is where from three frames
-- [ ] cast shadows (let Blender light the same set); surfaces with more than one texture; a hill that is not steps
-- [ ] a crane and a push-in; a figure walking toward the lens (waits for a turnaround from the bones study)
+- [x] flat drawings in deep places (journal entry 3): `backlot/depth.py`. Painted texels on one 5 cm grid, light
+      and cast shadows per texel, figures as cards, a camera on its own path. Used for *Base Case*
+      (`styles/hex/basecase/`): a tracking shot with a walking figure, a push-in through a screen, a crane up
+      through the ground, and one house printed four ways from one model
+- [x] cast shadows (my own, not Blender's); surfaces with more than one texture; a crane and a push-in
+- [ ] it reads, as a plan: a cold reader lists what is where from three frames (it has been read as a story)
+- [ ] a hill that is not steps; a figure walking toward the lens (waits for a turnaround from the bones study)
 - [ ] Tern Point, Mount Vesper, the car deck
-- [ ] one picture of a place that is finished, not only correct
+- [ ] the same four rules in the house style: NIGHT SERVICE figures as cards in Ebb Landing, lit by its lamps
 
 ## Next: study 3, bones
 

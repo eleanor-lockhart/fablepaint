@@ -93,3 +93,23 @@ _S = _sp.Set('test'); _S.box('near', (-10, -9), (-1, 1), (0, 2)); _S.box('far', 
 _p = _sp.render(_S, _c, ss=1); _mid = _p['solid'][340, 640]
 assert _p['names'][_mid] == 'near' and abs(_p['depth'][340, 640] - 9.0) < .05, 'the nearer box should hide the farther one, nine metres off'
 print('space: horizon, scale, hidden surfaces and the almanac are right')
+
+# backlot.depth: parallax is one over distance; a texel is a place in the world; a wall blocks a lamp; a card is a cut-out
+from backlot import depth as _dp
+_cam = _sp.Camera(eye=(0, 0, 1.5), az=0, lens=35); _cam2 = _sp.Camera(eye=(.2, 0, 1.5), az=0, lens=35)
+_sq = np.full((10, 10), 3, np.uint8); _near = _dp.card('near', _sq, (-.2, 2, 1.2), (1, 0, 0)); _far = _dp.card('far', _sq, (.6, 4, 1.2), (1, 0, 0))
+_cx = lambda g, i: float(np.nonzero(g['solid'] == i)[1].mean())
+_g1, _g2 = _dp.gbuffer([_near, _far], _cam), _dp.gbuffer([_near, _far], _cam2)
+_ratio = (_cx(_g1, 0) - _cx(_g2, 0)) / (_cx(_g1, 1) - _cx(_g2, 1))
+assert abs(_ratio - 2) < .05, f'a card twice as near should slide twice as far when the camera steps aside: {_ratio}'
+_F = _sp.Set('floor'); _fl = _dp.paint(_F.box('floor', (-5, 5), (0, 10), (-.1, 0)), skin=(np.indices((8, 8)).sum(0) % 2 * 9).astype(np.uint8)); _F.box('wall', (-5, 5), (4, 4.1), (0, 3))
+_cam3 = _sp.Camera(eye=(0, 0, 1.5), look=(0, 3, 0), lens=35); _g = _dp.gbuffer(_F.solids, _cam3); _P = _g['pos'][500, 700]
+assert _g['u'][500, 700] == int(np.floor(_P[0] / .05)) and _g['v'][500, 700] == int(np.floor(-_P[1] / .05)), 'the texel under a pixel should be the 5 cm square of floor the pixel looks at'
+assert np.allclose(_g['centre'][500, 700], ((_g['u'][500, 700] + .5) * .05, -(_g['v'][500, 700] + .5) * .05, 0), atol=1e-6), "a texel's middle should be a point on the floor"
+_same = (_g['u'] == _g['u'][500, 700]) & (_g['v'] == _g['v'][500, 700]) & (_g['solid'] == 0)
+_lamp = _dp.Light((0, 6, 1.0), 1.0, 3.0).bake(_F.solids); _lv = _dp.lighting(_g, [_lamp], ambient=.1); _open = _dp.lighting(_g, [_dp.Light((0, 2, 1.0), 1.0, 3.0).bake(_F.solids)], ambient=.1)
+assert abs(_lv[500, 700] - .1) < 1e-6 and _open[500, 700] > .3, 'a lamp behind a wall should light nothing on this side of it; a lamp on this side should'
+assert _same.sum() > 20 and np.ptp(_open[_same]) < 1e-6, 'every pixel of one texel should get one level of light'
+_hole = _sq.copy(); _hole[3:7, 3:7] = _dp.HOLE; _g = _dp.gbuffer([_dp.card('front', _hole, (0, 2, 1.25), (1, 0, 0)), _dp.card('back', _sq, (0, 3, 1.0), (1, 0, 0), texel=.1)], _cam)
+assert _g['names'][_g['solid'][360, 640]] == 'back' and (_g['solid'] == 0).sum() > 100, 'a hole in a card should show what stands behind it'
+print('depth: parallax, texels, cast shadows and cut-outs are right')

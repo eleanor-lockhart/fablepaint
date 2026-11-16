@@ -40,6 +40,7 @@ converted on the way in. Values above 1.0 are normal until `lab.tonemap` brings 
 | `sync` | picture against sound, accidents, camera speed | `check(points, frames, wav)` `events(points, frames, out)` `pops` `travel` |
 | `reader` | the cold reader: what does the picture say to a stranger | `pack_film(frames, questions, intent)` `pack_stills(images, task)` |
 | `space` | places in metres: one model, drawn and photographed | `Set` (`box` `prism` `cylinder` `hexa` `gable` `tube` `card` `face`), `drawing(S, 'plan')`, `Camera(eye, az=, lens=)` `.place` `.sky` `.horizon`, `render` `positions` `pools` `matte`, `moon(when, lat, lon)`, `blender_check` |
+| `depth` | flat drawings in deep places (2.5D): painted texels, cut-out figures, cast light, a travelling camera | `paint(solid, skin=)` `card(name, sprite, foot, cam.right)` `panel` `gbuffer(things, cam)` `Light(pos, power, reach, aim=, cone=).bake(solids)` `lighting(g, lights, moving=)` `fly(keys, t)` `flakes` `edges` |
 | `model` | the bridge to Blender | `Spec(...)` with `.material` `.sheet` `.panel` `.light` `.haze` `.camera` `.key` `.render`; `passes(exr)` |
 
 ## How a shot is put together
@@ -126,6 +127,42 @@ Rules of thumb worth more than the tool: the focal length in pixels is `width * 
 screen is that times its size over its distance; the moon is that over 110. `blender_check(S, cam)` renders the
 same set with Blender's camera and reports how many pixels agree. A worked place, with plans, a lens sheet and
 a film: `world/night-service/places/`.
+
+## Flat drawings in deep places (backlot.depth)
+
+`space` says where things are; `depth` is for when the things are drawings. Four rules, each replacing a guess:
+
+1. **A texel is a size in the world.** Every surface is painted on one grid (5 cm by default) and every figure
+   is drawn on the same grid, so a brick, a stair and a child's shoe agree about what a pixel is. Do not scale a
+   sprite to make it "look right"; move the camera.
+2. **Light is worked out per texel.** `lighting` sums the lamps at the middle of each texel, so a shadow's edge is
+   the same hard square as the paint. Dither on the texel grid (`g['u']`, `g['v']`), never on the screen, or it
+   crawls when the camera moves.
+3. **A figure is a card.** `card(name, sprite, foot, cam.right)` stands a cut-out in the set. The set hides it,
+   lamps light it, and it throws a shadow shaped like itself. A card that is passed in `moving=` but left out of
+   the things drawn casts a shadow and is not seen: that is how a shadow can be of something else.
+4. **The camera moves; the paint stays.** `fly(keys, t)` is a camera move from keys of (seconds, eye, look,
+   lens). Parallax is then one over distance and nothing else. Hold drawings on twos if you like; the camera
+   goes on ones, on its own smooth path (do not tie it to a figure that steps).
+
+```python
+from backlot.space import Set
+from backlot import depth as D
+S = Set('room'); D.paint(S.box('floor', (0, 8), (0, 6), (-.1, 0)), skin=tile)      # tile: (h, w) uint8 palette indices
+cam = D.fly([(0, (4, -6, 1.4), (4, 3, 1), 35), (5, (6, -6, 1.4), (6, 3, 1), 35)], t)
+her = D.card('her', sprite, (4.2, 4.0, 0), cam.right)                               # HOLE (255) where there is no paint
+g = D.gbuffer(S.solids + [her], cam)                                               # depth, index, pos, centre, normal, u, v, glow, flat
+torch = D.Light((3, 3, 1), 3.0, 4.0, aim=(1, .3, -.2), cone=(15, 27)).bake(S.solids)
+level = D.lighting(g, [torch], ambient=.06, moving=[her])                          # 0 dark .. 1 lit, one value per texel
+```
+
+What a lit texel looks like is the style's business: `g['index']` is the paint and `level` the light. `styles/hex/deep.py`
+is one answer (light has no colour; a few hard steps between the void and the paint). The same `g` can be
+printed other ways, at other sizes: `edges(g)` gives a hidden-line drawing. `styles/hex/basecase/levels.py` prints one
+house as a 1989 game, a 1987 one-bit card and a 1980 line drawing.
+
+A static lamp is baked once (`bake`); a lamp that moves is baked every frame (a spot is one 384 px map and costs a
+tenth of a second; an all-round lamp is six). About a second a frame at 1280 x 720 for a set of a thousand faces.
 
 ## Finishing a frame with figures in it
 

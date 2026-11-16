@@ -73,6 +73,10 @@ chop that signs the prints: a vermilion square with one lit window in it.
     height over distance; the horizon moves by that times the tangent of the tilt; the moon is that over 110).
     And the place knows things the picture does not: where a camera cannot stand, what is in the way, which
     night it is. (`studies/space/JOURNAL.md`)
+    A flat drawing belongs in a deep place on four conditions: it is painted on the same grid as the place (a
+    texel is a size in the world); light is worked out per texel, so shadows are as hard-edged as the paint;
+    a figure is a card that the place hides, lights and takes a shadow from; and the camera travels on a
+    path of its own while the paint stays put. (`backlot/depth.py`; entry 3 of the same journal)
 14. **Hide what you cannot draw; show what you measured.** (LW 16)
 15. **Get the small true things right.** Which side light a vessel shows, how thick the cable is, where the
     smoke goes. A thing's proportions are its identity: a cable drawn thin is a spear. (LW 17; NS)
@@ -155,6 +159,8 @@ texture, costume) are not begun. Those are the three studies in `ROADMAP.md`, in
 
 ## Changelog
 
+- v1.2: rule 13 gains the four conditions for flat drawings in deep places (`backlot/depth.py`), learned on
+  *Base Case* in the Hex style and true for this one.
 - v1.1: after the first stretch of the space study. Rule 13 has its evidence and its four rules of thumb;
   rule 17 gains the strobe limit and "twos slip against a moving camera".
 - v1: first written down. Rules gathered from Lit Window v3, Paperlight v2 and the opening's review; rules 3,

@@ -239,3 +239,67 @@ What I think is weak:
 Next: the cold reader, given three frames and asked to list what is where. Cast shadows, by letting Blender
 light the same set. Tern Point and the tower on Mount Vesper. A crane and a push-in. And one picture that is
 *finished*, not only correct.
+
+## Entry 3. Flat drawings in deep places
+
+Ellie's next assignment was this study's unfinished half, put plainly: learn to put 2D animation in 3D space
+("2.5D", with perspective) and make something with it. The something is *Base Case* (`styles/hex/basecase/`,
+and entry 6 of that style's journal). This entry is about the skill.
+
+### What 2.5D is, by its history
+
+Every one of these is a way of getting depth without modelling everything, and each is one rule:
+
+| when | the trick | the rule under it |
+|---|---|---|
+| 1930s, the multiplane camera; 1980s, parallax scrolling | flat layers at different distances, slid by different amounts | apparent motion is one over distance |
+| 1980, the first graphic adventures | a perspective drawing in lines, which never moves | a picture can be in perspective without being a space |
+| 1984 to 1993, adventure games | a painted room with a hidden map of what is in front of what; a figure drawn smaller the higher up the screen she walks | size is one over distance; whoever is nearer covers |
+| 1992 to 1993, Wolfenstein and Doom | walls as textured strips scaled by distance; everyone a flat picture that always faces you | a figure can be a card |
+| 1996 to 2000, painted backgrounds with polygon figures, and paper figures in polygon rooms | one of the two is flat and the other is not, and the camera has to be told which | the flat thing must be lit and hidden by the same space as the solid thing |
+| 2018 on, "HD-2D" | pixel-art figures and pixel-art textures in a lit, shadowed room, seen by a moving camera | all of the above at once |
+
+So "2.5D" is not a look. It is a model that knows where things are, plus a decision, made once, about which
+things are flat.
+
+### The four rules I was missing
+
+`backlot/space.py` could already say where a thing lands on the screen. What it could not do was make a flat
+drawing belong in the place. `backlot/depth.py` adds that, and it comes to four rules:
+
+1. **A texel is a size in the world.** Every surface is painted on one grid (5 cm) and every figure is drawn on
+   the same grid. Then a brick, a stair tread and a shoe agree what a pixel is, at every distance, and the only
+   way to make a figure bigger is to move the camera. (Before this I sized figures per shot.)
+2. **Light is worked out per texel.** The lamps are summed at the middle of each texel, so the edge of a shadow
+   is the same hard square as the paint under it. Screen-space light on world-space pixels looks like a filter
+   laid over the picture. Shadows are depth maps: one down the beam of a torch, six round a bare bulb.
+3. **A figure is a card.** A cut-out, standing in the set: the set hides it, lamps light it, and it casts a
+   shadow shaped like itself. A card that casts and is not drawn gives a shadow of something that is not there.
+4. **The camera moves; the paint stays.** Nothing is slid by hand. A camera move is a list of keys (where it
+   stands, what it looks at, what lens) and the parallax is whatever follows.
+
+Two things I got wrong on the way and now know:
+
+- A camera tied to a walking figure steps when she steps. The first tracking shot strobed at 2.4% of the frame
+  width a frame. The camera needs a path of its own, straight runs with the corners rounded off; then 0.45%.
+- Dithering between levels of light, even on the texel grid, reads as dirt. Five or six flat steps read as light.
+
+Tests in `backlot/tests/selftest.py`: a card twice as near slides twice as far; the texel under a pixel is the
+5 cm square the pixel looks at; a lamp behind a wall lights nothing on this side; every pixel of one texel
+gets one level; a hole in a card shows what is behind it.
+
+### What the study's list looks like now
+
+| goal | state |
+|---|---|
+| cast shadows | done, in my own renderer and not Blender's: texel-sharp, from fixed and moving lamps, and from cards |
+| a crane and a push-in | done: the last shot of *Base Case* rises through the ground from the basement to the house; the push-in goes over a shoulder and through a screen |
+| surfaces with more than one texture | done: eleven painted skins (block, brick, boards, siding, snow, earth in section) |
+| a tracking shot in depth | done, with a figure walking in it: stairs, floor, round a desk |
+| one model, more than one picture | further than planned: one house, four prints (now, 1989, 1987, 1980) from one file |
+| a figure walking toward the lens | still not done. Cards face the lens, so she has a back view and a side view, and no turn between them |
+| it reads (a stranger can say what is where) | tested as a story by a cold reader (see the Hex journal); not yet as a plan |
+| Tern Point, Mount Vesper, the car deck | not done |
+
+What is still by feel: how bright a lamp is and how far it reaches (I tuned them by looking); and how much of a
+frame should be dark.

@@ -54,16 +54,19 @@ def _protocol(d, intent, questions):
     (side / 'INTENT.md').write_text('# What the piece was meant to say (the reader never sees this)\n\n' + '\n'.join(f'{k + 1}. {b}' for k, b in enumerate(intent or [])) + '\n')
     return side
 
-def pack_film(frames_dir, questions=None, intent=None, out_dir=None, fps=12, cols=6, cell_w=320):
+def pack_film(frames_dir, questions=None, intent=None, out_dir=None, fps=12, cols=6, cell_w=320, per_sheet=None):
     """Every frame of a film on contact sheets of one second each, in a new empty folder outside the repository.
-    Returns dict(dir, director, prompt, sheets). `director` holds the protocol, the sealed questions and the intent."""
+    Returns dict(dir, director, prompt, sheets). `director` holds the protocol, the sealed questions and the intent.
+    fps is the rate of the frames given (it sets the times in the captions); per_sheet, if given, puts that
+    many on a sheet instead of one second's worth (a long film, thinned to 6 a second, at 12 to a sheet)."""
     from . import core, screen
     files = sorted(Path(frames_dir).glob('f_*.png')); d = _new_dir(out_dir); sheets = []
-    for k in range(0, len(files), fps):
-        run = files[k:k + fps]; f = d / f'sheet_{k // fps + 1:03d}.jpg'
+    per = per_sheet or fps
+    for k in range(0, len(files), per):
+        run = files[k:k + per]; f = d / f'sheet_{k // per + 1:03d}.jpg'
         screen.sheet([core.load(str(x)) for x in run], str(f), [f'{k + j}   {(k + j) / fps:.2f} s' for j in range(len(run))], cols=cols, cell_w=cell_w)
         sheets.append(str(f))
-    prompt = FILM_PROMPT.format(dir=d, n=len(sheets), first=Path(sheets[0]).name, last=Path(sheets[-1]).name, per=fps)
+    prompt = FILM_PROMPT.format(dir=d, n=len(sheets), first=Path(sheets[0]).name, last=Path(sheets[-1]).name, per=per)
     side = _protocol(d, intent, questions); (side / 'PROMPT.txt').write_text(prompt)
     return dict(dir=str(d), director=str(side), prompt=prompt, sheets=sheets)
 
