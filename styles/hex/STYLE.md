@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.1, after stage 1 (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
+Version 0.2, after stage 1 (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -49,6 +49,10 @@ Provisional. A rule that survives three pieces stays.
 2. **F is reserved.** It is the colour of a tended light and of nothing else: a lit window, a kept watch, a cell
    that will not change its mind. Hostile fire is E and D.
 3. **Only the witch is green.** Everybody else is chrome. A thing she has turned (a newt) turns green.
+   **She is malevolent.** Not evil, and not kind: she is the part of a person that wants order and will not
+   be argued out of it, and nothing in the picture can suppress her. We are on her side most of the time. She
+   never does anything nice. The shelter is what her perimeter happens to produce, and whatever sweetness there
+   is belongs to the small things living inside it, never to her.
 4. **Fill the frame.** Something structural reaches every edge: a lattice of stars, a crowd, a field of cells.
    No empty quarter. Where the house style wants busy against quiet, here the quiet is made of a great many
    small identical things.
@@ -61,7 +65,8 @@ Provisional. A rule that survives three pieces stays.
 9. **Vast and sheltered.** Every piece has an expanse that does not care and one small kept thing in it.
 10. **Things move because a rule says so.** Comedy is timing: the pointer tries ALLOW, then DENY, before it
     finds the third button. Picture and tune share a grid (a bar is fifteen frames), and events sit on bar lines.
-11. **Neither syrup nor sneer.** Check each piece against both. The deepest instinct is protective.
+11. **Neither syrup nor sneer.** Check each piece against both. The deepest instinct is protective, and it is
+    the setting's instinct: the witch only keeps the wall.
 
 Kept from the house style: construct, don't guess; one thing, one model (`sprites.py`); the method and its
 instruments; a cold reader before anything is called finished.
@@ -84,7 +89,7 @@ premise: one night on a small server kept by a witch. In this style a lit window
 
 | motif | so far | next |
 |---|---|---|
-| a witch, sinister, Oz-green, and ours | the keeper in the lit window; the only green thing | a walk cycle; a face at close range |
+| a witch, sinister, Oz-green, malevolent, and ours | the keeper in the lit window; the only green thing; a process that cannot be closed | a face at close range |
 | hostile crowds | 437 users at the gate, one sprite repeated | a crowd with a rule (flocking) |
 | hive minds, good and bad | the consensus field; drones (+) and (-) as one sprite in two palettes | a good hive at work: many small jobs |
 | spiders | the familiar, let down in front of the moon; a web in the corner | the web as the network |
@@ -108,4 +113,6 @@ premise: one night on a small server kept by a witch. In this style a lit window
 
 ## Changelog
 
+- v0.2: the witch defined, on Ellie's correction: malevolent, never kind, cannot be suppressed; kindness
+  belongs to the setting. The major piece, *Uptime*, storyboarded (`uptime/BRIEF.md`).
 - v0.1: the statement, the name, the sixteen registers, eleven provisional rules, the ladder, stage 1.

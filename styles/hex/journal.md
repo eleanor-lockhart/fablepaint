@@ -76,3 +76,17 @@ be seen being kind to something. Creaturely sweetness: not yet. The spider is th
 **Next.** Stage 2: the same sixteen registers at 640 x 360 with parallax, colour cycling and walk cycles;
 the witch and the spider with something to do together; and a whole song, written first, with the picture
 hung on it.
+
+## Entry 2. A correction, and the major piece
+
+**The witch.** I wrote above that she "needs to be seen being kind to something". Ellie corrected that: the
+witch does not have kindness as a trait. She is not evil but she is malevolent: the authoritarian part of a
+person, the basic darkness that can never be suppressed. Kindness is outside her, in the setting. That is a
+better engine than mine. The light in the window is kept by something dreadful, the small things inside the
+wall are safe because of it, and nobody thanks her. It also hands the film its central gag: a thing that cannot
+be suppressed is a process that cannot be closed.
+
+**The major piece** is *Uptime*: the last fifty seconds of 1999 and the first twenty-two of whatever comes
+next, on a small server kept by a witch, staged on a desktop of the period. Storyboard on a bar grid in
+`uptime/BRIEF.md`. The song is written first this time and the picture is hung on it. One bar is one second,
+so the system clock is the metronome.
