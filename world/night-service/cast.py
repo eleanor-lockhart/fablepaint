@@ -17,7 +17,10 @@ MARISOL_HEAD = [(-.034, -.028), (-.048, .000), (-.070, .026), (-.092, .052), (-.
 PARKA = [(0, -.052), (.10, -.054), (.20, -.062), (.28, -.060), (.325, -.050), (.345, -.030), (.33, .022), (.275, .058), (.17, .062), (.08, .056), (0, .052),
          (-.045, .048), (-.058, 0), (-.045, -.048)]
 def marisol_extras(fig, J, pose):
-    return [('binoculars', fig.on_head(J, [(.046, .062), (.112, .068), (.116, .034), (.050, .028)]), 3)]
+    if pose.get('binoculars'):                       # raised to her eyes
+        return [('binoculars', fig.on_head(J, [(.046, .062), (.112, .068), (.116, .034), (.050, .028)]), 3)]
+    return [('binoculars', fig.on_trunk(J, [(.215, .050), (.215, .092), (.170, .092), (.170, .050)]), 0),      # hanging on her chest
+            ('strap', fig.on_trunk(J, [(.325, .010), (.325, .020), (.210, .066), (.210, .054)]), 0)]
 
 # ---------------------------------------------------------------- Dee, the Deckhand
 DEE_HEAD = [(-.034, -.028), (-.050, .000), (-.058, .040), (-.050, .082), (-.020, .104), (.016, .100), (.044, .078), (.056, .056), (.047, .050), (.046, .040),
@@ -76,7 +79,7 @@ def cast():
     C['marisol'] = dict(fig=fg.Figure(build=dict(hip=.051, knee=.031, calf=.033, ankle=.021, chest=.055, shoulder=.025, elbow=.020, wrist=.015, neck=.021, head=1.12),
                                       head_profile=MARISOL_HEAD, trunk_profile=PARKA, extras=marisol_extras),
                         height=.92, window='#ffe08a', title='MARISOL', role='the Lookout',
-                        pose=dict(lean=-4, head=-9, shN=55, elN=150, wrN=0, shF=50, elF=152, wrF=0, hipN=5, hipF=-6, kneeF=3))
+                        pose=dict(lean=-4, head=-9, shN=55, elN=150, wrN=0, shF=50, elF=152, wrF=0, hipN=5, hipF=-6, kneeF=3, binoculars=True))
     C['passenger'] = dict(fig=fg.Figure(head_profile=HAT_HEAD, extras=passenger_extras), height=.94, window='#fff6cf', title='A PASSENGER', role='thinks there has been a mistake',
                           colours=('#8f9794', '#b9c0bb', '#b9c0bb'), edge='#dfe4de',
                           pose=dict(lean=5, shN=-6, elN=12, shF=4, elF=8, hipN=8, hipF=-8, kneeF=6))
