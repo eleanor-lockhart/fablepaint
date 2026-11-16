@@ -200,3 +200,15 @@ A file `world/night-service/op/shots/<module>.py` that defines `N` (the pose cou
 **Preview and look:** `uv run python world/night-service/op/preview.py <module>` from the repository root, then open
 `out/op/<module>/strip.jpg` and single frames in `out/op/<module>/frames/` (f_0000.png is pose 0). Look, fix,
 repeat: at least two rounds. Open the exact frames your accents fall on and check they show what the storyboard says.
+
+## Shared placements (so that units cut together)
+
+- **No. 4 against the moon** (the frame `e_no4` lands on at its pose 48 and holds, and `f2_window` starts from):
+  `FINAL = dict(cx=600, waterline=1560, height=1300, moon=(640, 400, 300))`, i.e.
+  `C.no4(C.harbour(hz=1540, moon=(640, 400, 300), road=False), 600, 1560, 1300, eye=...)`. Its eye is then at
+  `C.no4_eye(600, 1560, 1300)`, about (722, 445). `e_no4`'s tilt is the whole scene sliding down 1000 px: it starts
+  with the waterline at y = 560 (and the moon still above the frame) and ends at `FINAL`.
+- **The low moon of the walk** (`g1_walk`): `C.harbour(hz=470, moon=(640, 330, 250), shimmer=i // 2)`, dock top at
+  about y = 600, figures about `size=300`.
+- **Cut-in size** for people (introductions and `g2_lights`): `C.figure(..., size=860, ground=980)`.
+- **The lights of `g2_lights`** are centred at (640, 330).
