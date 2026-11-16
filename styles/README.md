@@ -1,6 +1,7 @@
 # Styles
 
 Each folder here is one style worked out on purpose, kept whole so it can be returned to.
+What they share is in `../STYLE.md` (the house style); a style's own guide sits on top of that.
 
 | style | what it is | state |
 |---|---|---|

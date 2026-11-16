@@ -221,13 +221,8 @@ def shadow(matte):
 def finish(img, i=0):
     """Applied by the master to every frame: lens, tone, film. Shots must not do this themselves."""
     global _SIL
-    glow = lambda x: lab.bloom(x, r=10, strength=.55, threshold=1.0, layers=3)[..., :3] - x[..., :3]
-    b = glow(img)
-    if _SIL is not None and _SIL.max() > 0:
-        s = _SIL[..., None]; own = img.copy(); own[..., :3] *= s            # the light that comes from inside the figures
-        b = b * (1 - s) + glow(own) * s
+    img = lab.bloom(img, r=10, strength=.55, threshold=1.0, layers=3, protect=_SIL)     # the silhouette-safe bloom began here and now lives in backlot.lab
     _SIL = None
-    img = img.copy(); img[..., :3] += b
     img = lab.tonemap(img, 'filmic', white=6)
     img = lab.vignette(img, .30, radius=.72)
     return lab.grain(img, .022, size=1.3, frame=i)

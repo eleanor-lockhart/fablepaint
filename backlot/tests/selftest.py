@@ -50,3 +50,31 @@ print('stats', {k: round(v, 3) for k, v in screen.stats(f0).items()})
 assert draw.rect(64, 48, -30, 10, -5, 20).sum() == 0 and draw.rect(64, 48, 10, -30, 20, -5).sum() == 0, 'draw.rect wraps negative far edges'
 assert draw.rect(64, 48, -10, -10, 8, 6).sum() == 48 and draw.rect(64, 48, 60, 40, 200, 200).sum() == 32, 'draw.rect clips wrongly'
 print('draw.rect clips at every edge')
+
+# lab.bloom(protect=) keeps a silhouette dark in front of a large light, and still lets a light inside it glow
+import numpy as np
+from backlot import core as _core
+_img = _core.canvas(96, 64, '#000000'); _img[..., :3] = 0; _img[:, 48:, :3] = 4.0                       # a wall of light on the right
+_sil = draw.rect(96, 64, 40, 8, 46, 56); _img[..., :3] *= (1 - _sil[..., None])                         # a thin dark post just in front of it
+_plain = lab.bloom(_img, r=6, strength=.5, threshold=1.0)[20, 43, 0]; _kept = lab.bloom(_img, r=6, strength=.5, threshold=1.0, protect=_sil)[20, 43, 0]
+assert _plain > .2 and _kept == 0, f'lab.bloom(protect=) does not protect: {_plain} {_kept}'
+print('lab.bloom keeps silhouettes dark')
+# draw.font is strict: a typeface that fontconfig would silently substitute is an error
+try:
+    draw.font(20, 'No Such Typeface Anywhere:style=Ultra'); raise AssertionError('draw.font accepted a substituted face')
+except RuntimeError:
+    print('draw.font refuses a substituted typeface')
+# sync.pops sees a one-frame slab; sync.travel measures a pan
+from backlot import sync as _sync
+import cv2 as _cv2, os as _os
+_d = OUT + '/synctest'; _os.makedirs(_d, exist_ok=True)
+_rng = np.random.default_rng(1); _tex = _cv2.GaussianBlur(_rng.uniform(0, 255, (360, 1400)).astype(np.float32), (0, 0), 6)
+_tex = ((_tex - _tex.min()) / (_tex.max() - _tex.min()) * 255).astype(np.uint8)
+for _i in range(24):
+    _f = _cv2.cvtColor(_tex[:, _i * 5:_i * 5 + 640].copy(), _cv2.COLOR_GRAY2BGR)
+    if _i == 13: _f[200:300, 100:500] = 0
+    _cv2.imwrite(f'{_d}/f_{_i:04d}.png', _f)
+_p = _sync.pops([], _d, fps=12); _a, _st = _sync.travel(_d)
+assert [q['frame'] for q in _p] == [13], f'sync.pops should find exactly the slab on frame 13: {_p}'
+assert abs(_st['max_step'] - 5.0) < 1.0, f'sync.travel measured {_st}'
+print('sync.pops and sync.travel measure what they should')

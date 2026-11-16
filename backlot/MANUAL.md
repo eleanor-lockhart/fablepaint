@@ -28,15 +28,17 @@ converted on the way in. Values above 1.0 are normal until `lab.tonemap` brings 
 |---|---|---|
 | `core` | files and colour | `load` `save` `canvas` `col` `resize` `read_exr` |
 | `shapes` | a vocabulary of carved shapes as polygons | `setup(w, h, seed)` then `ribbon` `blob` `lens` `conifer` `cloudband` `ticks` `rain` `camera` ... |
-| `draw` | mattes and fills in memory | `raster(polys, w, h)` `paint` `gradient` `fbm` `disc` `rect` `trace` `paperize` |
+| `draw` | mattes and fills in memory | `raster(polys, w, h)` `paint` `gradient` `fbm` `disc` `rect` `trace` `paperize`; lettering: `font` (strict) `text` |
 | `comp` | putting images together | `over` `blend` `stack`; mattes: `union` `intersect` `subtract` `xor` `grow` `feather` `outline`; `multiplane`; `drop_shadow` `light_wrap` `glow`; depth: `zmerge` `fog` `defocus` |
-| `lab` | finishing | colour: `exposure` `white_balance` `cdl` `lift_gamma_gain` `curves` `split_tone` `tonemap`; lens: `bloom` `halation` `mist` `vignette` `aberration` `distort`; film: `grain` `weave` `flicker`; print: `paper` `misregister` `halftone` `quantize`; screen: `crt` |
+| `lab` | finishing | colour: `exposure` `white_balance` `cdl` `lift_gamma_gain` `curves` `split_tone` `tonemap`; lens: `bloom(protect=)` `halation` `mist` `vignette` `aberration` `distort`; film: `grain` `weave` `flicker`; print: `paper` `misregister` `halftone` `quantize`; screen: `crt` |
 | `anim` | time | `ease` `Track` `phase` `loop_noise` `on`; `render(fn, n, dir)` `motion_blur` `encode` `extract` |
 | `screen` | seeing | `filmstrip` `onion` `motion_map` `flicker` `loop_seam` `scopes` `stats` `compare` `sheet` |
 | `figure` | a jointed human in profile | `Figure()` `.joints(pose)` `.parts(pose)`; `Walk(fig, stride=...)` `.pose(g)`; `ik2` `periodic` `blend`; `gait_report` `draw_figure` `arcs` |
 | `sound` | synthesis, mixing, mastering | instruments: `pluck` `bell` `glass` `epiano` `pad` `sub` `sea` `rain` `foghorn` `hum` `punch`; `Mix(dur).add(x, at, gain, pan_, send)` `.render(wet)`; `master` `loudness` `write_wav` `encode` `mux` |
 | `score` | notes in bars and beats | `hz('D4')` `chord` `scale` `harmonic`; `Seq(bpm, beats)` `.note` `.chord` `.humanize` `.render(mix, tracks)`; `piano_roll` |
 | `ear` | the listening room | `report(wav, out.jpg)` `measure` `ffmpeg_loudness`; calibrate with `backlot/tests/eartest.py` |
+| `sync` | picture against sound, accidents, camera speed | `check(points, frames, wav)` `events(points, frames, out)` `pops` `travel` |
+| `reader` | the cold reader: what does the picture say to a stranger | `pack_film(frames, questions, intent)` `pack_stills(images, task)` |
 | `model` | the bridge to Blender | `Spec(...)` with `.material` `.sheet` `.panel` `.light` `.haze` `.camera` `.key` `.render`; `passes(exr)` |
 
 ## How a shot is put together
@@ -88,10 +90,33 @@ uv run python -m backlot motion out/shot/frames out/motion.jpg       # where it 
 uv run python -m backlot seam   out/shot/frames                      # loop seam ratio, flicker
 uv run python -m backlot scopes frame.png out/scopes.jpg             # histogram, waveform, vectorscope
 uv run python -m backlot stats  frame.png                            # value masses, chroma, detail
+uv run python -m backlot run    out/shot/frames out/run.jpg 96 12     # 12 CONSECUTIVE frames from frame 96
+uv run python -m backlot travel out/shot/frames                      # the camera's largest step, and how many frames strobe
 ```
 
 `loop_seam` ratio near 1 means the loop point is no rougher than any other frame change.
 `motion_map` softens frames first so film grain does not count as motion.
+
+**Strips lie about events.** A strip that samples every half second cannot show a five-frame nod, a punch or a
+one-frame pop, and those are what fail. Every event and every camera move gets its own run of consecutive
+frames (`run`, or `sync.events` for a whole list). `sync.pops` finds one-frame accidents; treat a non-empty
+answer as a failing test. `sync.travel` over 1% of the frame width per frame is a strobe: hold drawings on
+twos (`anim.on(i)`) but move the camera on ones.
+
+**Measuring what it says.** None of the above can tell you whether a stranger understands the piece, and
+neither can you: you know what it means. `reader.pack_film` puts every frame on numbered sheets in an empty
+folder outside the repository with a prompt, sealed questions and the protocol. Write your own verdict first.
+
+## Finishing a frame with figures in it
+
+```python
+sil = draw.raster(figure_polys, W, H)                      # every dark shape that must stay dark
+img = lab.bloom(img, r=10, strength=.55, threshold=1.0, protect=sil)   # their own lit windows still glow
+img = lab.grain(lab.vignette(lab.tonemap(img, 'filmic', white=6), .3), .022, frame=i)
+title = draw.text(W, H, (640, 100), 'NIGHT SERVICE', 96, 'Open Sans:style=Condensed Regular', track=7, anchor='m')
+```
+
+`draw.font` raises if fontconfig would substitute another face. It substitutes silently otherwise.
 
 ## Things that will trip you
 
@@ -106,5 +131,5 @@ uv run python -m backlot stats  frame.png                            # value mas
 
 ## Not included (yet)
 
-3D LUT files, error-diffusion dither, sound, a non-linear editor (cut shots together with
-ffmpeg's concat), and any window: nothing here is interactive.
+3D LUT files, error-diffusion dither, a non-linear editor (a film is a list of units cut together by a build
+script: see `world/night-service/op/build.py`), and any window: nothing here is interactive.

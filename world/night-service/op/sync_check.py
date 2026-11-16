@@ -6,14 +6,19 @@ the poses around it) and what the sound did at that instant (the strongest onset
 it is). It also draws both on one timeline: op/review/sync.jpg.
 
 A picture accent "lands" if the change on its pose is clearly bigger than its neighbours'. A sound accent
-"lands" if there is an onset above the detector's threshold within 40 ms."""
-import sys, json, math
+"lands" if there is an onset above the detector's threshold within 40 ms.
+
+The measuring itself began in this file and now lives in the library (backlot.sync) so that every later film
+gets it; what stays here is this film's list of moments.
+
+    uv run python world/night-service/op/sync_check.py            table, op/review/sync.jpg, sync.json
+    uv run python world/night-service/op/sync_check.py events     a sheet of 12 consecutive poses round every moment
+    uv run python world/night-service/op/sync_check.py pops       large changes that are not on the list
+    uv run python world/night-service/op/sync_check.py travel     the camera's speed, pose by pose"""
+import sys, json
 from pathlib import Path
-import numpy as np
-import cv2
-from scipy import signal
 HERE = Path(__file__).resolve().parent
-from backlot import sound as sd
+from backlot import sync
 
 FPS = 12
 SYNC = [(2.0, 'punch: window 1'), (2.5, 'punch: window 2'), (3.0, 'punch: window 3'), (3.5, 'punch: window 4'), (4.0, 'TITLE HIT'),
@@ -25,90 +30,19 @@ SYNC = [(2.0, 'punch: window 1'), (2.5, 'punch: window 2'), (3.0, 'punch: window
         (48.0, 'cut 5'), (48.5, 'cut 6'), (49.0, 'cut 7'), (49.5, 'cut 8'), (50.0, 'cut: No. 4 head'), (50.5, 'eye turns green'), (52.0, 'WINDOW OPENS'),
         (54.0, 'lineup: Orrin'), (54.5, 'Red'), (55.0, 'Dee'), (55.5, 'Marisol'), (56.0, 'Passenger'), (56.5, 'Lang'), (57.0, 'No. 4, far off'), (58.0, 'END CARD')]
 
-def picture(frames_dir):
-    """Per pose: how much changed against the pose before. Returns (mean change, local change) arrays; local is the
-    99.5th percentile of 16-px block changes, which sees a small light coming on that the mean cannot."""
-    files = sorted(Path(frames_dir).glob('f_*.png')); prev = None; mean, local = [], []
-    for f in files:
-        g = cv2.resize(cv2.imread(str(f)), (640, 360), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
-        g = cv2.GaussianBlur(g, (0, 0), 1.5)                                  # take the film grain out of the measurement
-        if prev is None: mean.append(0.0); local.append(0.0)
-        else:
-            d = np.abs(g - prev).mean(2); mean.append(float(d.mean()))
-            b = d[:352].reshape(22, 16, 40, 16).mean((1, 3)); local.append(float(np.percentile(b, 99.5)))
-        prev = g
-    return np.array(mean), np.array(local)
+FRAMES, WAV = 'out/op/full/frames', 'out/op/music/night_service_op.wav'
+FLASHES = [506, 508]       # deliberate one-pose flashes: the cold eye stuttering out. Pose 128 is NOT allowed: the lamp recovering for one pose in Orrin's doze was meant as him catching himself and reads as a fault (found by sync.pops after v1.1 shipped; for version 2)
 
-def onsets(wav, hop=240):
-    """Spectral-flux onset envelope at 5 ms hops."""
-    x, sr = sd.read_wav(wav); mono = x.mean(1)
-    f, t, Z = signal.stft(mono, sr, nperseg=1024, noverlap=1024 - hop, window='hann', padded=False, boundary=None)
-    S = np.log1p(np.abs(Z) * 50); flux = np.maximum(np.diff(S, axis=1), 0).sum(0)
-    flux = flux - signal.medfilt(flux, 41); t = t[1:] - 512 / sr + hop / sr
-    env = np.sqrt(signal.convolve(mono ** 2, np.ones(480) / 480, 'same'))
-    return t, np.maximum(flux, 0), flux.std() * 1.5, env, sr
+def main(frames_dir=FRAMES, wav=WAV):
+    return sync.check(SYNC, frames_dir, wav, FPS, HERE / 'review' / 'sync.jpg', HERE / 'review' / 'sync.json')
 
-def main(frames_dir='out/op/full/frames', wav='out/op/music/night_service_op.wav'):
-    mean, local = picture(frames_dir); n = len(mean)
-    t, flux, thr, env, sr = onsets(wav)
-    rows = []
-    for s, label in SYNC:
-        p = int(round(s * FPS))
-        if p >= n: continue
-        near = np.r_[local[max(1, p - 5):p], local[p + 1:p + 6]]; base = float(np.median(near)) if len(near) else 0.0
-        pic = local[p] / max(base, 1e-4)
-        m = (t >= s - .06) & (t <= s + .06); k = int(np.argmax(flux[m])); off = (t[m][k] - s) * 1000; strength = flux[m][k] / thr
-        rows.append(dict(t=s, pose=p, what=label, picture_change=round(float(local[p]), 4), picture_vs_neighbours=round(float(pic), 1),
-                         picture_lands=bool(pic >= 2.0 and local[p] > .004), sound_onset=round(float(strength), 1), sound_offset_ms=round(float(off)),
-                         sound_lands=bool(strength >= 1.0 and abs(off) <= 40)))
-    # the reverse question: the biggest picture changes that are NOT on the list (unplanned pops, or cuts I forgot)
-    listed = {r['pose'] for r in rows}; order = np.argsort(-local)
-    stray = [dict(pose=int(p), t=round(p / FPS, 2), picture_change=round(float(local[p]), 4), on_beat=bool(p % 6 == 0)) for p in order[:60] if int(p) not in listed][:14]
-    out = dict(points=rows, both=sum(r['picture_lands'] and r['sound_lands'] for r in rows), picture_only=[r['t'] for r in rows if r['picture_lands'] and not r['sound_lands']],
-               sound_only=[r['t'] for r in rows if r['sound_lands'] and not r['picture_lands']], neither=[r['t'] for r in rows if not r['sound_lands'] and not r['picture_lands']],
-               total=len(rows), unlisted_picture_changes=stray)
-    # the picture
-    W, Hh = 1860, 150; dur = n / FPS; X = lambda s: int(30 + (W - 60) * s / dur)
-    img = np.full((Hh * 2 + 70, W, 3), 22, np.uint8)
-    for b in range(0, int(dur) + 1, 2):
-        cv2.line(img, (X(b), 20), (X(b), Hh * 2 + 40), (48, 48, 48), 1); cv2.putText(img, f'{b}', (X(b) + 2, Hh * 2 + 58), cv2.FONT_HERSHEY_SIMPLEX, .36, (170, 170, 160), 1, cv2.LINE_AA)
-    lv = np.clip(local / max(np.percentile(local, 99.5), 1e-6), 0, 1)
-    for p in range(1, n):
-        cv2.line(img, (X(p / FPS), 20 + Hh), (X(p / FPS), 20 + Hh - int(lv[p] * (Hh - 8))), (150, 220, 255), 1)
-    fv = np.clip(flux / max(np.percentile(flux, 99.9), 1e-6), 0, 1); cols = np.array([X(s) for s in t])
-    for c in np.unique(cols):
-        v = fv[cols == c].max(); cv2.line(img, (int(c), 40 + Hh), (int(c), 40 + Hh + int(v * (Hh - 8))), (120, 255, 170), 1)
-    for r in rows:
-        ok = r['picture_lands'] and r['sound_lands']; c = (90, 200, 90) if ok else ((60, 170, 255) if (r['picture_lands'] or r['sound_lands']) else (80, 80, 255))
-        cv2.drawMarker(img, (X(r['t']), 30 + Hh), c, cv2.MARKER_DIAMOND, 9, 2)
-    cv2.putText(img, 'picture: change against the pose before (local)   |   green: both land   orange: one lands   red: neither', (30, 14), cv2.FONT_HERSHEY_SIMPLEX, .42, (225, 225, 215), 1, cv2.LINE_AA)
-    cv2.putText(img, 'sound: onset strength', (30, Hh * 2 + 36), cv2.FONT_HERSHEY_SIMPLEX, .42, (225, 225, 215), 1, cv2.LINE_AA)
-    (HERE / 'review').mkdir(exist_ok=True); cv2.imwrite(str(HERE / 'review' / 'sync.jpg'), img, [cv2.IMWRITE_JPEG_QUALITY, 90])
-    (HERE / 'review' / 'sync.json').write_text(json.dumps(out, indent=1))
-    print(f'{"t":>5} {"pose":>4}  {"picture":>8} {"x nbrs":>6} {"":2} {"sound":>5} {"ms":>4} {"":2}  what')
-    for r in rows:
-        print(f'{r["t"]:5.1f} {r["pose"]:4d}  {r["picture_change"]:8.4f} {r["picture_vs_neighbours"]:6.1f} {"P" if r["picture_lands"] else ".":2} {r["sound_onset"]:5.1f} {r["sound_offset_ms"]:4d} {"S" if r["sound_lands"] else ".":2}  {r["what"]}')
-    print(f'both land: {out["both"]}/{out["total"]}   picture only: {out["picture_only"]}   sound only: {out["sound_only"]}   neither: {out["neither"]}')
-    print('largest picture changes not on the list:', [(s['t'], s['picture_change']) for s in stray[:8]])
-    return out
-
-def events(frames_dir='out/op/full/frames', out_dir='out/op/events'):
-    """A sheet of twelve CONSECUTIVE poses round every sync point (four before, eight after).
-
-    The half-second review strips cannot show anything shorter than half a second, and most of what failed in v1
-    was shorter than that: a five-pose nod, a punch, a one-pose pop. The outside critic found them on sheets like
-    these. Rule: nothing is passed on the strips alone; every event is looked at on its own run of poses."""
-    from backlot import core, screen
-    Path(out_dir).mkdir(parents=True, exist_ok=True); n = len(list(Path(frames_dir).glob('f_*.png'))); made = []
-    for s, label in SYNC:
-        p = int(round(s * FPS)); ps = [q for q in range(p - 4, p + 8) if 0 <= q < n]
-        if not ps: continue
-        f = Path(out_dir) / f't{s:05.1f}_{"".join(ch if ch.isalnum() else "_" for ch in label)[:28]}.jpg'
-        screen.sheet([core.load(f'{frames_dir}/f_{q:04d}.png') for q in ps], str(f), [f'{q}{"  <<" if q == p else ""}' for q in ps], cols=6, cell_w=320)
-        made.append(str(f))
-    print(len(made), 'event sheets in', out_dir)
-    return made
+def events(frames_dir=FRAMES, out_dir='out/op/events'):
+    made = sync.events(SYNC, frames_dir, out_dir, FPS); print(len(made), 'event sheets in', out_dir); return made
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'events': events(*sys.argv[2:])
-    else: main(*sys.argv[1:])
+    a = sys.argv[1:]
+    if a and a[0] == 'events': events(*a[1:])
+    elif a and a[0] == 'pops': print(json.dumps(sync.pops(SYNC, *(a[1:] or [FRAMES]), fps=FPS, allow=FLASHES), indent=1))
+    elif a and a[0] == 'travel':
+        steps, st = sync.travel(*(a[1:] or [FRAMES])); print(json.dumps(st))
+    else: main(*a)

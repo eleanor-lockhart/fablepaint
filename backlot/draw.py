@@ -4,6 +4,7 @@
     img = paint(img, m, '#223344')     lay a pigment through a matte
     g = gradient(w, h, p0, p1, stops)  an even gradation as an image
 """
+import subprocess
 import numpy as np
 import cv2
 from .core import F, col, s2l
@@ -104,3 +105,32 @@ def paperize(matte, min_width=4.0, anchor=None, level=.5):
     out = np.isin(lab, [v for v in keep if v != 0]).astype(F)
     lost = 1 - float(out.sum()) / max(float(m.sum()), 1)
     return out, lost
+
+
+# ---------------------------------------------------------------- lettering
+_FONTS = {}
+def font(size, face, strict=True):
+    """A typeface by its fontconfig pattern, e.g. 'Open Sans:style=Condensed Regular'.
+
+    fontconfig never fails: asked for a face it does not have, it hands back the nearest thing without a word
+    (a whole film was set in Regular by a request for ExtraBold). With strict, a substituted family or style is
+    an error, so that the face on screen is the one that was chosen."""
+    if (size, face) not in _FONTS:
+        from PIL import ImageFont
+        f, fam, sty = subprocess.run(['fc-match', '-f', '%{file}|%{family}|%{style}', face], capture_output=True, text=True).stdout.strip().split('|')
+        want_fam = face.split(':')[0].strip(); want_sty = face.split('style=')[1].split(':')[0].strip() if 'style=' in face else None
+        if strict and (want_fam not in [x.strip() for x in fam.split(',')] or (want_sty and want_sty not in [x.strip() for x in sty.split(',')])):
+            raise RuntimeError(f'asked for the typeface "{face}"; fontconfig offered {f} ({fam}; {sty}) instead')
+        _FONTS[(size, face)] = ImageFont.truetype(f, size)
+    return _FONTS[(size, face)]
+
+def text(w, h, xy, string, size, face, track=0, anchor='l', strict=True):
+    """Lettering as a matte. anchor: 'l' left, 'm' centred, 'r' right (of xy[0]); xy[1] is the top of the line.
+    track = extra pixels between letters."""
+    from PIL import Image, ImageDraw
+    f = font(size, face, strict); im = Image.new('L', (w, h), 0); d = ImageDraw.Draw(im)
+    widths = [d.textlength(ch, font=f) + track for ch in string]
+    x = xy[0] - (sum(widths) / 2 if anchor == 'm' else sum(widths) if anchor == 'r' else 0)
+    for ch, wd in zip(string, widths):
+        d.text((x, xy[1]), ch, fill=255, font=f); x += wd
+    return np.asarray(im, F) / 255

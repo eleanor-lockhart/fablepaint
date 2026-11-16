@@ -6,6 +6,7 @@
     screen  filmstrips, onion skins, scopes, statistics  model   the bridge to Blender (the model shop)
     figure  a jointed human in profile                   sound   synthesis, mixing, mastering
     score   notes, chords, sequences                     ear     the listening room: sound as pictures and numbers
+    sync    is the picture on the music; pops; camera speed  reader  the cold reader: what does the picture say
 """
-from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear
+from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear, sync, reader
 from .core import load, save, canvas, col, lum, resize, flat, read_exr

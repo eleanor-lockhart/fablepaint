@@ -41,9 +41,13 @@ design language and the logo: a vermilion square with one lit window, the chop t
 signs the prints.
 
 - The living of the night shift have warm windows, each a slightly different colour.
-- The dead are pale paper, and their windows are the brightest things on screen.
-- Continuity's people have windows the white of an office ceiling.
+- The dead are pale paper, and their windows are the brightest things on screen, and the warmest:
+  they carry the light that left a house.
+- Continuity's light is the white of an office ceiling, and it is a strip, a tube, never a window.
 - The Linemen have no window at all, only an eye. (See episode five.)
+
+(Amended after the opening's review, where a cold reader took the dead for Continuity's product
+because both were white. The full code, with shape and behaviour as well as colour, is in `STYLE.md`.)
 
 Two modes, both already built: **Paperlight** boxes for the world (real paper, real lamps,
 shot on twos) and **Lit Window** prints for title cards, posters and the logbook's plates.

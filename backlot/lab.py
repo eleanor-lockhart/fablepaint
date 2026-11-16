@@ -68,11 +68,20 @@ def tonemap(img, kind='filmic', white=4.0, contrast=1.0):
 # ---------------------------------------------------------------- the lens
 def _blur(a, r): return cv2.GaussianBlur(a, (0, 0), max(r, .01))
 
-def bloom(img, r=24, strength=.35, threshold=.8, layers=3):
-    """Light spreading in the lens from the bright parts: several widths summed, so it has a core and a veil."""
-    hi = np.maximum(img[..., :3] - threshold, 0)
-    acc = sum(_blur(hi, r * (2 ** i)) / (i + 1) for i in range(layers))
-    return _rgb(img, img[..., :3] + acc * strength)
+def bloom(img, r=24, strength=.35, threshold=.8, layers=3, protect=None):
+    """Light spreading in the lens from the bright parts: several widths summed, so it has a core and a veil.
+
+    `protect` is a matte of shapes that must stay dark (silhouettes). Light from elsewhere in the frame is kept
+    off them, and lights inside them (a lit window in a figure's chest) still glow. Without it a large bright
+    area behind a thin dark figure turns the figure grey: a moon did that to a whole shot."""
+    def spread(rgb):
+        hi = np.maximum(rgb - threshold, 0)
+        return sum(_blur(hi, r * (2 ** i)) / (i + 1) for i in range(layers)) * strength
+    rgb = img[..., :3]; acc = spread(rgb)
+    if protect is not None and np.max(protect) > 0:
+        s = np.asarray(protect, F)[..., None]
+        acc = acc * (1 - s) + spread(rgb * s) * s
+    return _rgb(img, rgb + acc)
 
 def halation(img, r=14, strength=.5, threshold=.9, tint='#ff5a2a'):
     """Film halation: bright light bouncing off the film base and exposing the red layer around highlights."""
