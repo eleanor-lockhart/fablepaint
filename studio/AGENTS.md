@@ -38,7 +38,8 @@ signature from the code; trust that over this file if they ever disagree.
 
 Other commands: `layers <s>` (the stack, top first, `>` marks the active one),
 `view <s> --layer NAME` (one layer alone), `export <s> -o f.png --bits 16 --scale 0.5`,
-`timelapse <s> -o f.mp4`, `help`, `api`.
+`timelapse <s> -o f.mp4`, `plates <s> -o DIR` (every layer as its own PNG with alpha plus
+`plates.json`, for animating a painting's layers in `../backlot`), `help`, `api`.
 
 `examples/hello.py` is a complete working script. Try it first:
 `./studio.py new demo --size 1280x720 && ./studio.py run demo examples/hello.py`.

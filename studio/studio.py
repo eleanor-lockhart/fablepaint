@@ -1408,6 +1408,28 @@ def cmd_export(a):
     print(a.out, img.shape[1], 'x', img.shape[0])
 
 
+def cmd_plates(a):
+    """Write every visible pixel layer as its own 16-bit PNG with alpha, plus plates.json (bottom to top):
+    plates that an animation stand can move separately (see ../backlot, comp.multiplane)."""
+    D = Doc._load(a.session)
+    os.makedirs(a.out, exist_ok=True)
+    man = []
+    for i, L in enumerate(D.layers):
+        if L.kind != 'pixel' or not L.visible or L.px is None:
+            continue
+        p = L.px if L.mask is None else L.px * L.mask[..., None]
+        al = np.clip(p[..., 3:4], 0, 1)
+        if float(al.max()) <= 0:
+            continue
+        rgb = l2s(np.clip(p[..., :3] / np.maximum(al, 1e-6), 0, 1))
+        img = np.clip(np.round(np.concatenate([np.asarray(rgb)[..., ::-1], al], 2) * 65535), 0, 65535).astype(np.uint16)
+        fn = f'{i:02d}_{L.name}.png'
+        cv2.imwrite(os.path.join(a.out, fn), img)
+        man.append(dict(file=fn, name=L.name, blend=L.blend, opacity=L.opacity, clip=L.clip))
+    json.dump(dict(size=[D.w, D.h], plates=man), open(os.path.join(a.out, 'plates.json'), 'w'), indent=1)
+    print(len(man), 'plates ->', a.out)
+
+
 def cmd_timelapse(a):
     d = sdir(a.session, 'frames')
     files = sorted(glob.glob(os.path.join(d, '*.jpg')))
@@ -1456,6 +1478,7 @@ def main():
     p = sub.add_parser('layers'); p.add_argument('session'); p.set_defaults(fn=cmd_layers)
     p = sub.add_parser('export'); p.add_argument('session'); p.add_argument('-o', '--out', required=True); p.add_argument('--bits', type=int, default=8); p.add_argument('--scale', type=float, default=1.0); p.set_defaults(fn=cmd_export)
     p = sub.add_parser('timelapse'); p.add_argument('session'); p.add_argument('-o', '--out', required=True); p.add_argument('--fps', type=int, default=30); p.set_defaults(fn=cmd_timelapse)
+    p = sub.add_parser('plates'); p.add_argument('session'); p.add_argument('-o', '--out', required=True); p.set_defaults(fn=cmd_plates)
     sub.add_parser('help').set_defaults(fn=lambda a: print(__doc__))
     sub.add_parser('api').set_defaults(fn=cmd_api)
     a = ap.parse_args()

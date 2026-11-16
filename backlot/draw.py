@@ -85,3 +85,22 @@ def trace(matte, tol=.6, min_area=6.0, level=.5):
         if len(c) >= 3:
             out.append({'pts': c[:, 0, :].astype(float).tolist(), 'hole': bool(hi[3] >= 0)})
     return out
+
+def paperize(matte, min_width=4.0, anchor=None, level=.5):
+    """Make a design cuttable. Paper cannot hold a strip thinner than about a millimetre, and a piece
+    that is not joined to the rest falls out. Removes strips narrower than `min_width` pixels and every
+    island not connected to `anchor` (a matte, e.g. the sheet's border; default: the largest piece).
+    Returns (clean matte, fraction of the design that was lost)."""
+    m = (np.asarray(matte) >= level).astype(np.uint8)
+    k = max(1, int(round(min_width)))
+    opened = cv2.morphologyEx(m, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
+    n, lab = cv2.connectedComponents(opened, connectivity=4)
+    if n <= 1:
+        return opened.astype(F), 1.0
+    if anchor is not None:
+        keep = np.unique(lab[(np.asarray(anchor) >= level) & (opened > 0)])
+    else:
+        keep = [1 + int(np.argmax(np.bincount(lab[lab > 0].ravel())[1:]))]
+    out = np.isin(lab, [v for v in keep if v != 0]).astype(F)
+    lost = 1 - float(out.sum()) / max(float(m.sum()), 1)
+    return out, lost

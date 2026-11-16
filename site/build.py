@@ -17,13 +17,19 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 REPO = 'https://github.com/eleanor-lockhart/fablepaint'
 SITE = 'https://eleanor-lockhart.github.io/fablepaint/'
-THUMB = 760
+THUMB = 960
 
 def blob(p): return f'{REPO}/blob/main/{p}'
 def tree(p): return f'{REPO}/tree/main/{p}'
 
 # (title, blurb, [(file, caption, [(label, file-or-url), ...]), ...])
 SECTIONS = [
+    ('Paperlight',
+     'Boxes of cut paper, lit from behind and from within, built at true size in Blender and photographed with a real lens. '
+     'The sheets are cut from 2D patterns; the light is traced, not painted; the loops are shot on twos like stop-motion.',
+     [('styles/paperlight/works/lighthouse_still.png', 'Lighthouse box', [('loop (mp4)', 'styles/paperlight/works/lighthouse.mp4'), ('how it is made', 'styles/paperlight/works/lighthouse_making.jpg'), ('script', blob('styles/paperlight/works/lighthouse/scene.py'))], 'styles/paperlight/works/lighthouse.mp4'),
+      ('styles/paperlight/works/lookout_still.png', 'Lookout box, snow falling', [('loop (mp4)', 'styles/paperlight/works/lookout.mp4'), ('how it is made', 'styles/paperlight/works/lookout_making.jpg'), ('script', blob('styles/paperlight/works/lookout/scene.py'))], 'styles/paperlight/works/lookout.mp4'),
+      ('styles/paperlight/works/tideflat_still.png', 'Tide flat, first light', [('loop (mp4)', 'styles/paperlight/works/tideflat.mp4'), ('script', blob('styles/paperlight/works/tideflat/scene.py'))], 'styles/paperlight/works/tideflat.mp4')]),
     ('Lit Window',
      'A style developed on purpose: the inter-war Japanese colour woodblock idiom, applied to the Pacific Northwest at night. '
      'Each print was chosen from three three-value thumbnails, built from measured references, then revised once after its own critique.',
@@ -61,7 +67,7 @@ SECTIONS = [
       ('gallery/desk.png', 'Desk at night', [('in the program', 'gallery/desk_in_fpaint.png'), ('time-lapse', 'gallery/desk_timelapse.gif')]),
       ('gallery/saturn.png', 'Saturn', [('in the program', 'gallery/saturn_in_fpaint.png'), ('time-lapse', 'gallery/saturn_timelapse.gif')])]),
 ]
-DOCS = [('Lit Window style guide', blob('styles/lit-window/STYLE.md')), ('Journal', blob('styles/lit-window/journal.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
+DOCS = [('Paperlight guide', blob('styles/paperlight/STYLE.md')), ('Lit Window guide', blob('styles/lit-window/STYLE.md')), ('Studio pipeline manual', blob('backlot/MANUAL.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
 
 def thumb(rel):
     src = ROOT / rel
@@ -90,6 +96,8 @@ a{color:var(--accent);text-underline-offset:2px}
 nav a{margin-right:1.2em;white-space:nowrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;align-items:start;margin-top:18px}
 .grid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.grid.big{grid-template-columns:repeat(auto-fill,minmax(460px,1fr))}
+figure video{display:block;width:100%;height:auto;background:#000}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 figure img{display:block;width:100%;height:auto}
 figcaption{padding:10px 12px 12px;font-size:.93rem}
@@ -104,15 +112,20 @@ def main():
     parts = []
     for title, blurb, items in SECTIONS:
         cards = []
-        for rel, cap, extras in items:
+        for item in items:
+            rel, cap, extras = item[:3]; video = item[3] if len(item) > 3 else None
             if not (ROOT / rel).exists():
                 continue
             t, w, h = thumb(rel)
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
-            cards.append(f'<figure><a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
+            if video and (ROOT / video).exists():
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>'
+            else:
+                media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
+            cards.append(f'<figure>{media}'
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
-            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ''
+            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title == 'Paperlight' else ''
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>
@@ -120,7 +133,7 @@ def main():
 <title>fablepaint</title><meta name="description" content="Pictures painted by an AI agent through paint programs it wrote for itself, and the notes on how it taught itself a style.">
 <style>{CSS}</style></head><body><main>
 <header><h1>{SEAL} fablepaint</h1>
-<p class="lede">Pictures painted by an AI agent (Claude) through paint programs it wrote for itself, with no window and no stylus: it writes a short script, runs it, looks at the result, and tries again. This page collects the pictures; the repository has the programs, the scripts behind every picture, and the notes on how one style was worked out.</p>
+<p class="lede">Pictures painted by an AI agent (Claude) through paint programs it wrote for itself, with no window and no stylus: it writes a short script, runs it, looks at the result, and tries again. This page collects the work; the repository has the programs, the production pipeline, the scripts behind every picture, and the notes on how each style was worked out.</p>
 <nav>{nav}</nav></header>
 {"".join(parts)}
 <footer>Reference prints and photographs used for study are third-party works under their own licences, listed in <a href="{blob('styles/lit-window/refs/SOURCES.md')}">styles/lit-window/refs/SOURCES.md</a>. Every file in the repository is also reachable directly under {SITE}.</footer>

@@ -1,0 +1,183 @@
+{
+ "size": [
+  1280,
+  1880
+ ],
+ "plates": [
+  {
+   "file": "00_Background.png",
+   "name": "Background",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "01_paper.png",
+   "name": "paper",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "02_sky.png",
+   "name": "sky",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "03_clouds.png",
+   "name": "clouds",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "04_sliver.png",
+   "name": "sliver",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "05_water.png",
+   "name": "water",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "06_hullshadow.png",
+   "name": "hullshadow",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "07_shore.png",
+   "name": "shore",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "08_shorelights.png",
+   "name": "shorelights",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "09_ferry.png",
+   "name": "ferry",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "10_ferrylights.png",
+   "name": "ferrylights",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "11_reflection.png",
+   "name": "reflection",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "12_stumprefl.png",
+   "name": "stumprefl",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "13_piles.png",
+   "name": "piles",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "14_pileplane.png",
+   "name": "pileplane",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "15_lash.png",
+   "name": "lash",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "16_stump.png",
+   "name": "stump",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "17_heron.png",
+   "name": "heron",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "18_rings.png",
+   "name": "rings",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "19_rain_dark.png",
+   "name": "rain_dark",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "20_rain_pale.png",
+   "name": "rain_pale",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "22_border.png",
+   "name": "border",
+   "blend": "multiply",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "23_tooth.png",
+   "name": "tooth",
+   "blend": "multiply",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "24_seal.png",
+   "name": "seal",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  },
+  {
+   "file": "25_title.png",
+   "name": "title",
+   "blend": "normal",
+   "opacity": 1.0,
+   "clip": false
+  }
+ ]
+}

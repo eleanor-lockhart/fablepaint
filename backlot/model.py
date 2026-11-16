@@ -71,3 +71,30 @@ def passes(exr):
 def sheet_matte(p, n):
     """Matte of the n-th sheet (1-based, in the order sheets were added) from a frame's index pass."""
     return (np.abs(p['index'] - n) < .5).astype(F)
+
+def patterns(spec):
+    """Every sheet's cut pattern as a matte, in the order the sheets were added: [(name, depth, matte), ...]."""
+    from .draw import raster
+    W, H = spec.d['size']; out = []
+    for L in spec.d['sheets']:
+        outer = [np.array(c['pts']) for c in L['cuts'] if not c['hole']]; holes = [np.array(c['pts']) for c in L['cuts'] if c['hole']]
+        m = raster(outer, W, H, ss=1)
+        if holes: m = m * (1 - raster(holes, W, H, ss=1))
+        out.append((L['name'], L['depth'], m))
+    return out
+
+def making_of(spec, p, final, out, cell_w=420):
+    """One sheet that shows how a box was made: the cut patterns front to back, then the render's
+    depth and sheet-index passes, the raw render, and the finished frame."""
+    from . import screen, comp
+    from .core import l2s, canvas
+    imgs, caps = [], []
+    for name, depth, m in patterns(spec):
+        imgs.append(comp.over(canvas(m.shape[1], m.shape[0], '#20242c'), comp.stencil(m, '#f1ede2'))); caps.append(f'cut: {name}  ({depth:g} mm back)')
+    d = p['depth']; dn = np.clip((d - d.min()) / max(float(np.percentile(d, 99.5) - d.min()), 1e-6), 0, 1)
+    imgs.append(np.dstack([dn ** 2.2] * 3 + [np.ones_like(dn)]).astype(F)); caps.append('depth pass')
+    ix = p['index'] / max(float(p['index'].max()), 1)
+    imgs.append(np.dstack([ix ** 2.2] * 3 + [np.ones_like(ix)]).astype(F)); caps.append('sheet index pass')
+    raw = p['image'].copy(); raw[..., :3] = np.clip(raw[..., :3], 0, 1); imgs.append(raw); caps.append('raw render (clipped)')
+    imgs.append(final); caps.append('finished frame')
+    return screen.sheet(imgs, out, caps, cols=4, cell_w=cell_w)

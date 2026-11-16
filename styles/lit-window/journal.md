@@ -300,3 +300,18 @@ code. Mine was strong on the first and thin on the second. And reading a faults 
 working did not prevent the faults, for it or for me; only looking at the result did.
 
 Its 37 specific complaints are the to-do list for a v4 of the guide.
+
+---
+
+## Entry 7. The first print, moving (`motion/last_boat_rain.mp4`)
+
+Built on the style after it was frozen, using the new studio (`backlot/`). The print's own
+layers were exported as plates (`studio.py plates`), put on the animation stand, and the
+three things that would move in the scene are redrawn for every pose with the same carved
+shapes the print was made from: the rain (new sheaves each pose), the ferry's light on the
+water (re-cut each pose, so it shimmers), and the rings where drops land (each on its own
+clock that divides the loop). Everything else is the print, untouched, on its paper.
+
+Shot on twos: 72 poses, six seconds. Loop seam ratio 0.98, so the loop point is no rougher
+than any other change of pose. The rules held without amendment; a print that was designed
+as separate blocks turned out to be already cut up the way an animator needs it.

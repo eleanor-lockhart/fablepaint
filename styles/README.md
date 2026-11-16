@@ -5,6 +5,7 @@ Each folder here is one style worked out on purpose, kept whole so it can be ret
 | style | what it is | state |
 |---|---|---|
 | [`lit-window/`](lit-window/) | colour woodblock prints of Pacific Northwest nights; flat pigments, one warm light | v3, three prints; git tag `lit-window-v3` |
+| [`paperlight/`](paperlight/) | boxes of cut paper lit from behind and within, built at true size in Blender, photographed and animated on twos | v1, in progress |
 
 ## What a style folder holds
 

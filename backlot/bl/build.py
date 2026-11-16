@@ -71,6 +71,14 @@ def material(name, m):
             tr = nt.nodes.new('ShaderNodeBsdfTranslucent'); tc_ = lin(m.get('through', m.get('color', '#f4f0e6')))
             tr.inputs['Color'].default_value = tc_
             mix = nt.nodes.new('ShaderNodeMixShader'); mix.inputs['Fac'].default_value = t
+            form = m.get('formation', .35)                # held to the light, paper is cloudy: fibres are not spread evenly
+            if form > 0:
+                tc2 = nt.nodes.new('ShaderNodeTexCoord'); n2 = nt.nodes.new('ShaderNodeTexNoise')
+                n2.inputs['Scale'].default_value = m.get('formation_scale', 260.0); n2.inputs['Detail'].default_value = 4.0
+                nt.links.new(tc2.outputs['Object'], n2.inputs['Vector'])
+                mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = .3; mr.inputs['From Max'].default_value = .7
+                mr.inputs['To Min'].default_value = t * (1 - form); mr.inputs['To Max'].default_value = min(t * (1 + form), 1)
+                nt.links.new(n2.outputs[0], mr.inputs['Value']); nt.links.new(mr.outputs[0], mix.inputs['Fac'])
             nt.links.new(d.outputs[0], mix.inputs[1]); nt.links.new(tr.outputs[0], mix.inputs[2]); nt.links.new(mix.outputs[0], out.inputs['Surface'])
         else:
             nt.links.new(d.outputs[0], out.inputs['Surface'])
