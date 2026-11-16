@@ -7,12 +7,12 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE)); sys.path.insert(0, str(HERE / 'shots'))
 import common as C
 from backlot import anim, screen, core, sound as sd
-ORDER = ['a_open', 'b_keeper_dee', 'c_marisol_red', 'd_prechorus', 'e_no4', 'f1_pod', 'g_walk_montage', 'f2_window', 'h_lineup']
+ORDER = ['a_open', 'b_keeper_dee', 'c_marisol_red', 'd_prechorus', 'e_no4', 'f1_pod', 'g1_walk', 'g2_lights', 'f2_window', 'h_lineup']
 mods = [importlib.import_module(m) for m in ORDER]
 starts, n = [], 0
 for m in mods:
     starts.append(n); n += m.N
-assert n == 720, f'{n} poses, wanted 720: ' + ', '.join(f'{o}={m.N}' for o, m in zip(ORDER, mods))
+assert n == 744, f'{n} poses, wanted 744: ' + ', '.join(f'{o}={m.N}' for o, m in zip(ORDER, mods))
 def frame(i):
     k = max(j for j, s in enumerate(starts) if s <= i)
     return C.finish(mods[k].frame(i - starts[k]), i)

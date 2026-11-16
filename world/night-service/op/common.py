@@ -121,6 +121,11 @@ def walker(name):
         _WALK[name] = _keeper.make()[1] if name == 'keeper' else fg.Walk(CAST[name]['fig'], **_WALK_STYLE[name])
     return _WALK[name]
 
+def walk_speed(name, size):
+    """Pixels a pose that a walker travels at one step a beat (stride phase advancing 1/12 a pose). Its feet are planted:
+    move its x by exactly this each pose, or slide the ground under it by exactly this, or it will skate."""
+    return walker(name).stride * CAST[name]['height'] * size / 12.0
+
 def walk_pose(name, g, **over):
     """A walking pose with some joints overridden (e.g. Red's lantern arm held steady: shN=14, elN=10)."""
     p = dict(walker(name).pose(g)); p.update(over); return p
@@ -144,14 +149,31 @@ _NO4 = [[(-.115, -.01), (-.12, .15), (-.142, .19), (-.115, .235), (-.10, .37), (
         [(-.035, .775), (-.01, .895), (.05, .93), (.105, .905), (.15, .835), (.128, .80), (.118, .765), (.07, .768)], [(.065, .915), (.20, 1.005), (.10, .895)],
         [(-.19, .72), (-.235, .60), (-.262, .47), (-.252, .33), (-.268, .26), (-.285, .18), (-.262, .21), (-.255, .165), (-.24, .215), (-.215, .33), (-.222, .47), (-.17, .60)],
         [(.19, .72), (.262, .625), (.335, .525), (.375, .445), (.408, .405), (.39, .385), (.342, .42), (.29, .50), (.222, .58), (.17, .62)]]
-def no4(img, cx, waterline, height, colour='#13101b', eye=None, chest=None, cable=True):
+def no4_point(cx, waterline, height, u, v):
+    """A point on No. 4 given in its own units (u across, v up from the waterline, both as fractions of its height)."""
+    return (cx + u * height, waterline - v * height)
+
+def no4_eye(cx, waterline, height):
+    """Pixel centre of No. 4's eye for that placement: use it to put the slit in the black exactly where the eye will be."""
+    return no4_point(cx, waterline, height, .0935, .858)
+
+def no4(img, cx, waterline, height, colour='#13101b', eye=None, chest=None, cable=True, stencil=True):
     """No. 4, the Lineman, as a flat silhouette: knee-deep at `waterline`, `height` pixels from waterline to the top of its
-    head (it is forty metres; make it huge). eye: a colour for the lit eye (GREEN when it is itself, COLD when it is run).
-    chest: a colour to open the window in its chest. Its parts are in its own units (height = 1), see _NO4."""
+    head (it is forty metres; make it huge). eye: a colour for the lit eye: C.COLD while its cable is in (it is being run),
+    C.GREEN once the cable is cut (it is itself), None for dark. chest: a colour to open the window in its chest.
+    cable: True (whole, running down into the water), 'cut' (a stub hanging from its back), or False.
+    stencil: CONTINUITY painted dimly across its chest (it is the power company's machine). Parts are in _NO4, height = 1."""
     M = lambda pts: np.array([(cx + u * height, waterline - v * height) for u, v in pts])
     img = draw.paint(img, draw.raster([M(p) for p in _NO4], W, H), colour)
-    if cable:
-        img = draw.paint(img, draw.raster([sh.ribbon(M([(-.03, .63), (-.2, .46), (-.36, .2), (-.5, -.01)]), w=max(2.0, height * .009), taper=(0, 0), wob=0)], W, H), colour)
+    cw = max(2.0, height * .009)
+    if cable is True:
+        img = draw.paint(img, draw.raster([sh.ribbon(M([(-.03, .63), (-.2, .46), (-.36, .2), (-.5, -.01)]), w=cw, taper=(0, 0), wob=0)], W, H), colour)
+    elif cable == 'cut':
+        img = draw.paint(img, draw.raster([sh.ribbon(M([(-.03, .63), (-.13, .54), (-.19, .44), (-.20, .37)]), w=cw, taper=(0, .25), wob=0)], W, H), colour)
+    if stencil and height >= 500:
+        sz = max(10, int(height * .034)); x, y = no4_point(cx, waterline, height, 0.0, .745)
+        if -sz < y < H:
+            img = draw.paint(img, text((x, y - sz * .6), 'CONTINUITY', sz, track=sz * .12, anchor='m'), '#2b2942')
     if eye:
         img = light(img, draw.raster([M([(.075, .868), (.112, .858), (.112, .848), (.078, .856)])], W, H), eye, 6.0)
     if chest:
