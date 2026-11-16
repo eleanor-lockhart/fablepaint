@@ -1,7 +1,7 @@
 # Transfer print 1, notan: "Red board, rain". Three variants in three flat greys.
 # Sentence: deep dusk, steady rain on the shore line; a block signal holds red over empty track,
 # its light lying on the wet rails; a coyote has stopped to look.
-exec(open('../atelier/kit.py').read())
+exec(open('../styles/lit-window/kit.py').read())
 D, M, L = '#262626', '#7f7f7f', '#e8e8e8'
 layer('n'); fill('#ffffff')
 def panel(i):

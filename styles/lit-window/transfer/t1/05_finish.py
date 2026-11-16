@@ -1,5 +1,5 @@
-exec(open('../atelier/transfer/t1/common.py').read())
-exec(open('../atelier/transfer/t1/coyote.py').read())
+exec(open('../styles/lit-window/transfer/t1/common.py').read())
+exec(open('../styles/lit-window/transfer/t1/coyote.py').read())
 window(X0, Y0, X1, Y1)
 
 # ---- the red lands on wet steel and wet wood. Not a glow: dashes, longest where the reflection falls

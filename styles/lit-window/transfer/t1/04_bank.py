@@ -1,4 +1,4 @@
-exec(open('../atelier/transfer/t1/common.py').read())
+exec(open('../styles/lit-window/transfer/t1/common.py').read())
 window(X0, Y0, X1, Y1)
 def pxm(s, off=0.0):
     a, b = T(s, off - .5), T(s, off + .5)

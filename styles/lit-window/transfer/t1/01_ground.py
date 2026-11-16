@@ -1,4 +1,4 @@
-exec(open('../atelier/transfer/t1/common.py').read())
+exec(open('../styles/lit-window/transfer/t1/common.py').read())
 window(X0, Y0, X1, Y1)
 layer('paper'); fill(PAPER)
 # ---- sky: rain cloud, darkest at the top, the last light lying low in the west

@@ -9,9 +9,9 @@
 #      About half as many, shorter, and the pale ones kept to the upper half.
 #   4. Rule 4. The coyote's ears touch the rail web. Move it onto open ballast with clear space all round.
 # Left alone on purpose: the track, the signal, the red on the rails, the sky bands. They read; stop.
-exec(open('../atelier/transfer/t1/common.py').read())
-exec(open('../atelier/transfer/t1/coyote.py').read())
-src = open('../atelier/transfer/t1/04_bank.py').read()
+exec(open('../styles/lit-window/transfer/t1/common.py').read())
+exec(open('../styles/lit-window/transfer/t1/coyote.py').read())
+src = open('../styles/lit-window/transfer/t1/04_bank.py').read()
 exec(src[src.index('def pxm'):src.index('# ---- trees down the line')])         # pxm, E, frond, fern, mound
 window(X0, Y0, X1, Y1)
 

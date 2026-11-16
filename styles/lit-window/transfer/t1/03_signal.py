@@ -1,5 +1,5 @@
-exec(open('../atelier/transfer/t1/common.py').read())
-exec(open('../atelier/transfer/t1/signal.py').read())
+exec(open('../styles/lit-window/transfer/t1/common.py').read())
+exec(open('../styles/lit-window/transfer/t1/signal.py').read())
 window(X0, Y0, X1, Y1)
 block('signal')
 sx, sy, _ = track(SIG_S, SIG_OFF)

@@ -2,7 +2,7 @@
 # Sentence: deep dusk, steady rain on the shore line; a block signal holds red over empty track,
 # its light lying on the wet rails; a coyote has stopped to look.
 # Notan: variant B (from the lip of the rock cut, high eye; the water is the pool of light).
-exec(open('../atelier/kit.py').read())
+exec(open('../styles/lit-window/kit.py').read())
 X0, Y0, X1, Y1 = 80, 70, 1200, 1730
 def U(a, b): return (X0 + a * (X1 - X0), Y0 + b * (Y1 - Y0))
 def Us(pts): return np.array([U(a, b) for a, b in pts])
