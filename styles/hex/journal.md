@@ -90,3 +90,44 @@ be suppressed is a process that cannot be closed.
 next, on a small server kept by a witch, staged on a desktop of the period. Storyboard on a bar grid in
 `uptime/BRIEF.md`. The song is written first this time and the picture is hung on it. One bar is one second,
 so the system clock is the metronome.
+
+## Entry 3. *Uptime*, first cut
+
+Seventy-two seconds, 1,728 frames, a score of seventy-two bars. `uptime/music.py` was written first and
+`uptime/film.py` hung on it. One bar is one second, so the clock in the corner of the screen is the metronome
+and every event in the storyboard sits on a tick.
+
+**By measurement.** All 33 storyboard events land in both picture and sound (`uptime/uptime_sync.jpg`); the
+first pass had 22. No one-frame accidents: the detector caught my countdown shake, which toggled every frame,
+and it is now a jump on each tick. Nothing strobes. The score is at -14.2 LUFS with a range of 14 LU: the jig
+sits at -22 dB, the hive at -15, midnight at -34 and the decree, the loudest thing in it, at -11.6.
+
+**How the stages show in it.** The tower is the stage 1 scene, live, in a window, still 320 by 180 and still on
+twos. Round it is the stage 3 finish: gradients, gloss, soft shadows, a glow, a flare. Every colour on the
+screen is one of the sixteen registers or a blend of two, and the only thing that glows is register F.
+
+**My own verdict, written before anybody else has seen it.**
+
+What I think works:
+
+1. The three clicks. CLOSE, END TASK, ARE YOU SURE?, and then a small green dialog that says SHE IS.
+2. THE END (v2.0) going on counting after zero: -1, -2, -3. The system is literal.
+3. Midnight. Everything goes grey, the hive shuts its eyes, and one window is still the colour it was.
+4. IT IS THE YEAR 2000 BECAUSE I SAY SO. She does not fix the clock; she overrules it.
+5. The clock as the metronome.
+
+What I think is weak:
+
+1. She is never seen. She is sixteen pixels of silhouette, a pointer and four dialogs. A stranger may not
+   connect the green pointer with the figure in the window.
+2. The watchers are a row of small sprites. That they have come to see her fail is carried by one window title.
+3. The hive may read as a virus or a wallpaper, not as a mind made of many.
+4. There is a great deal to read, and some of it is up for two seconds.
+5. The sweetness in the coda (a drone carries a light to the spider's page and its counter goes up by one) is
+   very small. So is the joke on the bin: NEWTS (111435), which is 437 times 255.
+6. The finish is gloss and gradients. There is no clear plastic, no wireframe, nothing low-polygon.
+7. Nobody has heard the score. The choir and the organ are a saw wave with holes cut in it.
+
+What I expect a cold reader to get, of the seven things in the brief: the crowd and the newts, the takeover
+that cannot close her, the lights going out and hers staying, and the decree. Half: that she is in charge;
+that everybody was waiting for her to fail; that she is not nice and the place is safe anyway.

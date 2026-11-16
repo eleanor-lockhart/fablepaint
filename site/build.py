@@ -119,6 +119,13 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
+    ('Uptime',
+     'The major piece, first cut. Seventy-two seconds: the last fifty of 1999 and the first twenty-two of what comes next, on a small server kept by a witch, staged on a desktop of the period. '
+     'Everything outside is waiting for the machine to fail at midnight. The score was written first: seventy-two bars of 6/8 at one bar a second, so the clock in the corner of the screen is the metronome and every event sits on a tick. '
+     'A jig is the place at peace; the same tune over a kick on every eighth is the hive; midnight is a hum. Every colour is one of the sixteen registers or a blend of two, and only register F glows.',
+     [('styles/hex/uptime/uptime_poster.png', 'UPTIME (press play; it has sound)', [('mp4', 'styles/hex/uptime/uptime.mp4'), ('the storyboard', blob('styles/hex/uptime/BRIEF.md')), ('journal: my verdict before anyone saw it', blob('styles/hex/journal.md')), ('the picture (code)', blob('styles/hex/uptime/film.py')), ('the score (code)', blob('styles/hex/uptime/music.py'))], 'styles/hex/uptime/uptime.mp4'),
+      ('styles/hex/uptime/uptime_score.jpg', 'The score, as the listening room sees it', [('mp3', 'styles/hex/uptime/uptime.mp3')], None, 'styles/hex/uptime/uptime.mp3'),
+      ('styles/hex/uptime/uptime_sync.jpg', 'Is the picture on the music? 33 of 33 events land in both', [])]),
     ('Stage 1: eight-bit drafts',
      'Three stills and two loops at 320 by 180 in sixteen colours, shown at four times the size. Register F, the warm yellow, is reserved for a tended light and nothing else may use it. Only the witch is green. A crowd is one sprite, many times.',
      [('styles/hex/stage1/fig2_watch.png', 'Fig. 2. GATE.EXE (it has sound: unmute it). The pointer tries ALLOW, then DENY, then finds the third button', [('mp4', 'styles/hex/stage1/fig2_gate_exe.mp4'), ('still', 'styles/hex/stage1/fig2_watch.png'), ('the tune (mp3)', 'styles/hex/stage1/fig2_gate_exe.mp3'), ('the tune, as the listening room sees it', 'styles/hex/stage1/fig2_gate_exe_tune.jpg'), ('code', blob('styles/hex/stage1.py'))], 'styles/hex/stage1/fig2_gate_exe.mp4'),
@@ -189,7 +196,7 @@ def main(sections=None, out='index.html', hexpage=False):
             if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
             if audio and (ROOT / audio).exists():

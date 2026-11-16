@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.2, after stage 1 (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
+Version 0.3, after stage 1 and the first cut of *Uptime* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -79,11 +79,12 @@ The style is being built from the ground up, and each stage keeps the sixteen re
 |---|---|---|
 | 1. eight-bit (done) | 320 x 180, hard pixels, 12 frames a second, sprites as hex text; sound from two pulse waves, a sixteen-step triangle and noise | the palette, the cast, the first rules, the first tune |
 | 2. sixteen-bit | 640 x 360; parallax; colour cycling; walk cycles; more voices (a choir, strings, a whistle with ornaments, a real kit) | space, time and a whole song inside the same limits |
-| 3. about the year 2000 | full resolution; the desktop as a stage: windows, bevelled chrome, clear plastic, wireframe, low-polygon models, lens flare | the contemporary finish. Every colour still comes out of the table |
+| 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, wireframe, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
 
-**The major piece** will be made at stage 3 and is meant to feel like the turn of the millennium felt: an
-operating system that was sure it was the future, and a network small enough to be kept by one person. Working
-premise: one night on a small server kept by a witch. In this style a lit window is a window, with a title bar.
+**The major piece** is *Uptime* (`uptime/`): the last fifty seconds of 1999 and the first twenty-two of what
+comes next, on a small server kept by a witch. It is meant to feel like the turn of the millennium felt: an
+operating system that was sure it was the future, a network small enough to be kept by one person, and a date
+everybody had been told to be afraid of. In this style a lit window is a window, with a title bar.
 
 ## The motifs, and where they have got to
 
@@ -113,6 +114,7 @@ premise: one night on a small server kept by a witch. In this style a lit window
 
 ## Changelog
 
+- v0.3: *Uptime*, first cut: stage 3 finish round a stage 1 scene; a 72-bar score; the clock as the metronome.
 - v0.2: the witch defined, on Ellie's correction: malevolent, never kind, cannot be suppressed; kindness
   belongs to the setting. The major piece, *Uptime*, storyboarded (`uptime/BRIEF.md`).
 - v0.1: the statement, the name, the sixteen registers, eleven provisional rules, the ladder, stage 1.
