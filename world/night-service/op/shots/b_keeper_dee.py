@@ -120,10 +120,10 @@ def orrin_close(i):
     lv = lamp_level(i); f = C.clamp01(lv); img = C.core.canvas(W, H, '#06090f')
     cy = LCY + (1 - f) * LRY * .8; grow = .25 + .75 * lv ** .7
     for r, k in ((540, .05), (372, .075), (222, .11)):                         # the pool of light: three flat rings of paper
-        img = add(img, draw.disc(W, H, LCX, cy, r * grow), C.LAMP, k * lv)
+        img = add(img, draw.disc(W, H, LCX, cy, min(r * grow, 560)), C.LAMP, k * lv)             # never as far as the name card
     if lv > 1.3:                                                               # the flare
         rays = [A((LCX + 120 * math.cos(a - .035), LCY + 120 * math.sin(a - .035)), (LCX + 120 * math.cos(a + .035), LCY + 120 * math.sin(a + .035)),
-                  (LCX + 900 * math.cos(a), LCY + 900 * math.sin(a))) for a in np.radians(np.arange(8, 360, 30))]
+                  (LCX + 500 * math.cos(a), LCY + 500 * math.sin(a))) for a in np.radians(np.arange(8, 360, 30))]   # short of the name card
         img = add(img, draw.raster(rays, W, H), C.LAMP, .22 * (lv - 1))
     img = draw.paint(img, FRAME, '#04060a')
     img = draw.paint(img, LENS, '#131a26')                                      # the glass, unlit
@@ -133,7 +133,7 @@ def orrin_close(i):
     img = C.light(img, lit, C.LAMP, k)
     img = C.light(img, np.minimum(BULL, lit), '#fff0c4', k * 1.5)
     img = draw.paint(img, np.maximum(BANDS, BULLRING * LENS), '#0a0d14', .85)
-    img = figc(img, 'keeper', orrin_pose(i), OX, 980, 860, rim=(C.LAMP, 1.5 * lv, 6))
+    img = figc(img, 'keeper', orrin_pose(i), OX, 980, 860, rim=(C.LAMP, 1.2 * lv, 4))
     return C.name_card(img, 'keeper', C.clamp01((i - 24) / 16), 'l')
 
 # =================================================================== the car deck of the M/V Kittiwake
@@ -190,7 +190,7 @@ def punch(img, g, n, k, shut):
 def chad(img, at, k, t):
     """The piece punched out: the shape of a window, and lit. It falls."""
     if t < 0 or t > 9: return img
-    c = np.array((at[0] - 2.5 * k * t, at[1] + (18 + 5.4 * t * t) * k), np.float32)
+    c = np.array((at[0] - 2.5 * k * t, at[1] + (30 + 5.4 * t * t) * k), np.float32)
     q = rot(box(c[0] - 8 * k, c[1] - 11 * k, c[0] + 8 * k, c[1] + 11 * k), c, -13 * t)
     return C.light(img, draw.raster([q], W, H), CHAD, 10.0 if t < 2 else 6.0)
 
@@ -237,10 +237,11 @@ def dee_wide(i):
     img = DECK.copy(); q = queue(i); k = WS / 860.0
     a, shut = reach(i, (54, 66)); head = None
     for j in range(8, -4, -1):
+        if j > 1 and j % 2 == 0: continue                                       # director's pass: every other place in the queue is empty
         if q <= j:                                                              # in the queue, stepping up
             d = j - q; g = (q + .5 * (j % 2)) % 1.0; x = X0 + d * STRIDE; w = C.clamp01(1 - d * 2.5)
         else:                                                                   # punched: walks on to the left without stopping
-            d = (i - (56 + 12 * j)) * 16.0 / STRIDE; g = (d + .5 * (j % 2)) % 1.0; x = X0 - d * STRIDE; w = C.clamp01(1 - d * 3)
+            d = (i - (56 + 12 * j)) * 18.0 / STRIDE; g = (d + .5 * (j % 2)) % 1.0; x = X0 - d * STRIDE; w = C.clamp01(1 - d * 3)
         if x < -70 or x > W + 70: continue
         base = C.walk_pose('passenger', g)
         pose = C.fg.blend(base, dict(base, **OFFER), w) if w > 0 else base
@@ -255,6 +256,8 @@ def dee_wide(i):
     img = punch(img, *grip('dee', pose, DEE_X, WG, WS), k, shut)
     for P in (54, 66):
         img = chad(img, BITE, k * 1.5, i - P)
+        if 0 <= i - P < 2:                                                      # director's pass: the punch is struck, like a note
+            img = C.light(img, draw.disc(W, H, BITE[0], BITE[1], 13 - 5 * (i - P)), C.LAMP, 12.0)
     return draw.paint(img, CHAIN_W, '#1d2838')
 
 # ------------------------------------------------------------------- close (72-95)

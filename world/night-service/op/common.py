@@ -97,13 +97,15 @@ def name_card(img, name, t, side='l'):
     name is a key of CAST. Use this for every introduction so they match."""
     c = CAST[name]; x0 = 84 if side == 'l' else W - 84; sgn = 1 if side == 'l' else -1
     a = ease(clamp01(t / .22), 'out'); b = ease(clamp01((t - .10) / .25), 'out')
-    bar = draw.rect(W, H, min(x0, x0 + sgn * 430 * a), 566, max(x0, x0 + sgn * 430 * a), 572)
-    img = draw.paint(img, bar, RED)
-    wipe = draw.rect(W, H, 0, 0, x0 + 700 * b, H) if side == 'l' else draw.rect(W, H, x0 - 700 * b, 0, W, H)
     anchor = 'l' if side == 'l' else 'r'
-    img = draw.paint(img, text((x0, 458), c['title'], 96, track=7, anchor=anchor) * wipe, INK)
+    title = text((x0, 458), c['title'], 96, track=7, anchor=anchor)
+    cols = np.where(title.max(0) > .5)[0]; L = max(430.0, float(cols.max() - cols.min()) + 34.0) if len(cols) else 430.0     # the rule is as long as the name
+    bar = draw.rect(W, H, min(x0, x0 + sgn * L * a), 566, max(x0, x0 + sgn * L * a), 572)
+    img = draw.paint(img, bar, RED)
+    wipe = draw.rect(W, H, 0, 0, x0 + (L + 270) * b, H) if side == 'l' else draw.rect(W, H, x0 - (L + 270) * b, 0, W, H)
+    img = draw.paint(img, title * wipe, INK)
     img = draw.paint(img, text((x0 + sgn * 2, 584), c['role'].upper(), 28, track=6, anchor=anchor) * wipe, DIM)
-    wx = x0 + sgn * 452 * a - (0 if side == 'l' else 20)
+    wx = x0 + sgn * (L + 22) * a - (0 if side == 'l' else 20)
     return light(img, draw.rect(W, H, wx, 556, wx + 20, 582) * a, c['window'], 4.0)
 
 # ------------------------------------------------------------------ people

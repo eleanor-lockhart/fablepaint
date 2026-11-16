@@ -141,7 +141,7 @@ up = lambda p, n=12: sc.midi(p) + n
 
 # ---- 0-4: sea, four punches, the foghorn swelling into the hit
 for i, t in enumerate((2.0, 2.5, 3.0, 3.5)):
-    hit('punch', t, .6 + .1 * i)
+    hit('punch', t, .72 + .09 * i)
 
 # ---- 4-8, bars 3-4: the title. Everything enters; the hook plainly, then the leap on the tagline at 6.0
 for bar, ch in ((3, 'Dm'), (4, 'G')):
@@ -171,7 +171,7 @@ for bar, ns in VERSE.items():
     add('pluck', bar, ns)
 # bar 5: Orrin walks (a step on every beat); the bass walks with him
 for i, p in enumerate(('D2', 'F2', 'A2', 'C3')):
-    s.note('bass', p, 5, 1 + i, 1, vel=.64); hit('kick', 8.0 + .5 * i, .46)
+    s.note('bass', p, 5, 1 + i, 1, vel=.56); hit('kick', 8.0 + .5 * i, .42)
     stab('comp', CH['Dm'][1], 5, 1.5 + i, .8, .44)
 for i in range(8): hit('hat', B(5, 1 + i * .5), .42 if i % 2 == 0 else .3)
 # bar 6: he nods off (thin out, sink), and at 11.0 the lamp flares: a bell
@@ -181,22 +181,22 @@ s.note('bell', 'D6', 6, 3, 4, vel=.9, third=.0); s.note('bass', 'G2', 6, 3, 1.5,
 hit('ohat', 11.0, .5)
 # bars 7-8: Dee. The punch is the backbeat (12.5, 13.5, 14.5, 15.5)
 for bar, ch, bl in ((7, 'Am', [('A2', 1), ('A2', 2.5), ('C3', 4), ('E3', 4.5)]), (8, 'C', [('C3', 1), ('C3', 2.5), ('G2', 4), ('B2', 4.5)])):
-    for p, beat in bl: s.note('bass', p, bar, beat, 1.0 if beat < 4 else .5, vel=.66 if beat == 1 else .56)
+    for p, beat in bl: s.note('bass', p, bar, beat, 1.0 if beat < 4 else .5, vel=.58 if beat == 1 else .5)
     for beat, v in ((1, .54), (2.5, .46), (4, .5)): stab('comp', CH[ch][1], bar, beat, 1.2, v)
-    for beat in (1, 3): hit('kick', B(bar, beat), .55)
+    for beat in (1, 3): hit('kick', B(bar, beat), .48)
     for beat in (2, 4): hit('punch', B(bar, beat), .92)
     for i in range(8): hit('hat', B(bar, 1 + i * .5), .46 if i % 2 == 0 else .32)
 # bars 9-10: Marisol. High bright plucked notes; one pure tone on 16.5
 s.note('glass', 'A6', 9, 2, 4, vel=.85)
 for bar, ch, bl, cp in ((9, 'Dm', [('D2', 1), ('D3', 2.5), ('A2', 4)], ['D4', 'F4', 'A4']), (10, 'G', [('G2', 1), ('G2', 2.5), ('D3', 4)], ['D4', 'G4', 'B4'])):
-    for p, beat in bl: s.note('bass', p, bar, beat, 1.0, vel=.62 if beat == 1 else .52)
+    for p, beat in bl: s.note('bass', p, bar, beat, 1.0, vel=.55 if beat == 1 else .47)
     for beat, v in ((1, .5), (2.5, .44), (4, .46)): stab('comp', cp, bar, beat, 1.2, v)
-    for beat in (1, 3): hit('kick', B(bar, beat), .5)
+    for beat in (1, 3): hit('kick', B(bar, beat), .44)
     for beat in ((4,) if bar == 9 else (2, 4)): hit('rim', B(bar, beat), .6)
     for i in range(8): hit('hat', B(bar, 1 + i * .5), .44 if i % 2 == 0 else .32)
 # bars 11-12: Red. One low note, steady, unimpressed; a small accent on 22.5 when the lantern is up
 for bar in (11, 12):
-    for i in range(8): s.note('ost', 'D2', bar, 1 + i * .5, .5, vel=.66)
+    for i in range(8): s.note('ost', 'D2', bar, 1 + i * .5, .5, vel=.6)
 hit('kick', 20.0, .5); stab('comp', ['C4', 'F4', 'A4'], 11, 1, 2, .4)
 hit('rim', 22.5, .8); s.note('bell', 'A5', 12, 2, 3, vel=.5, third=.0)
 
@@ -250,8 +250,8 @@ hit('crash', 36.0, .8, seed=3); s.note('bell', 'D6', 19, 1, 4, vel=.8, third=.0)
 hit('crash', 38.0, .55, seed=5)
 for i, f in enumerate((175.0, 131.0, 98.0)): hit('tom', 41.0 + .125 * i, .8 + .08 * i, f=f)   # a fill, a breath ...
 # ... and 41.5: the cable snaps. The biggest accent in the piece; the hum (below) stops here for good
-hit('kick', 41.5, 1.0); hit('snare', 41.5, 1.0, seed=99); hit('crash', 41.5, 1.0, seed=7); hit('crash', 41.5, 1.0, seed=8); hit('tom', 41.5, 1.0, f=73.0); hit('snap', 41.5, 1.0)
-s.note('low', 'Bb1', 21, 4, 2, vel=1.0); s.note('bass', 'Bb1', 21, 4, 1, vel=1.0); s.note('bass', 'Bb2', 21, 4, 1, vel=.9)
+hit('kick', 41.5, 1.0); hit('snare', 41.5, 1.0, seed=99); hit('crash', 41.5, 1.0, seed=7); hit('crash', 41.5, 1.0, seed=8); hit('snap', 41.5, 1.0)
+s.note('low', 'Bb1', 21, 4, 2, vel=1.0); s.note('bass', 'Bb2', 21, 4, 1, vel=.9)
 stab('comp', ['Bb3', 'D4', 'F4', 'A4', 'D5', 'F5'], 21, 4, 1, 1.0, strum=.0); s.note('bell', 'F5', 21, 4, 2, vel=1.0, third=.0)
 # bars 22-23: the four of them on the moon, a kick on every beat, the tune at its most open
 for bar, ch in ((22, 'Bb'), (23, 'C_')):
@@ -297,22 +297,22 @@ for i, (p, bsn, cp) in enumerate((('A4', 'Bb1', ['D4', 'F4', 'A4']), ('D5', None
     if bsn:
         s.note('bass', bsn, bar, beat, 2, vel=.8 + .03 * i); s.note('bass', up(bsn), bar, beat, 2, vel=.6)
         stab('comp', cp, bar, beat, 2, .6 + .04 * i, strum=.01); hit('kick', B(bar, beat), .7 + .04 * i)
-hit('kick', 57.0, .92); hit('tom', 57.0, .8, f=82.0); hit('crash', 57.0, .5, seed=41)
+hit('kick', 57.0, .92); hit('crash', 57.0, .5, seed=41)
 s.note('low', 'A1', 29, 3, 2, vel=.68); s.note('bass', 'A1', 29, 3, 2, vel=.74); s.note('bass', 'A2', 29, 3, 2, vel=.7)
 stab('comp', ['A3', 'E4', 'A4'], 29, 3, 2, .85, strum=.0); s.note('bell', 'A3', 29, 3, 2, vel=.8, third=.0)
 
 # ---- 58-62, bars 30-31: the last chord. D, A, E: the three lights, all lit at once. Let it ring
 hit('kick', 58.0, .8); hit('crash', 58.0, .6, seed=43)
-s.note('low', 'D2', 30, 1, 8, vel=.68); s.note('bass', 'D2', 30, 1, 8, vel=.7)
-stab('comp', ['D3', 'A3', 'D4', 'E4', 'A4'], 30, 1, 8, .8, strum=.014)
+s.note('low', 'D2', 30, 1, 8, vel=.6); s.note('bass', 'D2', 30, 1, 8, vel=.64)
+stab('comp', ['D3', 'A3', 'D4', 'E4', 'A4'], 30, 1, 8, .7, strum=.014)
 for i, p in enumerate(('A4', 'D5', 'E5')):                                                    # the hook, rolled into the chord
-    s.note('lead', p, 30, 1, 8, vel=.82); s.ev[-1]['t'] += .05 * i
-    s.note('lead8', up(p), 30, 1, 8, vel=.74); s.ev[-1]['t'] += .05 * i
-s.note('bell', 'D5', 30, 1, 8, vel=.95, third=.0); s.note('bell', 'D6', 30, 1, 8, vel=.55, third=.0)
+    s.note('lead', p, 30, 1, 8, vel=.68); s.ev[-1]['t'] += .05 * i
+    s.note('lead8', up(p), 30, 1, 8, vel=.6); s.ev[-1]['t'] += .05 * i
+s.note('bell', 'D5', 30, 1, 8, vel=.85, third=.0); s.note('bell', 'D6', 30, 1, 8, vel=.55, third=.0)
 
 # ---- humanise: nobody plays exactly on the grid or equally loud twice; the listed sync times stay exact
 HUMAN = dict(pluck=(8, .06), pluck8=(8, .06), lead=(7, .05), lead8=(9, .06), comp=(9, .07), arp=(7, .09), bass=(5, .05), glass=(10, .05),
-             hat=(3, .08), ohat=(3, .06), kick=(0, .04), snare=(0, .05), rim=(2, .06), bell=(0, .04), ost=(1.5, .012))
+             hat=(3, .08), ohat=(3, .06), kick=(0, .04), snare=(0, .05), rim=(2, .06), bell=(0, .04), ost=(1.5, .012), punch=(0, .05), tom=(0, .04), crash=(0, .05), tick=(0, .03))
 for e in s.ev:
     ms, v = HUMAN.get(e['track'], (0, 0))
     if ms and round(e['t'], 3) not in SYNC: e['t'] = max(0.0, e['t'] + s.rng.normal(0, ms / 1000.0))
@@ -339,14 +339,17 @@ TRACKS = {
     'tom': dict(inst=lambda f_, d, v, f=110.0: tom(f), gain=-10, send=-12, pan=-.1),
     'punch': dict(inst=lambda f, d, v: sd.punch(), gain=-10, send=-11, pan=.15),
     'tick': dict(inst=tick, gain=-8, send=None, pan=-.1),
-    'snap': dict(inst=snap, gain=-7, send=-8, pan=.1),
+    'snap': dict(inst=snap, gain=-10, send=-7, pan=.1),
     'rim': dict(inst=rim, gain=-15, send=-14, pan=-.2),
 }
 CUT, BACK = 32.0, 33.0
 mA, mB = sd.Mix(DUR, t60=3.4, damp=.5, seed=2), sd.Mix(DUR, t60=3.4, damp=.5, seed=2)
+KICKS = np.array([e['t'] for e in s.ev if e['track'] == 'kick'])
 for e in s.ev:
     tr = TRACKS[e['track']]
     x = tr['inst'](e['hz'], e['dur'] + tr.get('ring', 0.0), e['vel'], **e['kw'])
+    if e['track'] in ('bass', 'ost', 'low') and np.abs(KICKS - e['t']).min() < .02:        # the bass makes room for the kick's first 60 ms
+        k = min(sd._n(.06), len(x)); x = x.copy(); x[:k] *= np.linspace(.45, 1, k)
     (mB if e['t'] >= BACK - .25 else mA).add(x * e['vel'], at=e['t'], gain=tr.get('gain', -12.0), pan_=tr.get('pan', 0.0) + s.rng.normal(0, tr.get('spread', 0.0)), send=tr.get('send'))
 
 t = np.arange(mA.n) / SR
@@ -375,7 +378,7 @@ cable = np.clip((t - 34.0) / .05, 0, 1) * np.clip((41.5 - t) / .004, 0, 1)
 other = sd.pan(hum * (rise * sd.db(-12) + cable * sd.db(-31)) + cold * rise * sd.db(-22))
 bk = breaker(); click = np.zeros(mA.n); click[sd._n(CUT):sd._n(CUT) + len(bk)] = bk * sd.db(-9)
 music = music + other + sd.pan(click)
-music *= np.clip((DUR - t) / .3, 0, 1)[:, None]
+music *= np.clip((DUR - t) / .8, 0, 1)[:, None]
 
 # ================================================================== master: -14 LUFS, true peak under -1
 def soften(x, knee_db=-4.0):
@@ -385,12 +388,17 @@ def soften(x, knee_db=-4.0):
     return y
 TARGET = -14.0; tgt = TARGET
 for _ in range(4):
-    pre = sd.highpass(music, 28.0, 2); pre = soften(pre * sd.db(tgt + 1.0 - sd.loudness(pre)), -3.0)
+    raw = sd.highpass(music, 28.0, 2); raw = raw * sd.db(tgt + 1.0 - sd.loudness(raw)); pre = soften(raw, -3.0)
     out = sd.master(pre, target_lufs=tgt)
     err = sd.loudness(out) - TARGET
     if abs(err) < .08: break
     tgt -= err
 pre_pk = 20 * math.log10(np.abs(pre).max()) + (tgt - sd.loudness(sd.highpass(pre, 28.0, 2)))      # how far the limiter has to reach
+import os
+if os.environ.get('OP_DEBUG'):
+    pkr = np.abs(raw).max(1); tall = {}
+    for i in np.where(pkr > sd.db(-3.0))[0]: tall[round(i / SR * 4) / 4] = max(tall.get(round(i / SR * 4) / 4, 0), pkr[i])
+    print('raw peaks over the knee, by quarter second (dB):', {k: round(20 * math.log10(v), 1) for k, v in sorted(tall.items())})
 wav = sd.write_wav('out/op/music/night_service_op.wav', out)
 sd.encode(wav, HERE / 'night_service_op.mp3')
 sc.piano_roll(s, HERE / 'music_score.png')
@@ -406,7 +414,7 @@ print(f"seconds {r['seconds']:.2f}   LUFS {r['lufs']:.2f} (ffmpeg {ear.ffmpeg_lo
 print(f"key {r['key_candidates']}   pitch classes {sorted(r['chroma'].items(), key=lambda kv: -kv[1])[:6]}")
 print(f"pulse {r.get('pulse_seconds', 0):.3f} s ({r.get('pulse_bpm', 0):.0f} bpm)   onsets {r['onsets_per_second']:.2f}/s   stereo corr {r['stereo_correlation']:.2f}   side/mid {r['side_to_mid_db']:.1f} dB")
 print('bands (dB of total):', {k: round(v, 1) for k, v in r['bands'].items()}, f"centroid {r['centroid_hz']:.0f} Hz")
-print(f'reverb: wet to dry {wet_to_dry:.1f} dB (wet gain {WET:.1f})   limiter: tallest peak before it {pre_pk:.1f} dB, ceiling -1.5')
+print(f'reverb: wet to dry {wet_to_dry:.1f} dB (wet gain {WET:.1f})   soft knee at -3 dB touches {100 * float((np.abs(raw) > sd.db(-3.0)).any(1).mean()):.2f}% of samples (tallest {20 * math.log10(np.abs(raw).max()):+.1f} dB);  limiter: tallest peak before it {pre_pk:.1f} dB, ceiling -1.5')
 def line_db(fr, a, b):
     v = mono[int(a * SR):int(b * SR)] * np.hanning(int(b * SR) - int(a * SR)); X = np.abs(np.fft.rfft(v)); ff = np.fft.rfftfreq(len(v), 1 / SR)
     return 20 * math.log10(max(X[np.abs(ff - fr) < .3].max() / len(v) * 4, 1e-9))
@@ -446,4 +454,6 @@ F = np.abs(np.fft.rfft((flux - flux.mean()) * np.hanning(len(flux)))); ff = np.f
 top = sorted(((F[i], ff[i]) for i in signal.find_peaks(np.where(band, F, 0))[0]), reverse=True)[:3]
 print('tempo lines in the onset envelope (period s, relative strength):', [(round(1 / fr, 3), round(v / top[0][0], 2)) for v, fr in top])
 b_ = int(.4 * SR); ml = sorted(((10 * math.log10(max(float((x[i:i + b_] ** 2).mean()), 1e-12)), i / SR) for i in range(0, len(x) - b_, int(.05 * SR))), reverse=True)
-print('loudest 400 ms windows (dB, start):', [(round(v, 1), round(tm, 2)) for v, tm in ml[:6]])
+print('loudest 400 ms windows (dB rms, start):', [(round(v, 1), round(tm, 2)) for v, tm in ml[:6]])
+mom = sorted(((sd.loudness(x[int(T * SR):int(T * SR) + b_]), T) for T in sorted(SYNC) if T < 61), reverse=True)[:6]
+print('momentary loudness (K-weighted, 400 ms) after each listed time, loudest first:', [(round(T, 1), round(v, 1)) for v, T in mom])

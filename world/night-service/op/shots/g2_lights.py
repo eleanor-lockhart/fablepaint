@@ -65,6 +65,12 @@ def lamp_cone(img, j):
     cone = C.comp.feather(C.draw.raster([np.array([(760, -10), (840, -10), (1010, C.H), (590, C.H)])], C.W, C.H), 18)
     return C.light(img, cone * .5, '#ffd9a0', .3 * hit(j, 2.2))
 
+def cab(img, j):
+    """The lookout's lit window behind her head, so the binoculars are cut out against it."""
+    pane = C.comp.subtract(C.draw.rect(C.W, C.H, 560, 96, 1130, 452), C.draw.rect(C.W, C.H, 842, 96, 852, 452))
+    img = C.light(img, pane, '#f0c070', .62 * hit(j, 1.7))
+    return C.draw.paint(img, C.comp.subtract(C.draw.rect(C.W, C.H, 548, 84, 1142, 464), C.draw.rect(C.W, C.H, 560, 96, 1130, 452)), '#0a0e17')
+
 _S = C.CAST
 ORRIN = dict(_S['keeper']['pose'], head=-14, lean=4)
 RED_UP = dict(_S['red']['pose'], shN=100, elN=20)
@@ -74,7 +80,7 @@ def frame(i):
     cut, j = divmod(i, 6)
     if cut == 0: return minder('keeper', j, False, ORRIN, beam)
     if cut == 1: return lens(j)
-    if cut == 2: return minder('marisol', j, True)
+    if cut == 2: return minder('marisol', j, True, None, cab)
     if cut == 3: return finder(j, i)
     if cut == 4: return minder('red', j, False, RED_UP, red_rain)
     if cut == 5: return board(j)

@@ -12,3 +12,15 @@
 3. **Second run, leaner**: the director animated `a_open`, `g1_walk`, `g2_lights` and kept `h_lineup`; one agent
    took the two introduction units, one the four units of the Continuity / No. 4 thread, one the theme. Each got a
    cheat sheet in place of the manuals and a budget of looks.
+4. **Delivery.** The composer's theme passed every measurement in its brief (-14.1 LUFS, true peak -1.0 dB, the break
+   at -82 dB, an onset within 4 ms of every sync time). The two animators delivered six units with honest lists of
+   what was weak. First assembly: `build.py` renders all 744 poses through one master pass and puts the theme under it.
+5. **Sync check** (`sync_check.py`, written because nobody here can watch it with the sound on). For each of 52
+   sync points it measures what the picture did on that pose against its neighbours and what the sound did at that
+   instant. First assembly: 39 land in both, none in neither. It found two real misses: Dee's punch was buried in
+   the motion of a crowded queue, and the camera arrived on No. 4's head at 36.0 s with a crash in the music and
+   nothing in the picture.
+6. **Director's pass**, four small fixes: the name card's rule now fits the name (VESPER LANG overran it); the
+   eye is struck when the tilt lands; the montage's Marisol got the cab's lit window behind her; Dee's queue was
+   thinned and the punch struck. Second assembly: 40 of 52 in both. Dee's four punches still do not register as
+   picture accents by the numbers; by eye the lit chad carries them.

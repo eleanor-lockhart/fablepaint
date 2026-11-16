@@ -1,0 +1,681 @@
+{
+ "points": [
+  {
+   "t": 2.0,
+   "pose": 24,
+   "what": "punch: window 1",
+   "picture_change": 0.0916,
+   "picture_vs_neighbours": 50.0,
+   "picture_lands": true,
+   "sound_onset": 3.7,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 2.5,
+   "pose": 30,
+   "what": "punch: window 2",
+   "picture_change": 0.046,
+   "picture_vs_neighbours": 24.4,
+   "picture_lands": true,
+   "sound_onset": 4.3,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 3.0,
+   "pose": 36,
+   "what": "punch: window 3",
+   "picture_change": 0.0836,
+   "picture_vs_neighbours": 44.1,
+   "picture_lands": true,
+   "sound_onset": 4.7,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 3.5,
+   "pose": 42,
+   "what": "punch: window 4",
+   "picture_change": 0.1229,
+   "picture_vs_neighbours": 65.1,
+   "picture_lands": true,
+   "sound_onset": 4.6,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 4.0,
+   "pose": 48,
+   "what": "TITLE HIT",
+   "picture_change": 0.505,
+   "picture_vs_neighbours": 166.9,
+   "picture_lands": true,
+   "sound_onset": 6.6,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 6.0,
+   "pose": 72,
+   "what": "tagline",
+   "picture_change": 0.0051,
+   "picture_vs_neighbours": 1.7,
+   "picture_lands": false,
+   "sound_onset": 6.5,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 10.0,
+   "pose": 120,
+   "what": "lamp starts to sink",
+   "picture_change": 0.7805,
+   "picture_vs_neighbours": 9.8,
+   "picture_lands": true,
+   "sound_onset": 3.4,
+   "sound_offset_ms": 10,
+   "sound_lands": true
+  },
+  {
+   "t": 11.0,
+   "pose": 132,
+   "what": "lamp flares",
+   "picture_change": 0.8827,
+   "picture_vs_neighbours": 44.6,
+   "picture_lands": true,
+   "sound_onset": 3.1,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 12.5,
+   "pose": 150,
+   "what": "Dee punch",
+   "picture_change": 0.2406,
+   "picture_vs_neighbours": 0.9,
+   "picture_lands": false,
+   "sound_onset": 4.6,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 13.5,
+   "pose": 162,
+   "what": "Dee punch",
+   "picture_change": 0.2554,
+   "picture_vs_neighbours": 0.9,
+   "picture_lands": false,
+   "sound_onset": 7.1,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 14.5,
+   "pose": 174,
+   "what": "Dee punch",
+   "picture_change": 0.1085,
+   "picture_vs_neighbours": 0.9,
+   "picture_lands": false,
+   "sound_onset": 4.6,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 15.5,
+   "pose": 186,
+   "what": "Dee punch",
+   "picture_change": 0.1081,
+   "picture_vs_neighbours": 1.0,
+   "picture_lands": false,
+   "sound_onset": 5.4,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 16.5,
+   "pose": 198,
+   "what": "light leaves the house",
+   "picture_change": 0.4306,
+   "picture_vs_neighbours": 150.2,
+   "picture_lands": true,
+   "sound_onset": 4.0,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 18.0,
+   "pose": 216,
+   "what": "cut: Marisol close",
+   "picture_change": 0.5285,
+   "picture_vs_neighbours": 9.3,
+   "picture_lands": true,
+   "sound_onset": 4.5,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 21.5,
+   "pose": 258,
+   "what": "mast drops to green",
+   "picture_change": 0.2813,
+   "picture_vs_neighbours": 2.2,
+   "picture_lands": true,
+   "sound_onset": 0.9,
+   "sound_offset_ms": 5,
+   "sound_lands": false
+  },
+  {
+   "t": 22.0,
+   "pose": 264,
+   "what": "cut: Red close",
+   "picture_change": 0.4452,
+   "picture_vs_neighbours": 2.9,
+   "picture_lands": true,
+   "sound_onset": 1.0,
+   "sound_offset_ms": 5,
+   "sound_lands": false
+  },
+  {
+   "t": 24.0,
+   "pose": 288,
+   "what": "pre-chorus: the crossing",
+   "picture_change": 0.5044,
+   "picture_vs_neighbours": 3.8,
+   "picture_lands": true,
+   "sound_onset": 0.8,
+   "sound_offset_ms": 5,
+   "sound_lands": false
+  },
+  {
+   "t": 26.0,
+   "pose": 312,
+   "what": "cut: heron",
+   "picture_change": 0.3412,
+   "picture_vs_neighbours": 6.0,
+   "picture_lands": true,
+   "sound_onset": 0.0,
+   "sound_offset_ms": 10,
+   "sound_lands": false
+  },
+  {
+   "t": 27.0,
+   "pose": 324,
+   "what": "heron blinks",
+   "picture_change": 0.0703,
+   "picture_vs_neighbours": 1.5,
+   "picture_lands": false,
+   "sound_onset": 2.9,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 28.0,
+   "pose": 336,
+   "what": "cut: Lang",
+   "picture_change": 0.4629,
+   "picture_vs_neighbours": 17.1,
+   "picture_lands": true,
+   "sound_onset": 0.0,
+   "sound_offset_ms": -45,
+   "sound_lands": false
+  },
+  {
+   "t": 28.5,
+   "pose": 342,
+   "what": "Lang tap 1",
+   "picture_change": 0.4619,
+   "picture_vs_neighbours": 80.4,
+   "picture_lands": true,
+   "sound_onset": 3.3,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 29.0,
+   "pose": 348,
+   "what": "Lang tap 2",
+   "picture_change": 0.4439,
+   "picture_vs_neighbours": 76.3,
+   "picture_lands": true,
+   "sound_onset": 3.9,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 29.5,
+   "pose": 354,
+   "what": "Lang tap 3",
+   "picture_change": 0.3918,
+   "picture_vs_neighbours": 66.8,
+   "picture_lands": true,
+   "sound_onset": 4.2,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 30.0,
+   "pose": 360,
+   "what": "Lang tap 4",
+   "picture_change": 0.4125,
+   "picture_vs_neighbours": 24.6,
+   "picture_lands": true,
+   "sound_onset": 4.5,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 30.5,
+   "pose": 366,
+   "what": "Lang tap 5",
+   "picture_change": 0.4142,
+   "picture_vs_neighbours": 25.4,
+   "picture_lands": true,
+   "sound_onset": 4.9,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 31.0,
+   "pose": 372,
+   "what": "Lang tap 6",
+   "picture_change": 0.3758,
+   "picture_vs_neighbours": 72.3,
+   "picture_lands": true,
+   "sound_onset": 4.8,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 32.0,
+   "pose": 384,
+   "what": "BREAK: black",
+   "picture_change": 0.9749,
+   "picture_vs_neighbours": 405.1,
+   "picture_lands": true,
+   "sound_onset": 4.0,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 33.0,
+   "pose": 396,
+   "what": "cold eye opens",
+   "picture_change": 0.465,
+   "picture_vs_neighbours": 244.5,
+   "picture_lands": true,
+   "sound_onset": 2.1,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 34.0,
+   "pose": 408,
+   "what": "CHORUS: No. 4",
+   "picture_change": 0.6026,
+   "picture_vs_neighbours": 3.7,
+   "picture_lands": true,
+   "sound_onset": 7.5,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 36.0,
+   "pose": 432,
+   "what": "tilt lands",
+   "picture_change": 0.199,
+   "picture_vs_neighbours": 2.2,
+   "picture_lands": true,
+   "sound_onset": 7.9,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 38.0,
+   "pose": 456,
+   "what": "cut: the pod",
+   "picture_change": 0.8152,
+   "picture_vs_neighbours": 13.1,
+   "picture_lands": true,
+   "sound_onset": 4.5,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 41.5,
+   "pose": 498,
+   "what": "CABLE SNAPS",
+   "picture_change": 0.9277,
+   "picture_vs_neighbours": 2.0,
+   "picture_lands": true,
+   "sound_onset": 11.4,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 42.0,
+   "pose": 504,
+   "what": "cut: the walk",
+   "picture_change": 0.7965,
+   "picture_vs_neighbours": 3.3,
+   "picture_lands": true,
+   "sound_onset": 6.4,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 46.0,
+   "pose": 552,
+   "what": "cut 1",
+   "picture_change": 0.8022,
+   "picture_vs_neighbours": 9.0,
+   "picture_lands": true,
+   "sound_onset": 7.2,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 46.5,
+   "pose": 558,
+   "what": "cut 2",
+   "picture_change": 0.6824,
+   "picture_vs_neighbours": 218.9,
+   "picture_lands": true,
+   "sound_onset": 8.5,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 47.0,
+   "pose": 564,
+   "what": "cut 3",
+   "picture_change": 0.5461,
+   "picture_vs_neighbours": 166.7,
+   "picture_lands": true,
+   "sound_onset": 7.7,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 47.5,
+   "pose": 570,
+   "what": "cut 4",
+   "picture_change": 0.4461,
+   "picture_vs_neighbours": 4.2,
+   "picture_lands": true,
+   "sound_onset": 8.1,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 48.0,
+   "pose": 576,
+   "what": "cut 5",
+   "picture_change": 0.3273,
+   "picture_vs_neighbours": 3.1,
+   "picture_lands": true,
+   "sound_onset": 7.3,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 48.5,
+   "pose": 582,
+   "what": "cut 6",
+   "picture_change": 0.4031,
+   "picture_vs_neighbours": 133.6,
+   "picture_lands": true,
+   "sound_onset": 8.4,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 49.0,
+   "pose": 588,
+   "what": "cut 7",
+   "picture_change": 0.4381,
+   "picture_vs_neighbours": 5.3,
+   "picture_lands": true,
+   "sound_onset": 7.7,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 49.5,
+   "pose": 594,
+   "what": "cut 8",
+   "picture_change": 0.6505,
+   "picture_vs_neighbours": 3.8,
+   "picture_lands": true,
+   "sound_onset": 8.6,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 50.0,
+   "pose": 600,
+   "what": "cut: No. 4 head",
+   "picture_change": 0.8479,
+   "picture_vs_neighbours": 6.8,
+   "picture_lands": true,
+   "sound_onset": 5.0,
+   "sound_offset_ms": -10,
+   "sound_lands": true
+  },
+  {
+   "t": 50.5,
+   "pose": 606,
+   "what": "eye turns green",
+   "picture_change": 0.2101,
+   "picture_vs_neighbours": 11.6,
+   "picture_lands": true,
+   "sound_onset": 2.2,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 52.0,
+   "pose": 624,
+   "what": "WINDOW OPENS",
+   "picture_change": 0.4531,
+   "picture_vs_neighbours": 2.0,
+   "picture_lands": false,
+   "sound_onset": 6.7,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 54.0,
+   "pose": 648,
+   "what": "lineup: Orrin",
+   "picture_change": 0.7899,
+   "picture_vs_neighbours": 260.9,
+   "picture_lands": true,
+   "sound_onset": 5.6,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 54.5,
+   "pose": 654,
+   "what": "Red",
+   "picture_change": 0.1208,
+   "picture_vs_neighbours": 38.1,
+   "picture_lands": true,
+   "sound_onset": 6.3,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 55.0,
+   "pose": 660,
+   "what": "Dee",
+   "picture_change": 0.1569,
+   "picture_vs_neighbours": 49.6,
+   "picture_lands": true,
+   "sound_onset": 6.8,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 55.5,
+   "pose": 666,
+   "what": "Marisol",
+   "picture_change": 0.1477,
+   "picture_vs_neighbours": 47.3,
+   "picture_lands": true,
+   "sound_onset": 7.1,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 56.0,
+   "pose": 672,
+   "what": "Passenger",
+   "picture_change": 0.1443,
+   "picture_vs_neighbours": 46.0,
+   "picture_lands": true,
+   "sound_onset": 7.8,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 56.5,
+   "pose": 678,
+   "what": "Lang",
+   "picture_change": 0.3359,
+   "picture_vs_neighbours": 107.8,
+   "picture_lands": true,
+   "sound_onset": 6.7,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 57.0,
+   "pose": 684,
+   "what": "No. 4, far off",
+   "picture_change": 0.176,
+   "picture_vs_neighbours": 56.9,
+   "picture_lands": true,
+   "sound_onset": 4.0,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 58.0,
+   "pose": 696,
+   "what": "END CARD",
+   "picture_change": 0.8325,
+   "picture_vs_neighbours": 298.9,
+   "picture_lands": true,
+   "sound_onset": 6.3,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  }
+ ],
+ "both": 40,
+ "picture_only": [
+  21.5,
+  22.0,
+  24.0,
+  26.0,
+  28.0
+ ],
+ "sound_only": [
+  6.0,
+  12.5,
+  13.5,
+  14.5,
+  15.5,
+  27.0,
+  52.0
+ ],
+ "neither": [],
+ "total": 52,
+ "unlisted_picture_changes": [
+  {
+   "pose": 499,
+   "t": 41.58,
+   "picture_change": 0.8954,
+   "on_beat": false
+  },
+  {
+   "pose": 144,
+   "t": 12.0,
+   "picture_change": 0.8724,
+   "on_beat": true
+  },
+  {
+   "pose": 123,
+   "t": 10.25,
+   "picture_change": 0.8015,
+   "on_beat": false
+  },
+  {
+   "pose": 616,
+   "t": 51.33,
+   "picture_change": 0.8009,
+   "on_beat": false
+  },
+  {
+   "pose": 617,
+   "t": 51.42,
+   "picture_change": 0.7998,
+   "on_beat": false
+  },
+  {
+   "pose": 618,
+   "t": 51.5,
+   "picture_change": 0.7985,
+   "on_beat": true
+  },
+  {
+   "pose": 420,
+   "t": 35.0,
+   "picture_change": 0.7957,
+   "on_beat": true
+  },
+  {
+   "pose": 615,
+   "t": 51.25,
+   "picture_change": 0.7952,
+   "on_beat": false
+  },
+  {
+   "pose": 619,
+   "t": 51.58,
+   "picture_change": 0.7916,
+   "on_beat": false
+  },
+  {
+   "pose": 614,
+   "t": 51.17,
+   "picture_change": 0.7695,
+   "on_beat": false
+  },
+  {
+   "pose": 421,
+   "t": 35.08,
+   "picture_change": 0.76,
+   "on_beat": false
+  },
+  {
+   "pose": 480,
+   "t": 40.0,
+   "picture_change": 0.7538,
+   "on_beat": true
+  },
+  {
+   "pose": 422,
+   "t": 35.17,
+   "picture_change": 0.731,
+   "on_beat": false
+  },
+  {
+   "pose": 613,
+   "t": 51.08,
+   "picture_change": 0.712,
+   "on_beat": false
+  }
+ ]
+}

@@ -91,5 +91,6 @@ def frame(i):
     if i < 48:
         off = 1000.0 * (1 - C.ease((i - 24) / 24.0, 'inout'))
         return scene(off, i, eye_k(i))
-    img = C.light(HOLD.copy(), EYE_M, C.COLD, eye_k(i))
+    k = (26.0, 16.0)[i - 48] if i < 50 else eye_k(i)             # director's pass: the camera arrives ON the hit, so the eye is struck
+    img = C.light(HOLD.copy(), EYE_M, C.COLD, k)
     return card(img, C.clamp01((i - 48) / 16.0))
