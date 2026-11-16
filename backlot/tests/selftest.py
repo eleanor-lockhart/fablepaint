@@ -78,3 +78,18 @@ _p = _sync.pops([], _d, fps=12); _a, _st = _sync.travel(_d)
 assert [q['frame'] for q in _p] == [13], f'sync.pops should find exactly the slab on frame 13: {_p}'
 assert abs(_st['max_step'] - 5.0) < 1.0, f'sync.travel measured {_st}'
 print('sync.pops and sync.travel measure what they should')
+
+# backlot.space: the horizon is the eye; size goes as one over distance; the almanac finds an eclipse
+from backlot import space as _sp
+from datetime import datetime as _dt
+import math as _m
+_c = _sp.Camera(eye=(0, 0, 1.7), az=270, lens=35)
+assert abs(_c.horizon() - 360) < 1e-6 and abs(_c.place((-20, 0, 0), 1.7)['top'] - 360) < 1e-6, 'a level camera should put the horizon through the head of someone its own height'
+assert abs(_c.place((-10, 0, 0), 1.7)['px'] / _c.place((-20, 0, 0), 1.7)['px'] - 2) < 1e-6, 'twice as far should be half as tall'
+_mn = _sp.moon(_dt(2024, 4, 8, 18, 17, 16), 25.29, -104.14)
+_sep = _m.degrees(_m.acos(float(_sp.direction(_mn['az'], _mn['alt']) @ _sp.direction(_mn['sun']['az'], _mn['sun']['alt']))))
+assert _sep < .5 and _mn['lit'] < .01, f'the almanac should put the moon on the sun at the 2024 eclipse: {_sep}'
+_S = _sp.Set('test'); _S.box('near', (-10, -9), (-1, 1), (0, 2)); _S.box('far', (-30, -29), (-3, 3), (0, 6))
+_p = _sp.render(_S, _c, ss=1); _mid = _p['solid'][340, 640]
+assert _p['names'][_mid] == 'near' and abs(_p['depth'][340, 640] - 9.0) < .05, 'the nearer box should hide the farther one, nine metres off'
+print('space: horizon, scale, hidden surfaces and the almanac are right')

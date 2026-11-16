@@ -45,8 +45,11 @@ window was warm) and Continuity alone is cold; Continuity's light is a strip. Th
 7. **A prop has one model,** in the kit, before production starts: the Tern Point lens, the fire finder, the
    punch and its chad (the chad is the colour of the ticket it came from), the Board, the cable (as thick as a
    ferry's funnel, a jointed hose, with the light travelling inside it), No. 4.
-8. **A place has one model** (`places/`, from the spatial study on). The moon is in one place in the sky for
-   one night, No. 4 is forty metres tall in every shot, and a camera position is a point on a plan.
+8. **A place has one model** (`places/`; Ebb Landing is the first). A camera is a point on its plan with an
+   eye height and a lens. The moon comes from the almanac: the night is 20 November 2026, the boat sails at
+   1:35 with a three-quarter moon 8.5 degrees above due west, and it sets at 2:32. No. 4 is forty metres,
+   which is twenty-four Dees. A moon as big as a person needs a 1,500 mm lens from 300 metres with the moon on
+   the horizon, and then there is no water in the frame; with any ordinary lens the moon is a coin.
 9. **Cards never type over the action they name.** The name arrives after the gesture has finished.
 10. **A light event waits for the eye.** Not in the first second of a shot. Dim what competes with it, and
     hold the result for at least a second.
@@ -85,5 +88,6 @@ be rebuilt.
 ## Changelog
 
 - v1: the paragraph in `README.md` and the bible's "What it looks like".
+- v2.1: rule 8 filled in from the space study (the night, the moon, No. 4's size, what a giant moon costs).
 - v2: after the opening. The light code as a table with shape and behaviour as well as colour; the dead made
   warm and Continuity made a strip; thirteen rules; the faults list from the review and the cold reading.

@@ -39,6 +39,7 @@ converted on the way in. Values above 1.0 are normal until `lab.tonemap` brings 
 | `ear` | the listening room | `report(wav, out.jpg)` `measure` `ffmpeg_loudness`; calibrate with `backlot/tests/eartest.py` |
 | `sync` | picture against sound, accidents, camera speed | `check(points, frames, wav)` `events(points, frames, out)` `pops` `travel` |
 | `reader` | the cold reader: what does the picture say to a stranger | `pack_film(frames, questions, intent)` `pack_stills(images, task)` |
+| `space` | places in metres: one model, drawn and photographed | `Set` (`box` `prism` `cylinder` `hexa` `gable` `tube` `card` `face`), `drawing(S, 'plan')`, `Camera(eye, az=, lens=)` `.place` `.sky` `.horizon`, `render` `positions` `pools` `matte`, `moon(when, lat, lon)`, `blender_check` |
 | `model` | the bridge to Blender | `Spec(...)` with `.material` `.sheet` `.panel` `.light` `.haze` `.camera` `.key` `.render`; `passes(exr)` |
 
 ## How a shot is put together
@@ -106,6 +107,25 @@ twos (`anim.on(i)`) but move the camera on ones.
 **Measuring what it says.** None of the above can tell you whether a stranger understands the piece, and
 neither can you: you know what it means. `reader.pack_film` puts every frame on numbered sheets in an empty
 folder outside the repository with a prompt, sealed questions and the protocol. Write your own verdict first.
+
+## A place (backlot.space)
+
+```python
+from backlot import space as sp
+S = sp.Set('the dock')                                     # metres; x east, y north, z up
+S.box('deck', (-90, 0), (-6, 6), (4.4, 5.0), kind='deck'); S.cylinder('pile', (-30, 5), .2, -6, 4.4, kind='pile')
+S.card('heron', polys, (-178, 16, 6), heading=200, metres=1.15)     # a paper cut-out standing in the world
+sp.drawing(S, 'plan', 'plan.svg', scale=6, cameras=[cam])           # also 'from_south' ...; cut= for a section
+cam = sp.Camera(eye=(-30, 0, 6.6), az=270, lens=28)                 # where it stands, which way, what lens
+p = sp.render(S, cam, light=sp.direction(265, 12), lit=2.6)         # img, depth, solid, normal, line
+m = sp.moon(datetime(2026, 11, 20, 9, 35), 47.6, -122.5)            # az, alt, lit, diameter (UTC in)
+x, y, r = cam.sky(m['az'], m['alt'], m['diameter'])                 # where the moon is in this frame, and how big
+```
+
+Rules of thumb worth more than the tool: the focal length in pixels is `width * mm / 36`; a thing's size on
+screen is that times its size over its distance; the moon is that over 110. `blender_check(S, cam)` renders the
+same set with Blender's camera and reports how many pixels agree. A worked place, with plans, a lens sheet and
+a film: `world/night-service/places/`.
 
 ## Finishing a frame with figures in it
 

@@ -7,6 +7,7 @@
     figure  a jointed human in profile                   sound   synthesis, mixing, mastering
     score   notes, chords, sequences                     ear     the listening room: sound as pictures and numbers
     sync    is the picture on the music; pops; camera speed  reader  the cold reader: what does the picture say
+    space   places in metres: plan, elevation, a real lens, the real moon
 """
-from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear, sync, reader
+from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear, sync, reader, space
 from .core import load, save, canvas, col, lum, resize, flat, read_exr

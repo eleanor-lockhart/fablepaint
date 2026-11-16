@@ -31,6 +31,19 @@ First place: **Ebb Landing**, because the opening's three spatial questions live
 big is No. 4 beside a person, what does a camera see moving along the pier). Then Tern Point, the tower on
 Mount Vesper and the *Kittiwake*'s car deck.
 
+State after the first stretch (journal entries 0 to 2):
+
+- [x] the tool (`backlot/space.py`), checked against Blender's camera (99.98% of pixels) and a real eclipse
+- [x] Ebb Landing as one model: plans, elevations, a section, a size sheet, three cameras, a lens sheet
+- [x] think it out: by feel 11% of the frame and a factor of 1.8; with four rules 0.1% and within 10%
+- [x] one sky: the night is 20 November 2026; the moon comes from the almanac in every frame
+- [x] a tracking shot on ones under the strobe limit, and the giant-moon shot with its true lens ("Two lenses")
+- [ ] it reads: a cold reader lists what is where from three frames
+- [ ] cast shadows (let Blender light the same set); surfaces with more than one texture; a hill that is not steps
+- [ ] a crane and a push-in; a figure walking toward the lens (waits for a turnaround from the bones study)
+- [ ] Tern Point, Mount Vesper, the car deck
+- [ ] one picture of a place that is finished, not only correct
+
 ## Next: study 3, bones
 
 Research how rigs are built and driven (hierarchies, FK and IK, constraints, skinning and deformation, curves,

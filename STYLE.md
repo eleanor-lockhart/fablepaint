@@ -1,6 +1,6 @@
 # The house style
 
-Version 1. Written after three prints (Lit Window), two paper boxes (Paperlight), a cast of six on a rig, and
+Version 1.1. Written after three prints (Lit Window), two paper boxes (Paperlight), a cast of six on a rig, and
 one minute of film with music (the NIGHT SERVICE opening) that an outside critic scored 5 out of 10.
 
 This is what holds across all of it. Each style has its own `STYLE.md` on top of this one and may break a rule
@@ -67,8 +67,12 @@ chop that signs the prints: a vermilion square with one lit window in it.
     at twice. Anything left to be redrawn each time comes back different. (NS: the lens, the fire finder, the
     chad and the moon each came back three ways)
 13. **Where things are on screen is a result, not a choice.** Choose where the camera stands, how high, and
-    what lens it carries. The horizon, every size and every overlap follow from that. (New, and unproven: the
-    subject of the spatial study. Until now I chose pixel positions by feel.)
+    what lens it carries. The horizon, every size and every overlap follow from that. Measured: placing things
+    by feel I was off by a tenth of the frame and a factor of two in size, as if my hand had one lens of about
+    50 mm. Four rules fix it (the focal length in pixels is 35.6 times the millimetres; size is that times
+    height over distance; the horizon moves by that times the tangent of the tilt; the moon is that over 110).
+    And the place knows things the picture does not: where a camera cannot stand, what is in the way, which
+    night it is. (`studies/space/JOURNAL.md`)
 14. **Hide what you cannot draw; show what you measured.** (LW 16)
 15. **Get the small true things right.** Which side light a vessel shows, how thick the cable is, where the
     smoke goes. A thing's proportions are its identity: a cable drawn thin is a spear. (LW 17; NS)
@@ -78,7 +82,9 @@ chop that signs the prints: a vermilion square with one lit window in it.
 16. **One reason to move.** One light that changes or one mechanism that works; everything else holds or
     drifts. (PL 6)
 17. **Drawings on twos, the camera on ones.** A held drawing is a style. A camera, a slide or rain stepping
-    twelve times a second is a strobe. (NS: a tilt stepped 115 pixels a pose)
+    twelve times a second is a strobe: keep a move under 0.6% of the frame's width per frame. And a drawing
+    held on twos slips against a camera that moves on ones, so whatever must stay registered to a moving
+    camera (a walker in a tracking shot) goes on ones too. (NS: a tilt stepped 115 pixels a pose; space study)
 18. **An action has three parts that can each be counted:** it prepares, it happens, it settles. Nothing that
     matters takes less than half a second, and a reversal shorter than four poses is a flicker, not an act.
     (NS: a man falling asleep was given six poses, and his one-pose "catch" reads as a lamp fault)
@@ -143,11 +149,13 @@ chop that signs the prints: a vermilion square with one lit window in it.
 
 ## What this style cannot do yet
 
-Space (everything is square-on, from the side), bones (one mannequin, no hands, nothing hangs), and finish
-(figures that hold up close: faces, texture, costume). Those are the three studies in `ROADMAP.md`, in that
-order, each with a test.
+Space is begun: one place is modelled and can be seen through any lens, but people in it are still side-on
+paper cards. Bones (one mannequin, no hands, nothing hangs) and finish (figures that hold up close: faces,
+texture, costume) are not begun. Those are the three studies in `ROADMAP.md`, in that order, each with a test.
 
 ## Changelog
 
+- v1.1: after the first stretch of the space study. Rule 13 has its evidence and its four rules of thumb;
+  rule 17 gains the strobe limit and "twos slip against a moving camera".
 - v1: first written down. Rules gathered from Lit Window v3, Paperlight v2 and the opening's review; rules 3,
   4, 12, 13, 17 to 22, 25 and 26 are new with the opening. The method gains steps 3 and 6 and the table.
