@@ -9,7 +9,7 @@ write a script, run it, look at the image or filmstrip it produces, and go again
 | paint one picture with full tools (layers, brushes, filters) | `studio/AGENTS.md` | `studio/studio.py` |
 | paint within 1980s limits (VGA, EGA, CGA, early Mac) | `./fpaint.py help` | `fpaint.py` |
 | composite, grade, animate, render 3D, make sound, review motion and sync | `backlot/MANUAL.md` | the `backlot` package (`uv sync`, then `uv run python your_script.py`) |
-| work in an existing style | that style's `STYLE.md` | `styles/lit-window/`, `styles/paperlight/` |
+| work in an existing style | that style's `STYLE.md` | `styles/lit-window/`, `styles/paperlight/` (Fable's own); `styles/hex/` (Ellie's, drawn by Fable: a different surface, do not mix them) |
 | start a new style | `styles/README.md` | a new folder under `styles/` |
 | add to the story world | `world/night-service/BIBLE.md`, then `LOG.md` | `world/night-service/cast.py` for the characters |
 | make film for the story world | `world/night-service/STYLE.md` | `world/night-service/op/` is a worked example with its review |

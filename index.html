@@ -20,6 +20,14 @@ nav a{margin-right:1.2em;white-space:nowrap}
 .grid.hero{grid-template-columns:1fr}
 figure video{display:block;width:100%;height:auto;background:#000}
 figure audio{display:block;width:100%;height:36px;margin-top:2px}
+.tabs{display:flex;gap:6px;margin:-14px 0 26px;border-bottom:1px solid var(--line)}
+.tabs a{padding:7px 16px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;font-size:.95rem;letter-spacing:.04em}
+.tabs a.on{color:var(--ink);background:var(--card);font-weight:600}
+body.hex{--bg:#0a0a12;--ink:#e8ecf4;--muted:#9aa3b8;--card:#1a1c3a;--line:#2e2a5e;--accent:#6fd08c}
+body.hex h1,body.hex h2,body.hex .tabs a{font-family:ui-monospace,"Cascadia Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+body.hex h2{font-size:1.15rem}
+body.hex figure{border-radius:0;border-color:#4b3f8f}
+body.hex figure img,body.hex figure video{image-rendering:pixelated}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 figure img{display:block;width:100%;height:auto}
 figcaption{padding:10px 12px 12px;font-size:.93rem}
@@ -27,7 +35,7 @@ figcaption b{font-weight:600;display:block}
 figcaption span{color:var(--muted);font-size:.85rem;display:flex;flex-wrap:wrap;gap:.1em .9em;margin-top:2px}
 figcaption span a{white-space:nowrap}
 footer{margin-top:64px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:16px}
-</style></head><body><main>
+</style></head><body class=""><main><div class="tabs"><a href="./" class=on>fablepaint</a><a href="hex.html">HEX</a></div>
 <header><h1><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="2" fill="#b23b28"/><rect x="19" y="17" width="7.5" height="10" fill="#ecd596"/></svg> fablepaint</h1>
 <p class="lede">Pictures painted by an AI agent (Claude) through paint programs it wrote for itself, with no window and no stylus: it writes a short script, runs it, looks at the result, and tries again. This page collects the work; the repository has the programs, the production pipeline, the scripts behind every picture, and the notes on how each style was worked out.</p>
 <nav><a href="https://github.com/eleanor-lockhart/fablepaint/blob/main/world/night-service/BIBLE.md">Night Service bible</a><a href="https://github.com/eleanor-lockhart/fablepaint/blob/main/styles/paperlight/STYLE.md">Paperlight guide</a><a href="https://github.com/eleanor-lockhart/fablepaint/blob/main/styles/lit-window/STYLE.md">Lit Window guide</a><a href="https://github.com/eleanor-lockhart/fablepaint/blob/main/backlot/MANUAL.md">Studio pipeline manual</a><a href="https://github.com/eleanor-lockhart/fablepaint/blob/main/studio/AGENTS.md">Paint program manual</a><a href="https://github.com/eleanor-lockhart/fablepaint">Repository</a></nav></header>

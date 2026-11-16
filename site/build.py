@@ -10,7 +10,7 @@ To publish a new picture, add it to SECTIONS below (or just push the file: every
 repo is reachable at  https://eleanor-lockhart.github.io/fablepaint/<path in repo>).
 Entries whose file does not exist yet are skipped, so it is safe to list work in progress.
 """
-import html, os
+import html, re, os
 from pathlib import Path
 from PIL import Image
 
@@ -112,6 +112,20 @@ SECTIONS = [
       ('gallery/desk.png', 'Desk at night', [('in the program', 'gallery/desk_in_fpaint.png'), ('time-lapse', 'gallery/desk_timelapse.gif')]),
       ('gallery/saturn.png', 'Saturn', [('in the program', 'gallery/saturn_in_fpaint.png'), ('time-lapse', 'gallery/saturn_timelapse.gif')])]),
 ]
+HEXPAL = ['#0a0a12', '#1a1c3a', '#2e2a5e', '#4b3f8f', '#18404a', '#2a7f6f', '#6fd08c', '#c8f08f', '#5a5f72', '#9aa3b8', '#e8ecf4', '#3a78d8', '#59d8f0', '#e0407a', '#f08a30', '#ffd870']
+HEXSEAL = '<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" fill="#0a0a12" stroke="#4b3f8f"/>' + ''.join(f'<rect x="{3 + (k % 4) * 7}" y="{3 + (k // 4) * 7}" width="6" height="6" fill="{c}"/>' for k, c in enumerate(HEXPAL)) + '</svg>'
+HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
+              '<p class="lede">A second studio in the same building. The style is Ellie Lockhart\'s: it is built from a statement of her artistic identity, for the account she posts from (@eleanor.lockhart.contact), and drawn by the same agent that makes everything else on this site. '
+              'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
+              f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
+HEX_SECTIONS = [
+    ('Stage 1: eight-bit drafts',
+     'Three stills and two loops at 320 by 180 in sixteen colours, shown at four times the size. Register F, the warm yellow, is reserved for a tended light and nothing else may use it. Only the witch is green. A crowd is one sprite, many times.',
+     [('styles/hex/stage1/fig2_watch.png', 'Fig. 2. GATE.EXE (it has sound: unmute it). The pointer tries ALLOW, then DENY, then finds the third button', [('mp4', 'styles/hex/stage1/fig2_gate_exe.mp4'), ('still', 'styles/hex/stage1/fig2_watch.png'), ('the tune (mp3)', 'styles/hex/stage1/fig2_gate_exe.mp3'), ('the tune, as the listening room sees it', 'styles/hex/stage1/fig2_gate_exe_tune.jpg'), ('code', blob('styles/hex/stage1.py'))], 'styles/hex/stage1/fig2_gate_exe.mp4'),
+      ('styles/hex/stage1/fig4_consensus_b.png', 'Fig. 4. Consensus, with one dissent. The rule: do what most of your neighbours do', [('mp4', 'styles/hex/stage1/fig4_consensus.mp4'), ('mid-way', 'styles/hex/stage1/fig4_consensus_a.png')], 'styles/hex/stage1/fig4_consensus.mp4'),
+      ('styles/hex/stage1/fig1_cast.png', 'Fig. 1. Persons of interest', [('the sprites, as text', blob('styles/hex/sprites.py'))]),
+      ('styles/hex/stage1/fig3_tenure.png', 'Fig. 3. The research vessel Tenure, and a posse', [('journal: what works and what does not', blob('styles/hex/journal.md'))])]),
+]
 DOCS = [('Night Service bible', blob('world/night-service/BIBLE.md')), ('Paperlight guide', blob('styles/paperlight/STYLE.md')), ('Lit Window guide', blob('styles/lit-window/STYLE.md')), ('Studio pipeline manual', blob('backlot/MANUAL.md')), ('Paint program manual', blob('studio/AGENTS.md')), ('Repository', REPO)]
 
 def thumb(rel):
@@ -145,6 +159,14 @@ nav a{margin-right:1.2em;white-space:nowrap}
 .grid.hero{grid-template-columns:1fr}
 figure video{display:block;width:100%;height:auto;background:#000}
 figure audio{display:block;width:100%;height:36px;margin-top:2px}
+.tabs{display:flex;gap:6px;margin:-14px 0 26px;border-bottom:1px solid var(--line)}
+.tabs a{padding:7px 16px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;font-size:.95rem;letter-spacing:.04em}
+.tabs a.on{color:var(--ink);background:var(--card);font-weight:600}
+body.hex{--bg:#0a0a12;--ink:#e8ecf4;--muted:#9aa3b8;--card:#1a1c3a;--line:#2e2a5e;--accent:#6fd08c}
+body.hex h1,body.hex h2,body.hex .tabs a{font-family:ui-monospace,"Cascadia Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+body.hex h2{font-size:1.15rem}
+body.hex figure{border-radius:0;border-color:#4b3f8f}
+body.hex figure img,body.hex figure video{image-rendering:pixelated}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 figure img{display:block;width:100%;height:auto}
 figcaption{padding:10px 12px 12px;font-size:.93rem}
@@ -155,15 +177,16 @@ footer{margin-top:64px;color:var(--muted);font-size:.86rem;border-top:1px solid 
 """
 SEAL = '<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="2" fill="#b23b28"/><rect x="19" y="17" width="7.5" height="10" fill="#ecd596"/></svg>'
 
-def main():
+def main(sections=None, out='index.html', hexpage=False):
     parts = []
-    for title, blurb, items in SECTIONS:
+    for title, blurb, items in (sections or SECTIONS):
         cards = []
         for item in items:
             rel, cap, extras = item[:3]; video = item[3] if len(item) > 3 else None; audio = item[4] if len(item) > 4 else None
             if not (ROOT / rel).exists():
                 continue
             t, w, h = thumb(rel)
+            if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
                 media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
@@ -175,6 +198,7 @@ def main():
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
             wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' hero' if title == 'Night Service' else ' big' if title in ('Paperlight', 'Sound', 'The studio (backlot)', 'Learning to draw and animate people') else ''
+            if hexpage: wide = ' big'
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>
@@ -188,8 +212,13 @@ def main():
 <footer>Reference prints and photographs used for study are third-party works under their own licences, listed in <a href="{blob('styles/lit-window/refs/SOURCES.md')}">styles/lit-window/refs/SOURCES.md</a>. Every file in the repository is also reachable directly under {SITE}.</footer>
 </main></body></html>
 """
-    (ROOT / 'index.html').write_text(page)
+    tabs = f'<div class="tabs"><a href="./"{"" if hexpage else " class=on"}>fablepaint</a><a href="hex.html"{" class=on" if hexpage else ""}>HEX</a></div>'
+    page = page.replace('<body><main>', f'<body class="{"hex" if hexpage else ""}"><main>{tabs}', 1)
+    if hexpage:
+        page = re.sub(r'<header>.*?</header>', lambda m: HEX_HEADER, page, count=1, flags=re.S).replace('<title>fablepaint</title>', '<title>HEX</title>')
+    (ROOT / out).write_text(page)
     (ROOT / '.nojekyll').write_text('')
-    print('index.html', len(page), 'bytes;', sum(1 for _ in (ROOT / 'site' / 'thumbs').glob('*.jpg')), 'thumbnails')
+    print(out, len(page), 'bytes;', sum(1 for _ in (ROOT / 'site' / 'thumbs').glob('*.jpg')), 'thumbnails')
 
 main()
+main(HEX_SECTIONS, 'hex.html', True)

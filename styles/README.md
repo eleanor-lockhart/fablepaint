@@ -7,6 +7,7 @@ What they share is in `../STYLE.md` (the house style); a style's own guide sits 
 |---|---|---|
 | [`lit-window/`](lit-window/) | colour woodblock prints of Pacific Northwest nights; flat pigments, one warm light | v3, three prints; git tag `lit-window-v3` |
 | [`paperlight/`](paperlight/) | boxes of cut paper lit from behind and within, built at true size in Blender, photographed and animated on twos | v1, in progress |
+| [`hex/`](hex/) | Ellie Lockhart's style, drawn by Fable: sixteen colours numbered 0 to F, a full frame, the rule left showing, a straight face. Has its own tab on the gallery | v0.1, stage 1 (eight-bit drafts) |
 
 ## What a style folder holds
 
