@@ -62,10 +62,11 @@ def onion(a, b, out=None, gain=1.0):
     img = np.dstack([s2l(A), s2l(B), s2l(B), np.ones_like(A)]).astype(F)
     return save(out, img) if out else img
 
-def motion_map(src, out=None, gain=6.0):
-    """Per-pixel change over time (standard deviation of brightness), as heat. Returns (path or image, stats)."""
+def motion_map(src, out=None, gain=6.0, soften=2.0):
+    """Per-pixel change over time (standard deviation of brightness), as heat. Returns (path or image, stats).
+    Frames are softened first so film grain is not counted as motion; soften=0 to count everything."""
     fr = _frames(src)
-    L = np.stack([l2s(lum(f)) for f in fr])
+    L = np.stack([cv2.GaussianBlur(l2s(lum(f)), (0, 0), soften) if soften else l2s(lum(f)) for f in fr])
     sd = L.std(0)
     heat = cv2.applyColorMap((np.clip(sd * gain, 0, 1) * 255).astype(np.uint8), cv2.COLORMAP_INFERNO)
     base = (np.clip(L.mean(0), 0, 1) * 90).astype(np.uint8)[..., None].repeat(3, 2)

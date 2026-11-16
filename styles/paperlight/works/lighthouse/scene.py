@@ -100,7 +100,7 @@ if __name__ == '__main__':
         def frame(i):
             return finish(model.passes(f'{OUT}/exr/f_{i + 1:04d}.exr')['image'], i)
         pat = anim.render(frame, N, OUT + '/frames', workers=10)
-        anim.encode(pat, 'styles/paperlight/works/lighthouse.mp4', fps=12, loops=3, crf=17)
+        anim.encode(pat, 'styles/paperlight/works/lighthouse.mp4', fps=12, loops=1, crf=21)
         screen.filmstrip(pat, OUT + '/strip.jpg', n=12, cols=4)
         _, mm = screen.motion_map(pat, OUT + '/motion.jpg')
         print('motion', {k: round(v, 3) for k, v in mm.items()}, 'seam', {k: round(v, 4) for k, v in screen.loop_seam(pat).items()})

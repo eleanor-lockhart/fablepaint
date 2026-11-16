@@ -87,7 +87,7 @@ uv run python -m backlot stats  frame.png                            # value mas
 ```
 
 `loop_seam` ratio near 1 means the loop point is no rougher than any other frame change.
-`motion_map` counts film grain as motion; judge it on ungrained frames if that matters.
+`motion_map` softens frames first so film grain does not count as motion.
 
 ## Things that will trip you
 

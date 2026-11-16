@@ -73,6 +73,37 @@ theatres did it. Paper that looks like paper because it is cloudy when lit from 
   designed for scissors: fewer, larger, cleaner lobes.
 - The left foreground is crumbs at the edge of frame.
 - The palette is the default sunset. It is pretty; it is not yet a decision.
+- The motion map (`site/assets/motion.jpg`) showed something I could not have seen in stills:
+  the strongest motion in the shot is the edge of the foreground fir, not the lamp. The camera
+  drifts 9 mm and the nearest sheet moves most. The witness is upstaging the subject. Halve
+  the drift next time, or keep the nearest sheet out of the drift's direction.
 
 **Tools.** The depth and index passes are noisy wherever the haze volume is: fine for a
 making-of sheet, not for compositing. Keep haze out of a shot that needs clean depth.
+
+## Entry 3. *Lookout box, snow falling* (`works/lookout.mp4`)
+
+One sentence: a fire lookout at blue hour with the stove lit; snow falls through the box.
+Nine sheets. This one was made to use the compositing desk properly: the snow is not in the
+render. It is 420 flakes in five bands of depth, laid into each frame against the render's
+depth pass, so a flake between the knoll and the trees is hidden by the knoll and passes in
+front of the trees, and flakes far from the plane of focus are larger and softer.
+
+**Three lightings before it worked.**
+1. A big cold light from the front. Every sheet went the same milky white, the layers
+   vanished, and the stove showed as an orange stain on the sheet behind the cab while the
+   windows themselves stayed dark.
+2. Footlights (a cold strip below the front edge), tracing paper behind the panes with the
+   stove behind that, and a card baffle behind the stove. Suddenly it was a paper box: each
+   snow sheet brightest at its foot, with the shadow of the sheet in front lying across it.
+   But it was daylight, and the baffle and tracing paper stuck out past the cab as rectangles.
+3. The same, at a third of the power and bluer, baffle and glazing cut smaller than the cab.
+
+So Paperlight has two lightings with opposite values, and I had only understood one.
+
+**Screening room.** Loop seam ratio 1.07. Almost nothing moves strongly (0.1% of the
+picture): it is a still picture with weather, which is what it should be.
+
+**What is wrong.** The flakes are identical discs falling straight down: closer to a
+screensaver than to snow. The distant firs are pale ghosts with broken trunks. The tower is
+white on pale and could be bolder. There is horizontal streaking in the sky sheet.

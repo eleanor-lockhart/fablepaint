@@ -71,7 +71,7 @@ def frame(i):
 
 if __name__ == '__main__':
     pat = anim.render(frame, N, OUT + '/frames', workers=10)
-    anim.encode(pat, str(HERE / 'last_boat_rain.mp4'), fps=12, loops=3, crf=18, scale='960:-2')
+    anim.encode(pat, str(HERE / 'last_boat_rain.mp4'), fps=12, loops=1, crf=21, scale='960:-2')
     screen.filmstrip(pat, OUT + '/strip.jpg', n=4, cols=4, cell_w=330)
     a, b = core.load(OUT + '/frames/f_0000.png'), core.load(OUT + '/frames/f_0001.png')
     screen.onion(a, b, OUT + '/onion.png')
