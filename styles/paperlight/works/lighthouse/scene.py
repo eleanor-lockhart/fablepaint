@@ -77,6 +77,7 @@ def build(frames=72, animate=True):
 def finish(img, i):
     """The lab pass every frame gets: lens, tone, film."""
     img = lab.exposure(img, -.15)
+    img = lab.bloom(img, r=22, strength=.6, threshold=9.0)       # only the lamp seen directly is this bright: the flash
     img = lab.bloom(img, r=14, strength=.16, threshold=2.2)
     img = lab.halation(img, r=9, strength=.22, threshold=3.0)
     img = lab.mist(img, r=36, amount=.10)

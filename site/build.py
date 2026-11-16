@@ -33,7 +33,8 @@ SECTIONS = [
     ('Lit Window',
      'A style developed on purpose: the inter-war Japanese colour woodblock idiom, applied to the Pacific Northwest at night. '
      'Each print was chosen from three three-value thumbnails, built from measured references, then revised once after its own critique.',
-     [('styles/lit-window/prints/p1_last_boat_v2.png', 'Last boat, rain', [('first pass', 'styles/lit-window/prints/p1_last_boat_v1.png'), ('thumbnails', 'styles/lit-window/prints/p1/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p1_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p1'))]),
+     [('styles/lit-window/motion/last_boat_rain_still.png', 'Last boat, rain, moving', [('loop (mp4)', 'styles/lit-window/motion/last_boat_rain.mp4'), ('script', blob('styles/lit-window/motion/last_boat.py'))], 'styles/lit-window/motion/last_boat_rain.mp4'),
+      ('styles/lit-window/prints/p1_last_boat_v2.png', 'Last boat, rain', [('first pass', 'styles/lit-window/prints/p1_last_boat_v1.png'), ('thumbnails', 'styles/lit-window/prints/p1/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p1_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p1'))]),
       ('styles/lit-window/prints/p2_lookout_v2.png', 'Lookout, first snow', [('first pass', 'styles/lit-window/prints/p2_lookout_v1.png'), ('thumbnails', 'styles/lit-window/prints/p2/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p2_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p2'))]),
       ('styles/lit-window/prints/p3_full_moon_v2.png', 'Full moon over the Sound', [('first pass', 'styles/lit-window/prints/p3_full_moon_v1.png'), ('thumbnails', 'styles/lit-window/prints/p3/00_notan.png'), ('time-lapse', 'styles/lit-window/prints/p3_timelapse.mp4'), ('scripts', tree('styles/lit-window/prints/p3'))])]),
     ('How the style was arrived at',
@@ -49,6 +50,12 @@ SECTIONS = [
     ('Cold-start test',
      'A fresh agent that never saw the style being developed, working only from the written guide.',
      [('styles/lit-window/transfer/t1_v2.png', 'Its print, revised', [('first pass', 'styles/lit-window/transfer/t1_v1.png'), ('thumbnails', 'styles/lit-window/transfer/t1_notan.png'), ('scripts', tree('styles/lit-window/transfer'))])]),
+    ('The studio (backlot)',
+     'The production pipeline built for this work: a model shop that cuts 2D patterns out of paper in Blender, a compositing desk, a lab for lens, film, print and screen finishes, an animation stand, and a screening room that turns motion into pictures an agent can read.',
+     [('styles/paperlight/works/lighthouse_making.jpg', 'How a box is made: cut patterns, passes, raw render, finished frame', []),
+      ('site/assets/finishes.jpg', 'Lab finishes on one frame: halftone, EGA dither, Game Boy, CRT, misregistered print', []),
+      ('site/assets/scopes.jpg', 'Screening room: histogram, waveform, vectorscope', []),
+      ('site/assets/filmstrip.jpg', 'Screening room: a loop as a filmstrip', [])]),
     ('Fable Studio',
      'Pictures from the full-featured headless paint program (studio/studio.py), painted before there was a method.',
      [('gallery/studio/aurora.png', 'Aurora', [('16-bit', 'gallery/studio/aurora_16bit.png'), ('time-lapse', 'gallery/studio/aurora_timelapse.mp4')]),
@@ -125,7 +132,7 @@ def main():
             cards.append(f'<figure>{media}'
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
-            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title == 'Paperlight' else ''
+            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title in ('Paperlight', 'The studio (backlot)') else ''
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>

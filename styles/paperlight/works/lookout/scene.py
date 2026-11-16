@@ -19,7 +19,8 @@ def build(animate=True):
     K.setup(1280, 720, 4.0, 70, seed=9)
     W, H = K.W, K.H
     S = model.Spec((W, H), ppm=K.PPM)
-    S.material('back', kind='emit', strength=2.6, axis='Z', stops=[[0, '#6fa0c0'], [.4, '#2f5a96'], [1, '#0a1440']])
+    S.material('back', kind='emit', strength=2.1, axis='Z', stops=[[0, '#7fb0d0'], [.4, '#2f5a9e'], [1, '#08123c']])
+    S.material('card', kind='card', color='#17181b')
     S.material('paper', kind='paper', color='#f4f1ea', translucency=.36, formation=.22, formation_scale=420)
     S.material('thin', kind='paper', color='#f6f2e8', translucency=.6, formation=.2, formation_scale=460)
     S.material('dark', kind='paper', color='#262c3c', translucency=.05, formation=0)
@@ -35,18 +36,23 @@ def build(animate=True):
     knoll = K.land([(-40, 500), (180, 470), (330, 420), (440, 398), (540, 400), (660, 440), (860, 486), (1320, 500)])
     tower, (wx, wy) = K.lookout(488, 402, h=250)
     S.sheet('knoll', K.sheet(knoll, tower, min_width=4), depth=38)
+    # tracing paper behind the cab windows, the stove behind that, and a card behind the stove so it does not flood the box
+    S.sheet('glazing', draw.rect(W, H, wx - 41, wy - 20, wx + 41, wy + 20), depth=39.6, material='thin', thickness=.12)
+    S.sheet('baffle', draw.rect(W, H, wx - 40, wy - 22, wx + 40, wy + 22), depth=46.5, material='card', thickness=.4)
     S.sheet('drift1', K.sheet(K.land([(-40, 520), (160, 532), (380, 500), (600, 512), (840, 540), (1060, 522), (1320, 536)])), depth=26)
     S.sheet('drift2', K.sheet(K.land([(-40, 584), (220, 560), (460, 578), (700, 556), (920, 574), (1120, 596), (1320, 580)])), depth=14)
     near = comp.union(K.land([(-40, 600), (170, 606), (330, 616), (520, 640), (1320, 660)]), comp.union(K.fir(238, 612, 520, 250), K.fir(1060, 640, 300, 150)))
     S.sheet('near', K.sheet(near, min_width=5), depth=0, material='dark', thickness=.6)
     sx, sz = mm(wx, wy)
-    S.light('stove', pos=(sx, 44, sz), type='point', power=.05, color='#ffab52', radius=2.5)
-    S.light('moon', pos=(-300, -360, 330), type='area', power=5.0, color='#a9c2ff', size=[160, 160], look=(0, 30, 0))
+    S.light('stove', pos=(sx, 43.5, sz), type='point', power=.045, color='#ffab52', radius=2.5)
+    # footlights, as in a toy theatre: a cold strip below the front edge, so the snow is brightest at the foot of each sheet
+    S.light('foot', pos=(0, -46, -74), type='area', power=.62, color='#8fb0ff', size=[300, 8], look=(0, 34, -18))
+    S.light('room', pos=(-280, -380, 300), type='area', power=.22, color='#9db8ff', size=[160, 160], look=(0, 30, 0))
     S.ambient('#141c30', .05)
     S.camera(pos=(0, -CAM, 0), look=(0, 40, 0), lens=85, fstop=4.0, focus=(0, 38, 0))
     if animate:
         ph = [((f - 1) / N) * 2 * math.pi for f in range(1, N + 1)]
-        S.key('stove', 'data.energy', [(f, float(.05 * (1 + .25 * anim.loop_noise((f - 1) / N, seed=3, harmonics=6)))) for f in range(1, N + 1)])
+        S.key('stove', 'data.energy', [(f, float(.045 * (1 + .25 * anim.loop_noise((f - 1) / N, seed=3, harmonics=6)))) for f in range(1, N + 1)])
         S.key('cam', 'location', [(f, [6.0 * math.sin(p), -CAM, 2.0 * math.sin(2 * p)]) for f, p in zip(range(1, N + 1), ph)])
     return S, (wx, wy)
 
@@ -87,8 +93,8 @@ def snow(image, depth, i, window_xy=None):
     return out
 
 def finish(img, i):
-    img = lab.exposure(img, .1)
-    img = lab.bloom(img, r=12, strength=.14, threshold=2.0)
+    img = lab.exposure(img, .35)
+    img = lab.bloom(img, r=12, strength=.2, threshold=1.6)
     img = lab.halation(img, r=8, strength=.2, threshold=2.6)
     img = lab.mist(img, r=34, amount=.09)
     img = lab.tonemap(img, 'filmic', white=6)

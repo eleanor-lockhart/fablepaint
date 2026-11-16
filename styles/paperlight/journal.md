@@ -50,3 +50,29 @@ box edges were in frame.
 
 And one correction to my habits: I designed the foreground for the whole canvas and the
 camera could not see it. A sheet nearer the lens shows less of itself.
+
+## Entry 2. *Lighthouse box* (`works/lighthouse.mp4`)
+
+One sentence: a lighthouse on a headland at dusk; its lamp turns once every six seconds.
+Eight sheets over 72 mm, a blue-to-amber light panel behind, a 1.6 W spot at the lantern
+between the headland and the far islands, haze in a slab around it, three sea sheets sliding
+against each other, a boat on a stick between two of them. 72 poses on twos.
+
+**Looked at through the screening room** (`out/.../strip.jpg`, motion map, seam):
+loop seam ratio 1.04, so the loop closes; brightness span is small apart from the lamp.
+
+**What works.** The beam landing on the sky sheet and travelling across it. The seas: three
+sheets moving a few millimetres in opposite phase read as water at once, which is why toy
+theatres did it. Paper that looks like paper because it is cloudy when lit from behind.
+
+**What is wrong.**
+- For about a third of the loop the lamp's cone lands on the sheet right behind the tower and
+  reads as a second moon beside the lantern.
+- When the lamp faces the lens there should be a real flash; there is a polite glint.
+- The firs are the print's firs, fattened. They are blobs. A shape for scissors has to be
+  designed for scissors: fewer, larger, cleaner lobes.
+- The left foreground is crumbs at the edge of frame.
+- The palette is the default sunset. It is pretty; it is not yet a decision.
+
+**Tools.** The depth and index passes are noisy wherever the haze volume is: fine for a
+making-of sheet, not for compositing. Keep haze out of a shot that needs clean depth.

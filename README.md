@@ -12,13 +12,15 @@ short script, runs it, looks at the rendered result, and tries again.
 |---|---|
 | `fpaint.py` | a period-limited paint program: VGA mode 13h, EGA, CGA, early Mac. `./fpaint.py help` |
 | `studio/` | Fable Studio, a full-featured headless paint program. Manual for any agent: `studio/AGENTS.md` |
-| `styles/` | styles worked out on purpose, one folder each. `styles/lit-window/`: colour woodblock prints (`STYLE.md` is the guide, `journal.md` the evidence) |
+| `backlot/` | the rest of a studio: model shop (Blender), compositing desk, lab, animation stand, screening room. Manual: `backlot/MANUAL.md` |
+| `styles/` | styles worked out on purpose, one folder each: `lit-window/` (colour woodblock prints) and `paperlight/` (boxes of cut paper lit from within, animated). Each has a `STYLE.md` and a `journal.md` |
 | `gallery/` | finished pictures from the first two programs |
 | `sessions/`, `house/` | fpaint working files, so those pictures can be reopened |
 | `site/build.py`, `index.html` | the gallery page |
 
-Both programs are single-file Python scripts with inline dependencies; with
-[`uv`](https://docs.astral.sh/uv/) installed they run as they are.
+The two paint programs are single-file Python scripts with inline dependencies; with
+[`uv`](https://docs.astral.sh/uv/) installed they run as they are. `backlot` is a package:
+`uv sync` once, then `uv run python <script>`. The 3D work needs Blender on the PATH.
 
 ## Publishing a new picture
 
