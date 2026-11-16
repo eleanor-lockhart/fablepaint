@@ -100,3 +100,35 @@ there in the pose sheet, and the down position has weight because the pelvis rea
 
 **Not yet done.** Measuring Muybridge frame by frame against the rig. The arms are still
 formula. No character: this is a mannequin. No turning, standing, sitting or acting.
+
+---
+
+## Entry 2. The first of the cast: the Keeper
+
+`characters/keeper.py`, `keeper_sheet.jpg`, `keeper_walk.mp4`.
+
+**The cast.** The people (and animals) of the night shift, the ones who keep a light on:
+the **Keeper** of the lighthouse, the **Lookout** in the fire tower, a ferry **Deckhand**,
+and the heron and the coyote who watch them. The Keeper comes first because his box exists.
+
+**A character is numbers on the common rig.** Thicker build, shorter legs, a bigger head
+(appeal wants about six and a half heads, not the measured seven and three quarters), a cap,
+nose and beard cut into the head's outline, a coat that is the trunk extended below the hip
+with a hem that hangs over the near leg and swings slightly. And a walk: stride 0.64 of his
+height against the mannequin's 0.80, feet lifted two thirds as high, nine degrees of forward
+lean, arms swinging less than half as far, knees never quite straight. Same machinery,
+different person. Slide 0.012; on the ground 69% of the stride; the pelvis moves 0.021.
+
+**What the first sheet taught.**
+- In silhouette a near arm in front of a coat vanishes. Reiniger's figures show their joints
+  because one piece of card lies on another. Each part now gets a thin lighter rim, the cut
+  edge of the card, and the puppet immediately reads as built from parts.
+- Clothing needs its own layer between the near leg and the near arm, or the leg walks in
+  front of the coat.
+- The first head read as a hood with a beak. A silhouette face is three or four decisions
+  (cap, nose, beard, the notch between them) and each must be exaggerated and separate.
+
+**Next.** Measure the Muybridge plate against the mannequin pose by pose. Hands that are
+shapes. Standing with weight on one leg; turning the head; starting and stopping a walk
+(the walk is a loop with no beginning). The Lookout, built to differ from the Keeper in every
+number. Then the Keeper as real paper in the lighthouse box, walking out to check the lamp.

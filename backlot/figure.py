@@ -46,8 +46,21 @@ TRUNK_PROFILE = [(0.0, -.050), (.10, -.046), (.20, -.056), (.275, -.050), (.325,
                  (-.050, .040), (-.062, .000), (-.048, -.046)]            # (along the spine from the hip, forward of it)
 
 class Figure:
-    def __init__(self, build=None, seg=None):
+    def __init__(self, build=None, seg=None, head_profile=None, trunk_profile=None, extras=None):
+        """build: widths (see WIDTH). seg: segment lengths (see SEG). head_profile / trunk_profile: the paper shapes
+        of head and trunk (see HEAD_PROFILE, TRUNK_PROFILE). extras(fig, J, pose) -> more parts (costume, props)."""
         self.seg = dict(SEG, **(seg or {})); self.w = dict(WIDTH, **(build or {}))
+        self.head_profile = head_profile or HEAD_PROFILE; self.trunk_profile = trunk_profile or TRUNK_PROFILE; self.extras = extras
+
+    def on_head(self, J, pts):
+        """A polygon given in head coordinates (origin at the ear, x forward, y up, stature units) placed on the posed head."""
+        hp = np.array(J['headpivot']); hs = self.seg['head'] / .130 * self.w['head']
+        return np.array([hp + np.array(_rot((x * hs, y * hs), -J['_head'])) for x, y in pts])
+
+    def on_trunk(self, J, pts):
+        """A polygon given in trunk coordinates (u up the spine from the hip, v forward) placed on the posed trunk."""
+        hip = np.array(J['hip']); ax, fw = np.array(_rot((0, 1), -J['_lean'])), np.array(_rot((1, 0), -J['_lean']))
+        return np.array([hip + ax * u + fw * v for u, v in pts])
 
     # ---------------------------------------------------------------- skeleton
     def joints(self, pose, grounded=True):
@@ -74,7 +87,8 @@ class Figure:
 
     # ---------------------------------------------------------------- the paper parts
     def parts(self, pose, grounded=True):
-        """The puppet: [(name, polygon in stature units, layer)], ordered far to near. layer -1 = far limbs, 0 = body, 1 = near limbs."""
+        """The puppet: [(name, polygon in stature units, layer)], ordered far to near.
+        Layers: -1 far limbs, 0 body, 1 near leg, 2 clothing over the near leg, 3 near arm."""
         J = self.joints(pose, grounded); w = self.w; out = []
         def leg(k, layer):
             out.append(('thigh' + k, capsule(J['hip'], J['knee' + k], w['hip'], w['knee']), layer))
@@ -87,14 +101,14 @@ class Figure:
             out.append(('forearm' + k, capsule(J['elbow' + k], J['wrist' + k], w['elbow'], w['wrist']), layer))
             out.append(('hand' + k, capsule(J['wrist' + k], J['hand' + k], w['wrist'] * 1.05, w['wrist'] * .8), layer))
         arm('F', -1); leg('F', -1)
-        hip = np.array(J['hip']); lean = J['_lean']
-        ax, fw = np.array(_rot((0, 1), -lean)), np.array(_rot((1, 0), -lean))
-        sc = w['chest'] / .062
-        out.append(('trunk', np.array([hip + ax * u + fw * v * (sc if u > .05 else w['hip'] / .050) for u, v in TRUNK_PROFILE]), 0))
+        sc, sh_ = w['chest'] / .062, w['hip'] / .050
+        out.append(('trunk', self.on_trunk(J, [(u, v * (sc if u > .05 else sh_)) for u, v in self.trunk_profile]), 0))
         out.append(('neck', capsule(J['chest'], J['headpivot'], w['neck'], w['neck'] * .9), 0))
-        hp = np.array(J['headpivot']); hs = self.seg['head'] / .130 * w['head']
-        out.append(('head', np.array([hp + np.array(_rot((x * hs, y * hs), -J['_head'])) for x, y in HEAD_PROFILE]), 0))
-        leg('N', 1); arm('N', 1)
+        out.append(('head', self.on_head(J, self.head_profile), 0))
+        leg('N', 1); arm('N', 3)                               # layer 2 is free for clothing that hangs over the near leg
+        if self.extras:
+            out += self.extras(self, J, pose)
+            out.sort(key=lambda t: t[2])
         return out
 
 # -------------------------------------------------------------------- cycles
@@ -242,13 +256,18 @@ def gait_report(fig, cycle, n=48):
     out['stride'] = float(np.mean([out.get('speedN', 0), out.get('speedF', 0)]))
     return out
 
-def draw_figure(img, fig, pose, scale, origin, colours=('#4a4f58', '#22262c', '#22262c'), grounded=True, joints=False):
-    """Lay the puppet onto an image. origin = pixel position of (x=0, ground). colours = (far limbs, body, near limbs)."""
+def draw_figure(img, fig, pose, scale, origin, colours=('#4a4f58', '#22262c', '#22262c'), grounded=True, joints=False, edge='#59606b', edge_w=1.3):
+    """Lay the puppet onto an image. origin = pixel position of (x=0, ground). colours = (far limbs, body, near limbs).
+    Each part is laid separately with a thin lighter rim (`edge`), the way the cut edge of one piece of card
+    shows against the piece beneath it; without it an arm in front of a coat disappears. edge=None turns it off."""
     from .draw import raster, paint
+    from .comp import grow
     h, w = img.shape[:2]
-    for layer in (-1, 0, 1):
-        polys = [np.c_[origin[0] + P[:, 0] * scale, origin[1] - P[:, 1] * scale] for _, P, L in fig.parts(pose, grounded) if L == layer]
-        img = paint(img, raster(polys, w, h), colours[layer + 1])
+    for name, P, layer in fig.parts(pose, grounded):
+        m = raster([np.c_[origin[0] + P[:, 0] * scale, origin[1] - P[:, 1] * scale]], w, h)
+        if edge and layer >= 0:
+            img = paint(img, grow(m, edge_w), edge)
+        img = paint(img, m, colours[0] if layer < 0 else colours[1] if layer == 0 else colours[2])
     if joints:
         J = fig.joints(pose, grounded)
         dots = [capsule((origin[0] + J[k][0] * scale, origin[1] - J[k][1] * scale), (origin[0] + J[k][0] * scale + .01, origin[1] - J[k][1] * scale), 2.2, 2.2)
