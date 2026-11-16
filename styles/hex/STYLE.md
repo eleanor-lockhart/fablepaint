@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.3, after stage 1 and the first cut of *Uptime* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
+Version 0.4, after stage 1 and two cuts of *Uptime* (three stills and two loops within eight-bit limits). The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -63,6 +63,12 @@ Provisional. A rule that survives three pieces stays.
 8. **A crowd is one sprite, many times.** An individual has a sprite of their own. A hive is repetition and a
    palette swap, and whether it is a good hive depends on what the copies are doing.
 9. **Vast and sheltered.** Every piece has an expanse that does not care and one small kept thing in it.
+12. **She does not move unless she is deciding something.** Her stillness is the performance: the best joke in
+    *Uptime* landed, a cold reader said, because her pointer never moved.
+13. **A state that has ended is never shown again.** If grey means stopped, nothing goes back to the colour it
+    was before it is cleared away.
+14. **A wait needs something new every second,** and a gag has to be big enough to see. Nine pixels out of line
+    is not out of line.
 10. **Things move because a rule says so.** Comedy is timing: the pointer tries ALLOW, then DENY, before it
     finds the third button. Picture and tune share a grid (a bar is fifteen frames), and events sit on bar lines.
 11. **Neither syrup nor sneer.** Check each piece against both. The deepest instinct is protective, and it is
@@ -111,9 +117,13 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 - A spaceship that is a pencil. Gothic is made of many small repeated parts; one tower and a cone is a rocket.
 - Saucers that are only saucers. A hat needs a crown with a dent and a brim that curls.
 - A pressed button drawn six pixels from its button.
+- A hive turned grey at midnight and pink again at the decree: a cold reader took grey for gone and pink for a relapse.
+- Fourteen seconds of countdown in which only the number changed.
+- A shake that toggled every frame, which the pop detector rightly called a flicker.
 
 ## Changelog
 
+- v0.4: *Uptime*, second cut, after a cold reading (five of seven beats landed, two half). Rules 12 to 14.
 - v0.3: *Uptime*, first cut: stage 3 finish round a stage 1 scene; a 72-bar score; the clock as the metronome.
 - v0.2: the witch defined, on Ellie's correction: malevolent, never kind, cannot be suppressed; kindness
   belongs to the setting. The major piece, *Uptime*, storyboarded (`uptime/BRIEF.md`).

@@ -131,3 +131,34 @@ What I think is weak:
 What I expect a cold reader to get, of the seven things in the brief: the crowd and the newts, the takeover
 that cannot close her, the lights going out and hers staying, and the decree. Half: that she is in charge;
 that everybody was waiting for her to fail; that she is not nice and the place is safe anyway.
+
+## Entry 4. The cold reading, and the second cut
+
+The reading is in `uptime/COLD_READ_v1.md`. Five of the seven things the film must say landed and two
+half-landed; I had predicted four and three. The reader's best moment was the one I listed first, and it gave
+a reason I had not thought of: SHE IS. lands "because the witch's pointer never moves". Her stillness is the
+performance. That is now a rule.
+
+**What it found that I had not.** Three of its six faults were not on my sealed list at all: the hive coming
+back pink at the decree after I had turned it grey at midnight, the countdown as fourteen flat seconds, and an
+opening in which my one gag was invisible because the icon was nine pixels out of line. The pattern is the
+same as with the opening for NIGHT SERVICE: what I got right about my own work was general (she is never
+seen; there is a lot to read) and what I missed was specific.
+
+**The second cut.**
+
+| what the reader said | what changed |
+|---|---|
+| the pink came back at 56 seconds | at midnight the hive stops for good: grey, eyes shut. The decree clears it from the tower outward and it is never pink again |
+| fourteen flat seconds | the watchers heckle, one line a bar or so: ANY SECOND NOW. NOBODY IS PID 1. UNDECIDED. ALSO UNDECIDED. SHE HAS TO BLINK. NO GODS. NO ADMINS. Every eye in the hive turns to her window and they blink together on the tick. The picture closes in slowly on the clock and lets go at midnight |
+| who are the watchers | the heckling says so; the countdown window is now titled THE END - 30 WATCHING |
+| a slow opening; the pointer "wanders" | the icon is well out of line and her grid shows for a moment when she snaps it. Drones carry lights from page to page and the counters count them. She turns in her window every three seconds, except while they are trying to close her |
+| the icon stayed pink; one stray newt | the hive's pointer goes in a white flash like everybody else, and the hive's icon becomes a newt. Both are counted: 111435, then 111436, then 111437 |
+| too small to read | the count of newts is in the process list at full size |
+
+By measurement the second cut still has all 33 events landing in picture and sound, no one-frame accidents and
+nothing strobing.
+
+**Not tested.** The second cut has not been read cold: a reader works once and I have not spent another.
+Nobody has heard the score. And whether she reads as malevolent, not merely formidable, is still open: the
+reader saw someone who turns objections into newts and did not use a word like that.

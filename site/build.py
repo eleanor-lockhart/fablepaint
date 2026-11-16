@@ -120,10 +120,10 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
     ('Uptime',
-     'The major piece, first cut. Seventy-two seconds: the last fifty of 1999 and the first twenty-two of what comes next, on a small server kept by a witch, staged on a desktop of the period. '
+     'The major piece, second cut, revised after a cold reading. Seventy-two seconds: the last fifty of 1999 and the first twenty-two of what comes next, on a small server kept by a witch, staged on a desktop of the period. '
      'Everything outside is waiting for the machine to fail at midnight. The score was written first: seventy-two bars of 6/8 at one bar a second, so the clock in the corner of the screen is the metronome and every event sits on a tick. '
      'A jig is the place at peace; the same tune over a kick on every eighth is the hive; midnight is a hum. Every colour is one of the sixteen registers or a blend of two, and only register F glows.',
-     [('styles/hex/uptime/uptime_poster.png', 'UPTIME (press play; it has sound)', [('mp4', 'styles/hex/uptime/uptime.mp4'), ('the storyboard', blob('styles/hex/uptime/BRIEF.md')), ('journal: my verdict before anyone saw it', blob('styles/hex/journal.md')), ('the picture (code)', blob('styles/hex/uptime/film.py')), ('the score (code)', blob('styles/hex/uptime/music.py'))], 'styles/hex/uptime/uptime.mp4'),
+     [('styles/hex/uptime/uptime_poster.png', 'UPTIME (press play; it has sound)', [('mp4', 'styles/hex/uptime/uptime.mp4'), ('the storyboard', blob('styles/hex/uptime/BRIEF.md')), ('the cold reading of the first cut', blob('styles/hex/uptime/COLD_READ_v1.md')), ('journal: my verdict before anyone saw it, and what changed', blob('styles/hex/journal.md')), ('the picture (code)', blob('styles/hex/uptime/film.py')), ('the score (code)', blob('styles/hex/uptime/music.py'))], 'styles/hex/uptime/uptime.mp4'),
       ('styles/hex/uptime/uptime_score.jpg', 'The score, as the listening room sees it', [('mp3', 'styles/hex/uptime/uptime.mp3')], None, 'styles/hex/uptime/uptime.mp3'),
       ('styles/hex/uptime/uptime_sync.jpg', 'Is the picture on the music? 33 of 33 events land in both', [])]),
     ('Stage 1: eight-bit drafts',
