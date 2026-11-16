@@ -30,6 +30,12 @@ SECTIONS = [
      [('styles/paperlight/works/lighthouse_still.png', 'Lighthouse box', [('loop (mp4)', 'styles/paperlight/works/lighthouse.mp4'), ('how it is made', 'styles/paperlight/works/lighthouse_making.jpg'), ('script', blob('styles/paperlight/works/lighthouse/scene.py'))], 'styles/paperlight/works/lighthouse.mp4'),
       ('styles/paperlight/works/lookout_still.png', 'Lookout box, snow falling', [('loop (mp4)', 'styles/paperlight/works/lookout.mp4'), ('how it is made', 'styles/paperlight/works/lookout_making.jpg'), ('script', blob('styles/paperlight/works/lookout/scene.py'))], 'styles/paperlight/works/lookout.mp4'),
       ('styles/paperlight/works/tideflat_still.png', 'Tide flat, first light', [('loop (mp4)', 'styles/paperlight/works/tideflat.mp4'), ('script', blob('styles/paperlight/works/tideflat/scene.py'))], 'styles/paperlight/works/tideflat.mp4')]),
+    ('Learning to draw and animate people',
+     'In progress. Jointed paper figures in profile, every part made in code: a skeleton in measured body proportions, joint angles, and feet that stay planted. First from memory, then after research, as with the prints.',
+     [('styles/paperlight/cast/studies/s00_memory_walk.jpg', 'Study 0: a walk from memory', [('loop (mp4)', 'styles/paperlight/cast/studies/s00_memory_walk.mp4')]),
+      ('styles/paperlight/cast/studies/s01_gait_walk.jpg', 'Study 1: measured proportions and joint angles (the foot slides)', [('loop (mp4)', 'styles/paperlight/cast/studies/s01_gait_walk.mp4')]),
+      ('styles/paperlight/cast/studies/s02_planted_walk.jpg', 'Study 2: feet planted, pelvis riding over them', [('loop (mp4)', 'styles/paperlight/cast/studies/s02_planted_walk.mp4'), ('journal', blob('styles/paperlight/cast/JOURNAL.md'))]),
+      ('styles/paperlight/cast/characters/keeper_sheet.jpg', 'The Keeper: model sheet', [('walk (mp4)', 'styles/paperlight/cast/characters/keeper_walk.mp4')])]),
     ('Lit Window',
      'A style developed on purpose: the inter-war Japanese colour woodblock idiom, applied to the Pacific Northwest at night. '
      'Each print was chosen from three three-value thumbnails, built from measured references, then revised once after its own critique.',
@@ -133,7 +139,7 @@ def main():
             cards.append(f'<figure>{media}'
                          f'<figcaption><b>{html.escape(cap)}</b>{f"<span>{links}</span>" if links else ""}</figcaption></figure>')
         if cards:
-            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title in ('Paperlight', 'The studio (backlot)') else ''
+            wide = ' wide' if title in ('How the style was arrived at', 'Fable Studio') else ' big' if title in ('Paperlight', 'The studio (backlot)', 'Learning to draw and animate people') else ''
             parts.append(f'<section><h2>{html.escape(title)}</h2><p>{html.escape(blurb)}</p><div class="grid{wide}">{"".join(cards)}</div></section>')
     nav = ''.join(f'<a href="{u}">{html.escape(l)}</a>' for l, u in DOCS)
     page = f"""<!doctype html>

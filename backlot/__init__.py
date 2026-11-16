@@ -5,5 +5,5 @@
     lab     colour, lens, film, print, screen finishes   anim    easing, tracks, loops, parallel render, encode
     screen  filmstrips, onion skins, scopes, statistics  model   the bridge to Blender (the model shop)
 """
-from . import core, draw, shapes, comp, lab, anim, screen, model
+from . import core, draw, shapes, comp, lab, anim, screen, model, figure
 from .core import load, save, canvas, col, lum, resize, flat, read_exr

@@ -33,6 +33,7 @@ converted on the way in. Values above 1.0 are normal until `lab.tonemap` brings 
 | `lab` | finishing | colour: `exposure` `white_balance` `cdl` `lift_gamma_gain` `curves` `split_tone` `tonemap`; lens: `bloom` `halation` `mist` `vignette` `aberration` `distort`; film: `grain` `weave` `flicker`; print: `paper` `misregister` `halftone` `quantize`; screen: `crt` |
 | `anim` | time | `ease` `Track` `phase` `loop_noise` `on`; `render(fn, n, dir)` `motion_blur` `encode` `extract` |
 | `screen` | seeing | `filmstrip` `onion` `motion_map` `flicker` `loop_seam` `scopes` `stats` `compare` `sheet` |
+| `figure` | a jointed human in profile | `Figure()` `.joints(pose)` `.parts(pose)`; `Walk(fig, stride=...)` `.pose(g)`; `ik2` `periodic` `blend`; `gait_report` `draw_figure` `arcs` |
 | `model` | the bridge to Blender | `Spec(...)` with `.material` `.sheet` `.panel` `.light` `.haze` `.camera` `.key` `.render`; `passes(exr)` |
 
 ## How a shot is put together
