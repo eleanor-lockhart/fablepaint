@@ -51,7 +51,7 @@
    "picture_change": 0.505,
    "picture_vs_neighbours": 166.9,
    "picture_lands": true,
-   "sound_onset": 6.6,
+   "sound_onset": 6.5,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -59,10 +59,10 @@
    "t": 6.0,
    "pose": 72,
    "what": "tagline",
-   "picture_change": 0.0051,
-   "picture_vs_neighbours": 1.7,
-   "picture_lands": false,
-   "sound_onset": 6.5,
+   "picture_change": 0.0406,
+   "picture_vs_neighbours": 13.5,
+   "picture_lands": true,
+   "sound_onset": 6.4,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -71,9 +71,9 @@
    "pose": 120,
    "what": "lamp starts to sink",
    "picture_change": 0.7805,
-   "picture_vs_neighbours": 9.8,
+   "picture_vs_neighbours": 9.6,
    "picture_lands": true,
-   "sound_onset": 3.4,
+   "sound_onset": 3.5,
    "sound_offset_ms": 10,
    "sound_lands": true
   },
@@ -82,9 +82,9 @@
    "pose": 132,
    "what": "lamp flares",
    "picture_change": 0.8827,
-   "picture_vs_neighbours": 44.6,
+   "picture_vs_neighbours": 3.6,
    "picture_lands": true,
-   "sound_onset": 3.1,
+   "sound_onset": 2.8,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -92,10 +92,10 @@
    "t": 12.5,
    "pose": 150,
    "what": "Dee punch",
-   "picture_change": 0.2406,
-   "picture_vs_neighbours": 0.9,
+   "picture_change": 0.202,
+   "picture_vs_neighbours": 1.1,
    "picture_lands": false,
-   "sound_onset": 4.6,
+   "sound_onset": 4.9,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -103,10 +103,10 @@
    "t": 13.5,
    "pose": 162,
    "what": "Dee punch",
-   "picture_change": 0.2554,
-   "picture_vs_neighbours": 0.9,
+   "picture_change": 0.2005,
+   "picture_vs_neighbours": 1.2,
    "picture_lands": false,
-   "sound_onset": 7.1,
+   "sound_onset": 6.7,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -114,10 +114,10 @@
    "t": 14.5,
    "pose": 174,
    "what": "Dee punch",
-   "picture_change": 0.1085,
-   "picture_vs_neighbours": 0.9,
+   "picture_change": 0.1049,
+   "picture_vs_neighbours": 0.7,
    "picture_lands": false,
-   "sound_onset": 4.6,
+   "sound_onset": 4.7,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -125,21 +125,21 @@
    "t": 15.5,
    "pose": 186,
    "what": "Dee punch",
-   "picture_change": 0.1081,
-   "picture_vs_neighbours": 1.0,
+   "picture_change": 0.1062,
+   "picture_vs_neighbours": 0.9,
    "picture_lands": false,
-   "sound_onset": 5.4,
+   "sound_onset": 5.3,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
   {
-   "t": 16.5,
-   "pose": 198,
+   "t": 17.0,
+   "pose": 204,
    "what": "light leaves the house",
-   "picture_change": 0.4306,
-   "picture_vs_neighbours": 150.2,
+   "picture_change": 0.6146,
+   "picture_vs_neighbours": 201.1,
    "picture_lands": true,
-   "sound_onset": 4.0,
+   "sound_onset": 5.0,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -147,11 +147,11 @@
    "t": 18.0,
    "pose": 216,
    "what": "cut: Marisol close",
-   "picture_change": 0.5285,
-   "picture_vs_neighbours": 9.3,
+   "picture_change": 0.6724,
+   "picture_vs_neighbours": 7.2,
    "picture_lands": true,
-   "sound_onset": 4.5,
-   "sound_offset_ms": -5,
+   "sound_onset": 3.1,
+   "sound_offset_ms": 10,
    "sound_lands": true
   },
   {
@@ -161,15 +161,15 @@
    "picture_change": 0.2813,
    "picture_vs_neighbours": 2.2,
    "picture_lands": true,
-   "sound_onset": 0.9,
-   "sound_offset_ms": 5,
-   "sound_lands": false
+   "sound_onset": 3.8,
+   "sound_offset_ms": -5,
+   "sound_lands": true
   },
   {
    "t": 22.0,
    "pose": 264,
    "what": "cut: Red close",
-   "picture_change": 0.4452,
+   "picture_change": 0.4451,
    "picture_vs_neighbours": 2.9,
    "picture_lands": true,
    "sound_onset": 1.0,
@@ -183,9 +183,9 @@
    "picture_change": 0.5044,
    "picture_vs_neighbours": 3.8,
    "picture_lands": true,
-   "sound_onset": 0.8,
+   "sound_onset": 1.1,
    "sound_offset_ms": 5,
-   "sound_lands": false
+   "sound_lands": true
   },
   {
    "t": 26.0,
@@ -205,7 +205,7 @@
    "picture_change": 0.0703,
    "picture_vs_neighbours": 1.5,
    "picture_lands": false,
-   "sound_onset": 2.9,
+   "sound_onset": 3.0,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -214,7 +214,7 @@
    "pose": 336,
    "what": "cut: Lang",
    "picture_change": 0.4629,
-   "picture_vs_neighbours": 17.1,
+   "picture_vs_neighbours": 14.6,
    "picture_lands": true,
    "sound_onset": 0.0,
    "sound_offset_ms": -45,
@@ -225,7 +225,7 @@
    "pose": 342,
    "what": "Lang tap 1",
    "picture_change": 0.4619,
-   "picture_vs_neighbours": 80.4,
+   "picture_vs_neighbours": 31.7,
    "picture_lands": true,
    "sound_onset": 3.3,
    "sound_offset_ms": -10,
@@ -236,9 +236,9 @@
    "pose": 348,
    "what": "Lang tap 2",
    "picture_change": 0.4439,
-   "picture_vs_neighbours": 76.3,
+   "picture_vs_neighbours": 31.0,
    "picture_lands": true,
-   "sound_onset": 3.9,
+   "sound_onset": 3.7,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -247,9 +247,9 @@
    "pose": 354,
    "what": "Lang tap 3",
    "picture_change": 0.3918,
-   "picture_vs_neighbours": 66.8,
+   "picture_vs_neighbours": 27.5,
    "picture_lands": true,
-   "sound_onset": 4.2,
+   "sound_onset": 4.0,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -258,9 +258,9 @@
    "pose": 360,
    "what": "Lang tap 4",
    "picture_change": 0.4125,
-   "picture_vs_neighbours": 24.6,
+   "picture_vs_neighbours": 16.2,
    "picture_lands": true,
-   "sound_onset": 4.5,
+   "sound_onset": 4.7,
    "sound_offset_ms": -10,
    "sound_lands": true
   },
@@ -269,7 +269,7 @@
    "pose": 366,
    "what": "Lang tap 5",
    "picture_change": 0.4142,
-   "picture_vs_neighbours": 25.4,
+   "picture_vs_neighbours": 16.6,
    "picture_lands": true,
    "sound_onset": 4.9,
    "sound_offset_ms": -10,
@@ -280,7 +280,7 @@
    "pose": 372,
    "what": "Lang tap 6",
    "picture_change": 0.3758,
-   "picture_vs_neighbours": 72.3,
+   "picture_vs_neighbours": 30.5,
    "picture_lands": true,
    "sound_onset": 4.8,
    "sound_offset_ms": -10,
@@ -293,8 +293,8 @@
    "picture_change": 0.9749,
    "picture_vs_neighbours": 405.1,
    "picture_lands": true,
-   "sound_onset": 4.0,
-   "sound_offset_ms": -10,
+   "sound_onset": 3.9,
+   "sound_offset_ms": -5,
    "sound_lands": true
   },
   {
@@ -312,10 +312,10 @@
    "t": 34.0,
    "pose": 408,
    "what": "CHORUS: No. 4",
-   "picture_change": 0.6026,
-   "picture_vs_neighbours": 3.7,
+   "picture_change": 0.5141,
+   "picture_vs_neighbours": 4.5,
    "picture_lands": true,
-   "sound_onset": 7.5,
+   "sound_onset": 7.8,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -326,7 +326,7 @@
    "picture_change": 0.199,
    "picture_vs_neighbours": 2.2,
    "picture_lands": true,
-   "sound_onset": 7.9,
+   "sound_onset": 8.2,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -335,9 +335,9 @@
    "pose": 456,
    "what": "cut: the pod",
    "picture_change": 0.8152,
-   "picture_vs_neighbours": 13.1,
+   "picture_vs_neighbours": 8.0,
    "picture_lands": true,
-   "sound_onset": 4.5,
+   "sound_onset": 4.8,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -346,7 +346,7 @@
    "pose": 498,
    "what": "CABLE SNAPS",
    "picture_change": 0.9277,
-   "picture_vs_neighbours": 2.0,
+   "picture_vs_neighbours": 2.1,
    "picture_lands": true,
    "sound_onset": 11.4,
    "sound_offset_ms": -5,
@@ -355,11 +355,33 @@
   {
    "t": 42.0,
    "pose": 504,
-   "what": "cut: the walk",
-   "picture_change": 0.7965,
-   "picture_vs_neighbours": 3.3,
+   "what": "cut: the eye stutters",
+   "picture_change": 0.7994,
+   "picture_vs_neighbours": 2.4,
    "picture_lands": true,
-   "sound_onset": 6.4,
+   "sound_onset": 6.5,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 42.5,
+   "pose": 510,
+   "what": "the cold eye goes out",
+   "picture_change": 0.0516,
+   "picture_vs_neighbours": 0.6,
+   "picture_lands": false,
+   "sound_onset": 4.9,
+   "sound_offset_ms": -5,
+   "sound_lands": true
+  },
+  {
+   "t": 43.0,
+   "pose": 516,
+   "what": "cut: the walk",
+   "picture_change": 0.6965,
+   "picture_vs_neighbours": 9.6,
+   "picture_lands": true,
+   "sound_onset": 4.1,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -368,9 +390,9 @@
    "pose": 552,
    "what": "cut 1",
    "picture_change": 0.8022,
-   "picture_vs_neighbours": 9.0,
+   "picture_vs_neighbours": 6.0,
    "picture_lands": true,
-   "sound_onset": 7.2,
+   "sound_onset": 6.9,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -381,7 +403,7 @@
    "picture_change": 0.6824,
    "picture_vs_neighbours": 218.9,
    "picture_lands": true,
-   "sound_onset": 8.5,
+   "sound_onset": 8.3,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -392,7 +414,7 @@
    "picture_change": 0.5461,
    "picture_vs_neighbours": 166.7,
    "picture_lands": true,
-   "sound_onset": 7.7,
+   "sound_onset": 7.5,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -403,7 +425,7 @@
    "picture_change": 0.4461,
    "picture_vs_neighbours": 4.2,
    "picture_lands": true,
-   "sound_onset": 8.1,
+   "sound_onset": 8.2,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -411,10 +433,10 @@
    "t": 48.0,
    "pose": 576,
    "what": "cut 5",
-   "picture_change": 0.3273,
-   "picture_vs_neighbours": 3.1,
+   "picture_change": 0.3278,
+   "picture_vs_neighbours": 3.2,
    "picture_lands": true,
-   "sound_onset": 7.3,
+   "sound_onset": 7.0,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -425,7 +447,7 @@
    "picture_change": 0.4031,
    "picture_vs_neighbours": 133.6,
    "picture_lands": true,
-   "sound_onset": 8.4,
+   "sound_onset": 8.3,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -444,10 +466,10 @@
    "t": 49.5,
    "pose": 594,
    "what": "cut 8",
-   "picture_change": 0.6505,
-   "picture_vs_neighbours": 3.8,
+   "picture_change": 0.6846,
+   "picture_vs_neighbours": 3.9,
    "picture_lands": true,
-   "sound_onset": 8.6,
+   "sound_onset": 8.7,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -456,10 +478,10 @@
    "pose": 600,
    "what": "cut: No. 4 head",
    "picture_change": 0.8479,
-   "picture_vs_neighbours": 6.8,
+   "picture_vs_neighbours": 6.5,
    "picture_lands": true,
-   "sound_onset": 5.0,
-   "sound_offset_ms": -10,
+   "sound_onset": 4.9,
+   "sound_offset_ms": -5,
    "sound_lands": true
   },
   {
@@ -469,7 +491,7 @@
    "picture_change": 0.2101,
    "picture_vs_neighbours": 11.6,
    "picture_lands": true,
-   "sound_onset": 2.2,
+   "sound_onset": 1.9,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -480,7 +502,7 @@
    "picture_change": 0.4531,
    "picture_vs_neighbours": 2.0,
    "picture_lands": false,
-   "sound_onset": 6.7,
+   "sound_onset": 7.1,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -513,7 +535,7 @@
    "picture_change": 0.1569,
    "picture_vs_neighbours": 49.6,
    "picture_lands": true,
-   "sound_onset": 6.8,
+   "sound_onset": 6.6,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -535,7 +557,7 @@
    "picture_change": 0.1443,
    "picture_vs_neighbours": 46.0,
    "picture_lands": true,
-   "sound_onset": 7.8,
+   "sound_onset": 7.2,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -546,7 +568,7 @@
    "picture_change": 0.3359,
    "picture_vs_neighbours": 107.8,
    "picture_lands": true,
-   "sound_onset": 6.7,
+   "sound_onset": 6.5,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -557,7 +579,7 @@
    "picture_change": 0.176,
    "picture_vs_neighbours": 56.9,
    "picture_lands": true,
-   "sound_onset": 4.0,
+   "sound_onset": 3.7,
    "sound_offset_ms": -5,
    "sound_lands": true
   },
@@ -568,37 +590,29 @@
    "picture_change": 0.8325,
    "picture_vs_neighbours": 298.9,
    "picture_lands": true,
-   "sound_onset": 6.3,
+   "sound_onset": 6.0,
    "sound_offset_ms": -5,
    "sound_lands": true
   }
  ],
- "both": 40,
+ "both": 44,
  "picture_only": [
-  21.5,
   22.0,
-  24.0,
   26.0,
   28.0
  ],
  "sound_only": [
-  6.0,
   12.5,
   13.5,
   14.5,
   15.5,
   27.0,
+  42.5,
   52.0
  ],
  "neither": [],
- "total": 52,
+ "total": 54,
  "unlisted_picture_changes": [
-  {
-   "pose": 499,
-   "t": 41.58,
-   "picture_change": 0.8954,
-   "on_beat": false
-  },
   {
    "pose": 144,
    "t": 12.0,
@@ -606,9 +620,9 @@
    "on_beat": true
   },
   {
-   "pose": 123,
-   "t": 10.25,
-   "picture_change": 0.8015,
+   "pose": 499,
+   "t": 41.58,
+   "picture_change": 0.8723,
    "on_beat": false
   },
   {
@@ -656,7 +670,7 @@
   {
    "pose": 421,
    "t": 35.08,
-   "picture_change": 0.76,
+   "picture_change": 0.7601,
    "on_beat": false
   },
   {
@@ -664,6 +678,12 @@
    "t": 40.0,
    "picture_change": 0.7538,
    "on_beat": true
+  },
+  {
+   "pose": 130,
+   "t": 10.83,
+   "picture_change": 0.7356,
+   "on_beat": false
   },
   {
    "pose": 422,

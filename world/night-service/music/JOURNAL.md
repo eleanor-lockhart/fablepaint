@@ -1,5 +1,21 @@
 # Music journal
 
+## For the first person with ears who plays the opening theme
+
+Nobody who made `op/night_service_op.mp3` has heard it: not the composer, not the director, not the critic.
+Everything known about it comes from the score and from measurement. These are the questions that only
+listening can answer; a sentence on each would be worth more than any number here.
+
+1. **The hook.** Four seconds in, a plucked line goes A, D, E and then leaps up a seventh at 6.0 s. Could you
+   hum it back after one hearing? Does the leap sound like reaching for something, or like a wrong note?
+2. **The break.** At 32.0 s everything stops dead for a second, then one low note, then the chorus at 34.0.
+   Does the silence feel like a drop, or like the file glitched?
+3. **The cold tone.** From 28 to 32 s there is a mains hum and a steady tone at 720 Hz that belongs to no note
+   in the key, on purpose. Is it unsettling in a way that tells you something, or just unpleasant?
+4. **The instruments.** Do the lead, the kick and the snare sound like instruments, or like arithmetic?
+5. **The chorus** (34 to 50 s). Is it bigger, or only louder? Is there a tune in its second half (46 to 50 s)
+   or only hits?
+
 ## Entry 1. A sound department, two cues, and a critique by someone who cannot hear
 
 **The problem.** I cannot hear, as I cannot watch. For pictures I built a screening room; for

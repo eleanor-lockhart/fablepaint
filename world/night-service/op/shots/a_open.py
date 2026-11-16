@@ -15,7 +15,7 @@ def window_matte(name, x):
     P = fig.on_trunk(fig.joints(c['pose']), [(.250, -.002), (.250, .030), (.205, .030), (.205, -.002)])
     return C.draw.raster([np.c_[x + P[:, 0] * s, GROUND - P[:, 1] * s]], C.W, C.H)
 WIN = {n: window_matte(n, x) for n, x in ROW}
-FAR = C.draw.disc(C.W, C.H, 168, 424, 2.6)                                  # Tern Point, a long way off
+FAR = np.maximum(C.draw.disc(C.W, C.H, 168, 424, 4.5), C.draw.rect(C.W, C.H, 132, 423, 204, 425) * .8)      # Tern Point, a long way off: a point and a flick of beam (v1's 2.6 px dot could not be found)
 TITLE = C.text((700, 104), 'NIGHT SERVICE', 122, track=15, anchor='m')
 TAG = C.text((700, 262), 'SOMEBODY HAS TO STAY UP.', 32, track=11, anchor='m')
 PILE = C.draw.rect(C.W, C.H, 1098, 560, 1118, 640)

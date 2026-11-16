@@ -1,5 +1,13 @@
 # NIGHT SERVICE: opening sequence (prototype). Production brief, revision 2
 
+> **Revision 2 is the storyboard that version 1 of the film was made from, kept as written.** Version 1.1, made
+> after the outside review (`CRITIQUE.md`), departs from it in these places. Orrin's doze runs local poses 24-35
+> (a slow sag, a catch at 33, the drop at 34-35) and his card starts at 40. The light leaves the house on local
+> pose 12 of `c_marisol_red` (17.0 s), with the cab dimmed until then. Dee's passengers stop for the punch. The
+> cable is a thick hose that bends under the orca. A new one-second unit, `f15_eye_out` (poses 504-515), shows
+> No. 4's cold eye dying straight after the snap, and `g1_walk` is 36 poses (516-551) on a pier. Continuity's
+> tick sounds at 21.5 s when the Board drops to green. See `RETROSPECTIVE.md`.
+
 Sixty-two seconds. An anime-style opening that introduces the world and the cast of
 `world/night-service/BIBLE.md` (read it first; it is short). Directed by the main session; each unit below is
 animated by one agent; the theme is written by another. Revision 2 follows three independent reviews of the

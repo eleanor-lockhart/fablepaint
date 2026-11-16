@@ -18,7 +18,7 @@ def raster(polys, w, h, ss=2):
     return cv2.resize(m, (w, h), interpolation=cv2.INTER_AREA).astype(F) / 255
 
 def rect(w, h, x0, y0, x1, y1):
-    m = np.zeros((h, w), F); m[int(max(y0, 0)):int(y1), int(max(x0, 0)):int(x1)] = 1
+    m = np.zeros((h, w), F); m[int(max(y0, 0)):int(max(y1, 0)), int(max(x0, 0)):int(max(x1, 0))] = 1      # clamp the far edges too: a negative stop would wrap round
     return m
 
 def disc(w, h, cx, cy, r, soft=1.0):

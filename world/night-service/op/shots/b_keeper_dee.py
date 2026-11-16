@@ -26,6 +26,11 @@ def jpx(name, pose, key, x, ground, size, flip=False):
     c = C.CAST[name]; J = c['fig'].joints(c['pose'] if pose is None else pose); s = size * c['height']
     return np.array((x + (-s if flip else s) * J[key][0], ground - s * J[key][1]), np.float32)
 
+def _sil(x0, y0, m):
+    """Tell the master this dark shape must stay dark (C.figure only does it for figures drawn on a full frame)."""
+    if hasattr(C, 'shadow'):
+        full = np.zeros((H, W), np.float32); full[y0:y0 + m.shape[0], x0:x0 + m.shape[1]] = m; C.shadow(full)
+
 def figc(img, name, pose, x, ground, size, flip=False, glow=5.0, rim=None):
     """C.figure drawn inside a crop round the figure (fast). rim=(colour, strength, dx): a rim of light on the edges
     that face +x (dx > 0) or -x: the shot's lamp on the figure."""
@@ -33,12 +38,16 @@ def figc(img, name, pose, x, ground, size, flip=False, glow=5.0, rim=None):
     x0, x1 = int(max(0, x - .64 * h)), int(min(W, x + .64 * h)); y0, y1 = int(max(0, ground - 1.16 * h)), int(min(H, ground + .06 * h))
     if x1 - x0 < 4 or y1 - y0 < 4: return img
     if rim is None:
-        img[y0:y1, x0:x1] = C.figure(img[y0:y1, x0:x1].copy(), name, pose, x=x - x0, ground=ground - y0, size=size, flip=flip, glow=glow)
+        before = img[y0:y1, x0:x1, :3].copy()
+        out = C.figure(img[y0:y1, x0:x1].copy(), name, pose, x=x - x0, ground=ground - y0, size=size, flip=flip, glow=glow)
+        _sil(x0, y0, (np.abs(out[..., :3] - before).sum(-1) > 1e-5).astype(np.float32))
+        img[y0:y1, x0:x1] = out
         return img
     lay = C.figure(np.zeros((y1 - y0, x1 - x0, 4), np.float32), name, pose, x=x - x0, ground=ground - y0, size=size, flip=flip, glow=glow)
     a = np.clip(lay[..., 3], 0, 1); col, k, dx = rim
     edge = a * (1 - np.roll(a, -dx, axis=1))
     lay[..., :3] += C.core.col(col)[:3] * (k * edge[..., None])
+    _sil(x0, y0, a)
     img[y0:y1, x0:x1] = img[y0:y1, x0:x1] * (1 - a[..., None]) + lay
     return img
 
@@ -99,18 +108,27 @@ FRAME = draw.raster([box(LCX - LRX - 13, LCY - LRY - 26, LCX - LRX - 6, H), box(
                      box(LCX - 46, LCY + LRY + 20, LCX + 46, H), box(LCX - 96, 668, LCX + 96, H)], W, H)
 LDIST = np.hypot(XX - LCX, YY - LCY)
 ORRIN = dict(C.CAST['keeper']['pose'])
+def lamp_rgb(k):
+    """LAMP at strength k. Where only its red would be over the master's bloom threshold (k about 1.1 to 1.8) the green is
+    lifted, so that a low lamp glows warm and never red."""
+    c = np.array(C.core.col(C.LAMP)[:3], np.float32) * k
+    if c[0] > 1.0: c[1] = max(c[1], 1.0 + .22 * (c[0] - 1.0))
+    return c
+def emit(img, matte, rgb):
+    a = np.asarray(matte, np.float32)[..., None]; out = img * (1 - a); out[..., :3] += rgb * a; out[..., 3:] += a
+    return out
 
 def nod(i):
     """0 = awake, 1 = chin on chest. The lamp is a function of this and nothing else."""
-    if i <= 29: return C.ease(C.clamp01((i - 24) / 5), 'inout')
-    return 1.0 if i <= 35 else 0.0
+    if i <= 32: return .58 * C.clamp01((i - 24) / 8.0) ** 1.5                   # 24-32: awake, heavier, heavier
+    return {33: .48, 34: .84, 35: 1.0}.get(i, 0.0)                              # 33: he nearly catches himself; 34-35: chin on chest
 
 def lamp_level(i):
     if i <= 35: return 1.0 - .95 * nod(i)
     return {36: 1.9, 37: 1.9, 38: 1.45, 39: 1.2, 40: 1.08}.get(i, 1.0)          # he wakes: it flares, then settles
 
 def orrin_pose(i):
-    n = nod(i); p = dict(ORRIN, head=30 * n, lean=8 + 6 * n, shN=-22 + 8 * n, elN=34 - 14 * n, shF=-16 + 8 * n, elF=30 - 12 * n)
+    n = nod(i); p = dict(ORRIN, head=36 * n, lean=8 + 6 * n, shN=-22 + 8 * n, elN=34 - 14 * n, shF=-16 + 8 * n, elF=30 - 12 * n)
     if i >= 36:
         j = {36: 1.0, 37: .8, 38: .4, 39: .12}.get(i, 0.0)                     # the jerk awake, overshooting
         p.update(head=-11 * j, lean=8 - 3 * j, shN=-22 - 10 * j, elN=34 + 22 * j, shF=-16 - 8 * j, elF=30 + 18 * j)
@@ -130,11 +148,11 @@ def orrin_close(i):
     yw = LCY - LRY + (1 - f) * 2 * LRY                                          # the light stands in the lens like water: it sinks with his head
     lit = LENS * np.clip((YY - yw) / 2 + .5, 0, 1)
     k = .3 + 5.0 * lv ** .8
-    img = C.light(img, lit, C.LAMP, k)
+    img = emit(img, lit, lamp_rgb(k))
     img = C.light(img, np.minimum(BULL, lit), '#fff0c4', k * 1.5)
     img = draw.paint(img, np.maximum(BANDS, BULLRING * LENS), '#0a0d14', .85)
     img = figc(img, 'keeper', orrin_pose(i), OX, 980, 860, rim=(C.LAMP, 1.2 * lv, 4))
-    return C.name_card(img, 'keeper', C.clamp01((i - 24) / 16), 'l')
+    return C.name_card(img, 'keeper', C.clamp01((i - 40) / 8), 'l') if i >= 40 else img       # the card waits until he is awake again
 
 # =================================================================== the car deck of the M/V Kittiwake
 DEE = dict(C.CAST['dee']['pose'])                                               # at rest: the punch hangs in her near hand
@@ -227,31 +245,27 @@ def _chain(posts, top, base, sag, w):
         u = np.linspace(0, 1, 16); polys.append(sh.ribbon(np.c_[a + (b - a) * u, top + 4 + sag * (1 - (2 * u - 1) ** 2)], w=w, taper=(0, 0), wob=0))
     return draw.raster(polys, W, H)
 sh.setup(W, H, 6)
-CHAIN_W = _chain([X0 + 84, X0 + 324, X0 + 564, X0 + 804], 606, 696, 30, 2.6)
+CHAIN_W = _chain([X0 - 50, X0 + 190, X0 + 430, X0 + 670, X0 + 910], 606, 696, 30, 2.6)       # it ends between Dee and whoever is next
 
-def queue(i):
-    """How many strides the queue has moved: it holds for the punch (poses 52-56, 64-68) and steps up in between."""
-    u = i - 56; return u // 12 + C.clamp01((u % 12) / 8.0)
+VW = C.walk_speed('passenger', WS)
+ARRIVE = (51, 63, 75, 87)        # the pose on which each passenger stops at the chain: punched 3 poses later, walks on 5 poses later
 
 def dee_wide(i):
-    img = DECK.copy(); q = queue(i); k = WS / 860.0
-    a, shut = reach(i, (54, 66)); head = None
-    for j in range(8, -4, -1):
-        if j > 1 and j % 2 == 0: continue                                       # director's pass: every other place in the queue is empty
-        if q <= j:                                                              # in the queue, stepping up
-            d = j - q; g = (q + .5 * (j % 2)) % 1.0; x = X0 + d * STRIDE; w = C.clamp01(1 - d * 2.5)
-        else:                                                                   # punched: walks on to the left without stopping
-            d = (i - (56 + 12 * j)) * 18.0 / STRIDE; g = (d + .5 * (j % 2)) % 1.0; x = X0 - d * STRIDE; w = C.clamp01(1 - d * 3)
+    img = DECK.copy(); k = WS / 860.0
+    a, shut = reach(i, (54, 66))
+    for T in reversed(ARRIVE):
+        if i < T:                                                               # walking up, the card coming out
+            x = X0 + VW * (T - i); g = ((i - T) / 12.0) % 1.0; w = C.clamp01(1 - (T - i) / 4.0)
+        elif i <= T + 5:                                                        # standing at the chain, card held out
+            x = X0; g = 0.0; w = 1.0
+        else:                                                                   # punched: walks on, behind Dee, at walking speed
+            x = X0 - VW * (i - T - 5); g = ((i - T - 5) / 12.0) % 1.0; w = C.clamp01(1 - (i - T - 5) / 3.0)
         if x < -70 or x > W + 70: continue
         base = C.walk_pose('passenger', g)
         pose = C.fg.blend(base, dict(base, **OFFER), w) if w > 0 else base
         img = figc(img, 'passenger', pose, x, WG, WS, flip=True)
-        if w > .5 and q <= j:
-            head = (j, grip('passenger', pose, x, WG, WS, flip=True)[0])
-    if head:
-        j, pg = head; done = (i > 54 and j == 0) or (i > 66 and j == 1)
-        img = card(img, pg, k, [12] if done or (shut and i in (54, 66)) else [])
-    pose = dee_pose(a, shut)
+        img = card(img, grip('passenger', pose, x, WG, WS, flip=True)[0], k, [12] if i >= T + 3 else [])
+    pose = dee_pose(a, shut)                                                    # Dee last: nobody is ever drawn over her
     img = figc(img, 'dee', pose, DEE_X, WG, WS)
     img = punch(img, *grip('dee', pose, DEE_X, WG, WS), k, shut)
     for P in (54, 66):

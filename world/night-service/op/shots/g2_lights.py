@@ -50,7 +50,7 @@ def boat(j):
         x = k * 132 - 14 * j
         if x + 70 > 0 and x < C.W:                                  # a rect that ends left of the frame would wrap round
             m = np.maximum(m, C.draw.rect(C.W, C.H, x, CY - 50, x + 70, CY + 50))
-    return C.light(img, m, C.LAMP, 1.7 * hit(j))
+    return C.light(img, m, '#f4cf80', 1.7 * hit(j))                # v1.1: C.LAMP at this strength bloomed in the red channel only and fringed the windows red
 
 def beam(img, j):
     wedge = C.comp.feather(C.draw.raster([np.array([(C.W + 40, -60), (C.W + 40, 210), (560, 250), (600, 170)])], C.W, C.H), 14)

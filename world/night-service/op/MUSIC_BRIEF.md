@@ -23,8 +23,8 @@ The picture is 62 seconds; the last four are a held end card with the sound ring
 | 4-8 | 3-4 | the title; the tagline at 6.0 | **the hit at 4.0**: everything enters. State the hook plainly: the three-note figure A, D, E ("the three lights") from *Tern Point*. |
 | 8-12 | 5-6 | Orrin walks to his lamp (steps on the beats 8.0-9.5); he nods off and the lamp sinks (10.0-10.9); he wakes and it flares at 11.0 | verse. Thin out and sink with the lamp from 10.0; **a bell on 11.0** when it flares. |
 | 12-16 | 7-8 | Dee punches the passengers' cards | the punch as percussion on **12.5, 13.5, 14.5, 15.5**. |
-| 16-20 | 9-10 | Marisol; at 16.5 a house's light goes out and walks away in a pale figure's chest | one high pure tone (`sound.glass`) on **16.5**; high bright plucked notes for Marisol. |
-| 20-24 | 11-12 | Red; the signal drops to green by itself at 21.5; she raises her lantern, up by 22.5 | a low single-note ostinato, steady, unimpressed; a small accent on **22.5**. |
+| 16-20 | 9-10 | Marisol; at 17.0 a house's light goes out and walks away in a pale figure's chest | one high pure tone (`sound.glass`) on **17.0**; high bright plucked notes for Marisol. |
+| 20-24 | 11-12 | Red; the signal drops to green by itself at 21.5; she raises her lantern, up by 22.5 | a low single-note ostinato, steady, unimpressed; Continuity's dry tick on **21.5**; a small accent on **22.5**. |
 | 24-26 | 13 | the ferry crossing in rain | pre-chorus: thin out. Glass tones for the passengers. |
 | 26-28 | 14 | the heron, perfectly still; it blinks at 27.0 | nearly nothing. One small sound on **27.0**. |
 | 28-32 | 15-16 | Vesper Lang taps six lit windows cold, one a beat: 28.5, 29.0, 29.5, 30.0, 30.5, 31.0 | mains hum (`sound.hum`, 60 Hz) and one cold steady tone, rising from 28 to 32; a dry tick on each tap. The only sustained sounds in the piece. |

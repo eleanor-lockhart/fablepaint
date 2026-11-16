@@ -28,12 +28,18 @@ def jpx(name, pose, key, x, ground, size, flip=False):
     c = C.CAST[name]; J = c['fig'].joints(c['pose'] if pose is None else pose); s = size * c['height']
     return np.array((x + (-s if flip else s) * J[key][0], ground - s * J[key][1]), np.float32)
 
-def figc(img, name, pose, x, ground, size, flip=False, glow=5.0):
-    """C.figure drawn inside a crop round the figure (fast)."""
+def figc(img, name, pose, x, ground, size, flip=False, glow=5.0, sil=None):
+    """C.figure drawn inside a crop round the figure (fast). It also tells the master that the figure must stay dark
+    (C.figure only does that for figures drawn on a full frame); sil = a matte limiting where (the hole of the glass)."""
     h = size * C.CAST[name]['height']
     x0, x1 = int(max(0, x - .64 * h)), int(min(W, x + .64 * h)); y0, y1 = int(max(0, ground - 1.16 * h)), int(min(H, ground + .06 * h))
     if x1 - x0 < 4 or y1 - y0 < 4: return img
-    img[y0:y1, x0:x1] = C.figure(img[y0:y1, x0:x1].copy(), name, pose, x=x - x0, ground=ground - y0, size=size, flip=flip, glow=glow)
+    before = img[y0:y1, x0:x1, :3].copy()
+    out = C.figure(img[y0:y1, x0:x1].copy(), name, pose, x=x - x0, ground=ground - y0, size=size, flip=flip, glow=glow)
+    if hasattr(C, 'shadow'):
+        full = np.zeros((H, W), np.float32); full[y0:y1, x0:x1] = np.abs(out[..., :3] - before).sum(-1) > 1e-5
+        C.shadow(full if sil is None else full * sil)
+    img[y0:y1, x0:x1] = out
     return img
 
 def chest(pose, x, ground, size, flip=True, name='passenger'):
@@ -56,21 +62,24 @@ PLIGHT = C.CAST['passenger']['window']                                          
 RIDGE = A((-10, 590), (120, 548), (260, 482), (380, 428), (470, 396), (560, 388), (680, 384), (800, 392), (1000, 420), (1290, 440))
 def path_y(x): return float(np.interp(x, RIDGE[:, 0], RIDGE[:, 1])) + 6
 HILL, HOUSE = '#0d1522', '#0a1019'
-WIN = box(578, 300, 610, 344)
+WIN = box(566, 276, 610, 336)
 WIN_M = draw.raster([WIN], W, H)
-WIN_X = draw.raster([box(593, 300, 595, 344), box(578, 321, 610, 323)], W, H)
-DOOR_M = draw.raster([box(488, 284, 528, 398)], W, H)
-WIN_HALO = soft(594, 322, 90)
+WIN_X = draw.raster([box(587, 276, 589, 336), box(566, 305, 610, 307)], W, H)
+DOOR_M = draw.raster([box(462, 252, 516, 408)], W, H)
+WIN_HALO = soft(588, 306, 130)
+DOOR_X = 489.0
+LEAVES = 12                                                                     # the pose on which the light leaves the house
+BAND_M = draw.raster([box(884, 206, 1166, 354)], W, H)                          # the cab's band of windows
 MX, MG, MS = 962.0, 436.0, 232                                                  # Marisol on the catwalk
-PS = 122                                                                        # the figure at the door
+PS = 165                                                                        # the figure at the door
 VP_ = C.walk_speed('passenger', PS) * .95
 
 def _vesper():
     sh.setup(W, H, 21)
     img = stars(C.sky(), 31, 190, 470)
     img = fill(img, [np.r_[RIDGE, A((1290, 730), (-10, 730))]], HILL)
-    img = firs(img, [(716, 390, 84, 36), (756, 394, 116, 46), (806, 398, 72, 30), (316, 462, 66, 28), (206, 514, 70, 30), (1230, 440, 90, 38)], HILL)
-    img = fill(img, [box(470, 264, 650, 402), A((452, 268), (560, 200), (668, 268)), box(608, 212, 624, 252)], HOUSE)
+    img = firs(img, [(748, 392, 96, 40), (802, 397, 70, 30), (316, 462, 66, 28), (206, 514, 70, 30), (1230, 440, 90, 38)], HILL)
+    img = fill(img, [box(438, 228, 682, 412), A((414, 233), (560, 140), (706, 233)), box(626, 156, 648, 214)], HOUSE)
     # a snag at the far left, and somebody on it
     img = fill(img, [A((90, 730), (93, 372), (99, 372), (104, 730)), line((96, 470), (124, 440), 3), line((96, 540), (66, 508), 3)], '#070b11')
     img = C.heron(img, 96, 373, s=.07)
@@ -80,13 +89,20 @@ def _vesper():
             line((898, 446), (1196, 700), 5), line((1152, 446), (856, 700), 5), box(866, 586, 1184, 592)]
     img = fill(img, legs, dark)
     img = fill(img, [box(876, 196, 1174, 436), A((842, 204), (1208, 204), (1122, 150), (928, 150)), box(1024, 108, 1026, 152), box(832, 436, 1218, 446)], dark)
-    img = C.light(img, draw.raster([box(884, 206, 1166, 354)], W, H), C.LAMP, 2.1)                    # the cab's band of windows: this shot's lamp
-    inside = [box(x - 2.5, 206, x + 2.5, 354) for x in (940, 997, 1053, 1110)] + [box(1086, 306, 1098, 354), ellipse(1092, 302, 36, 6), box(1058, 286, 1061, 300), box(1123, 286, 1126, 300)]
-    img = fill(img, inside, dark)
     img = firs(img, [(40, 770, 330, 150), (170, 790, 270, 130), (285, 780, 210, 110), (430, 800, 190, 100), (570, 805, 195, 110), (700, 795, 225, 120),
                      (780, 775, 290, 140), (1010, 810, 215, 120), (1105, 800, 180, 100), (1246, 780, 330, 150)], '#070b11')
     return img
 VESPER = _vesper()
+INSIDE_M = draw.raster([box(x - 2.5, 206, x + 2.5, 354) for x in (940, 997, 1053, 1110)] + [box(1086, 306, 1098, 354), ellipse(1092, 302, 36, 6), box(1058, 286, 1061, 300), box(1123, 286, 1126, 300)], W, H)
+_LAMP = np.array(C.core.col(C.LAMP)[:3], np.float32)
+CAB_UP = {14: _LAMP * .92, 15: np.array((.99, .66, .18), np.float32), 16: np.array((1.42, 1.09, .30), np.float32)}
+def cab_rgb(i):
+    """One light at a time: the cab is low (a third) while the house is lit, and comes up over 14-17, after the light has left.
+    The steps are chosen so that the master's bloom comes in warm (LAMP between k 1.1 and 1.8 blooms red only)."""
+    return _LAMP * .7 if i <= 13 else CAB_UP.get(i, _LAMP * 2.1)
+def emit(img, matte, rgb):
+    a = np.asarray(matte, np.float32)[..., None]; out = img * (1 - a); out[..., :3] += rgb * a; out[..., 3:] += a
+    return out
 RAIL = draw.raster([box(832, 384, 1218, 387)] + [box(x - 1, 386, x + 1, 437) for x in range(834, 1220, 48)], W, H)
 M_UP = dict(C.CAST['marisol']['pose'])
 M_DOWN = dict(lean=-1, head=2, shN=4, elN=14, shF=-4, elF=12, hipN=5, hipF=-6, kneeF=3)          # binoculars hanging on her chest
@@ -94,19 +110,22 @@ M_HALF = dict(lean=-2, head=-3, shN=-35, elN=143, shF=-38, elF=146, hipN=5, hipF
 
 def marisol_wide(i):
     img = VESPER.copy()
-    if i < 6:                                                                   # somebody is home
-        img = add(img, WIN_HALO, PLIGHT, .30)
-        img = C.light(img, WIN_M, PLIGHT, 5.0)
+    img = emit(img, BAND_M, cab_rgb(i))                                         # the cab's band of windows
+    img = draw.paint(img, INSIDE_M, '#070a10')
+    if i < LEAVES:                                                              # somebody is home: the brightest thing in the picture
+        img = add(img, WIN_HALO, PLIGHT, .34)
+        img = C.light(img, WIN_M, PLIGHT, 6.5)
         img = draw.paint(img, WIN_X, HOUSE)
         img = draw.paint(img, DOOR_M, '#111a28')
-    else:                                                                       # the light has left the house
+    else:                                                                       # the light has left the house: it is in his chest
+        strike = i < LEAVES + 2
         img = draw.paint(img, WIN_M, '#04060a'); img = draw.paint(img, WIN_X, HOUSE)
         img = draw.paint(img, DOOR_M, '#030508')
-        t = max(0, i - 8); x = 508 - VP_ * t; g = (t / 12.0) % 1.0
+        t = max(0, i - LEAVES - 1); x = DOOR_X - VP_ * t; g = (t / 12.0) % 1.0
         pose = C.walk_pose('passenger', g); gy = path_y(x)
         c = chest(pose, x, gy, PS)
-        img = add(img, soft(c[0], c[1], 46 if i < 8 else 34), PLIGHT, .9 if i < 8 else .45)
-        img = figc(img, 'passenger', pose, x, gy, PS, flip=True, glow=14.0 if i < 8 else 8.0)
+        img = add(img, soft(c[0], c[1], 70 if strike else 46), PLIGHT, 1.0 if strike else .45)
+        img = figc(img, 'passenger', pose, x, gy, PS, flip=True, glow=14.0 if strike else 8.0)
     pose = M_DOWN if i < 16 else M_HALF if i < 20 else M_UP
     img = figc(img, 'marisol', pose, MX, MG, MS, flip=True)
     return draw.paint(img, RAIL, '#070a10')
@@ -123,11 +142,10 @@ STONES = np.c_[_r.uniform(-2400, 900, 150), _r.uniform(10, 150, 150), _r.uniform
 
 def _cab_close():
     img = C.core.canvas(W, H, '#070b12')
-    img = C.light(img, draw.raster([box(716, 120, W, 452)], W, H), C.LAMP, 1.12)                     # under the bloom threshold: a flat lit sheet
-    dark = '#06090e'
-    img = fill(img, [box(700, 100, W, 120), box(700, 452, W, 470), box(700, 100, 716, 470), box(1068, 120, 1080, 452),
-                     box(1170, 334, 1196, 452), ellipse(1183, 326, 88, 13), box(1104, 290, 1110, 322), box(1256, 290, 1262, 322)], dark)
-    return img
+    img = C.light(img, draw.raster([box(716, 120, W, 452)], W, H), '#f4cf80', 1.9)                   # lit warm, as in the wide
+    return draw.paint(img, CAB_DARK, '#06090e')
+CAB_DARK = draw.raster([box(700, 100, W, 120), box(700, 452, W, 470), box(700, 100, 716, 470), box(1068, 120, 1080, 452),
+                        box(1170, 334, 1196, 452), ellipse(1183, 326, 88, 13), box(1104, 290, 1110, 322), box(1256, 290, 1262, 322)], W, H)
 CABC = _cab_close()
 
 def scope(i):
@@ -146,13 +164,14 @@ def scope(i):
     pose = C.walk_pose('passenger', (t / 12.0) % 1.0)
     c = chest(pose, xf, gf, SS)
     sc = add(sc, soft(c[0], c[1], 70), PLIGHT, .5)
-    return figc(sc, 'passenger', pose, xf, gf, SS, flip=True, glow=10.0)
+    return figc(sc, 'passenger', pose, xf, gf, SS, flip=True, glow=10.0, sil=HOLE_M)
 
 def marisol_close(i):
     img = CABC.copy()
     m = HOLE_M[..., None]
     img = img * (1 - m) + scope(i) * m
     img = figc(img, 'marisol', M_UP, 905, 980, 860, flip=True)
+    if hasattr(C, 'shadow'): C.shadow(CAB_DARK)                                 # the window's bars and the fire finder stay dark too
     return C.name_card(img, 'marisol', C.clamp01((i - 24) / 16), 'l')
 
 # =================================================================== the shore line, wide (48-71)

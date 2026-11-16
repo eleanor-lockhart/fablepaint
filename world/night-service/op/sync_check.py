@@ -18,10 +18,10 @@ from backlot import sound as sd
 FPS = 12
 SYNC = [(2.0, 'punch: window 1'), (2.5, 'punch: window 2'), (3.0, 'punch: window 3'), (3.5, 'punch: window 4'), (4.0, 'TITLE HIT'),
         (6.0, 'tagline'), (10.0, 'lamp starts to sink'), (11.0, 'lamp flares'), (12.5, 'Dee punch'), (13.5, 'Dee punch'), (14.5, 'Dee punch'), (15.5, 'Dee punch'),
-        (16.5, 'light leaves the house'), (18.0, 'cut: Marisol close'), (21.5, 'mast drops to green'), (22.0, 'cut: Red close'), (24.0, 'pre-chorus: the crossing'),
+        (17.0, 'light leaves the house'), (18.0, 'cut: Marisol close'), (21.5, 'mast drops to green'), (22.0, 'cut: Red close'), (24.0, 'pre-chorus: the crossing'),
         (26.0, 'cut: heron'), (27.0, 'heron blinks'), (28.0, 'cut: Lang'), (28.5, 'Lang tap 1'), (29.0, 'Lang tap 2'), (29.5, 'Lang tap 3'), (30.0, 'Lang tap 4'),
         (30.5, 'Lang tap 5'), (31.0, 'Lang tap 6'), (32.0, 'BREAK: black'), (33.0, 'cold eye opens'), (34.0, 'CHORUS: No. 4'), (36.0, 'tilt lands'),
-        (38.0, 'cut: the pod'), (41.5, 'CABLE SNAPS'), (42.0, 'cut: the walk'), (46.0, 'cut 1'), (46.5, 'cut 2'), (47.0, 'cut 3'), (47.5, 'cut 4'),
+        (38.0, 'cut: the pod'), (41.5, 'CABLE SNAPS'), (42.0, 'cut: the eye stutters'), (42.5, 'the cold eye goes out'), (43.0, 'cut: the walk'), (46.0, 'cut 1'), (46.5, 'cut 2'), (47.0, 'cut 3'), (47.5, 'cut 4'),
         (48.0, 'cut 5'), (48.5, 'cut 6'), (49.0, 'cut 7'), (49.5, 'cut 8'), (50.0, 'cut: No. 4 head'), (50.5, 'eye turns green'), (52.0, 'WINDOW OPENS'),
         (54.0, 'lineup: Orrin'), (54.5, 'Red'), (55.0, 'Dee'), (55.5, 'Marisol'), (56.0, 'Passenger'), (56.5, 'Lang'), (57.0, 'No. 4, far off'), (58.0, 'END CARD')]
 
@@ -92,5 +92,23 @@ def main(frames_dir='out/op/full/frames', wav='out/op/music/night_service_op.wav
     print('largest picture changes not on the list:', [(s['t'], s['picture_change']) for s in stray[:8]])
     return out
 
+def events(frames_dir='out/op/full/frames', out_dir='out/op/events'):
+    """A sheet of twelve CONSECUTIVE poses round every sync point (four before, eight after).
+
+    The half-second review strips cannot show anything shorter than half a second, and most of what failed in v1
+    was shorter than that: a five-pose nod, a punch, a one-pose pop. The outside critic found them on sheets like
+    these. Rule: nothing is passed on the strips alone; every event is looked at on its own run of poses."""
+    from backlot import core, screen
+    Path(out_dir).mkdir(parents=True, exist_ok=True); n = len(list(Path(frames_dir).glob('f_*.png'))); made = []
+    for s, label in SYNC:
+        p = int(round(s * FPS)); ps = [q for q in range(p - 4, p + 8) if 0 <= q < n]
+        if not ps: continue
+        f = Path(out_dir) / f't{s:05.1f}_{"".join(ch if ch.isalnum() else "_" for ch in label)[:28]}.jpg'
+        screen.sheet([core.load(f'{frames_dir}/f_{q:04d}.png') for q in ps], str(f), [f'{q}{"  <<" if q == p else ""}' for q in ps], cols=6, cell_w=320)
+        made.append(str(f))
+    print(len(made), 'event sheets in', out_dir)
+    return made
+
 if __name__ == '__main__':
-    main(*sys.argv[1:])
+    if len(sys.argv) > 1 and sys.argv[1] == 'events': events(*sys.argv[2:])
+    else: main(*sys.argv[1:])

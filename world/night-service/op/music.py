@@ -17,7 +17,7 @@ HERE = Path(__file__).resolve().parent
 SR, DUR = sd.SR, 62.0
 PI2 = 2 * math.pi
 
-BOLD = [2.0, 2.5, 3.0, 3.5, 4.0, 11.0, 12.5, 13.5, 14.5, 15.5, 16.5, 22.5, 27.0, 32.0, 33.0, 34.0, 36.0, 41.5, 52.0, 57.0, 58.0]
+BOLD = [2.0, 2.5, 3.0, 3.5, 4.0, 11.0, 12.5, 13.5, 14.5, 15.5, 17.0, 21.5, 22.5, 27.0, 32.0, 33.0, 34.0, 36.0, 41.5, 52.0, 57.0, 58.0]
 OTHER = ([8.0, 8.5, 9.0, 9.5] + [28.5 + .5 * i for i in range(6)] + [42.0 + .5 * i for i in range(8)]
          + [46.0 + .5 * i for i in range(8)] + [50.5] + [54.0 + .5 * i for i in range(6)])
 SYNC = {round(t, 3) for t in BOLD + OTHER}
@@ -163,7 +163,7 @@ VERSE = {5: [('F5', 1, .5, .75), ('E5', 1.5, .5, .64), ('D5', 2, 1, .75), ('A4',
          6: [('B4', 1, 1, .6), ('A4', 2, .5, .46), ('G4', 2.5, .5, .33), ('A4', 4, .5, .6), ('D5', 4.5, .5, .7)],      # sinks with the lamp; then A, D ...
          7: [('E5', 1, 1.5, .84), ('G5', 2.5, .5, .7), ('A5', 3, 1, .8), ('G5', 4, .5, .68), ('E5', 4.5, .5, .65)],     # ... E: the hook over the bar line
          8: [('D5', 1, .5, .7), ('E5', 1.5, 1, .76), ('C5', 2.5, .5, .66), ('G5', 3, 1.5, .8), ('A5', 4.5, .5, .7)],
-         9: [('D6', 1, .5, .8), ('F6', 1.5, .5, .72), ('A6', 2, 1, .86), ('G6', 3, .5, .7), ('F6', 3.5, .5, .68), ('E6', 4, .5, .7), ('D6', 4.5, .5, .66)],
+         9: [('D6', 1, 1, .8), ('F6', 2, .5, .72), ('G6', 2.5, .5, .74), ('A6', 3, 1, .86), ('F6', 4, .5, .7), ('D6', 4.5, .5, .66)],      # director, v1.1: the peak moved to beat 3 (17.0 s) with the picture
          10: [('B5', 1, 1, .76), ('D6', 2, .5, .7), ('G6', 2.5, 1, .82), ('E6', 3.5, .5, .7), ('D6', 4, .5, .68), ('B5', 4.5, .5, .62)],
          11: [('A4', 2.5, .5, .62), ('C5', 3, .5, .66), ('D5', 3.5, 1.5, .72)],
          12: [('E5', 2, 1, .8), ('D5', 3, .5, .62), ('C5', 3.5, .5, .58), ('A4', 4, 1, .6)]}
@@ -187,7 +187,7 @@ for bar, ch, bl in ((7, 'Am', [('A2', 1), ('A2', 2.5), ('C3', 4), ('E3', 4.5)]),
     for beat in (2, 4): hit('punch', B(bar, beat), .92)
     for i in range(8): hit('hat', B(bar, 1 + i * .5), .46 if i % 2 == 0 else .32)
 # bars 9-10: Marisol. High bright plucked notes; one pure tone on 16.5
-s.note('glass', 'A6', 9, 2, 4, vel=.85)
+s.note('glass', 'A6', 9, 3, 3, vel=.85)                                                      # v1.1: the light leaves the house at 17.0, not 16.5
 for bar, ch, bl, cp in ((9, 'Dm', [('D2', 1), ('D3', 2.5), ('A2', 4)], ['D4', 'F4', 'A4']), (10, 'G', [('G2', 1), ('G2', 2.5), ('D3', 4)], ['D4', 'G4', 'B4'])):
     for p, beat in bl: s.note('bass', p, bar, beat, 1.0, vel=.55 if beat == 1 else .47)
     for beat, v in ((1, .5), (2.5, .44), (4, .46)): stab('comp', cp, bar, beat, 1.2, v)
@@ -198,6 +198,7 @@ for bar, ch, bl, cp in ((9, 'Dm', [('D2', 1), ('D3', 2.5), ('A2', 4)], ['D4', 'F
 for bar in (11, 12):
     for i in range(8): s.note('ost', 'D2', bar, 1 + i * .5, .5, vel=.6)
 hit('kick', 20.0, .5); stab('comp', ['C4', 'F4', 'A4'], 11, 1, 2, .4)
+hit('tick', 21.5, .7)                                                                        # v1.1 (the critic's idea): the Board drops to green by itself, in Continuity's sound, seven seconds before we meet her
 hit('rim', 22.5, .8); s.note('bell', 'A5', 12, 2, 3, vel=.5, third=.0)
 
 # ---- 24-28, bars 13-14: thin out. Three glass tones (the hook again, for the passengers); then the heron blinks
@@ -375,7 +376,8 @@ wet_to_dry = 20 * math.log10(rms(rev * sd.db(WET)) / rms(dry))
 hum = sd.hum(DUR, buzz=.6); cold = np.sin(PI2 * 720.0 * t) + .25 * np.sin(PI2 * 1440.0 * t)
 rise = np.clip((t - 28.0) / 4.0, 0, 1) ** 1.7 * gate[:, 0]
 cable = np.clip((t - 34.0) / .05, 0, 1) * np.clip((41.5 - t) / .004, 0, 1)
-other = sd.pan(hum * (rise * sd.db(-12) + cable * sd.db(-31)) + cold * rise * sd.db(-22))
+touch = np.clip((t - 21.5) / .005, 0, 1) * np.clip((21.82 - t) / .1, 0, 1)                    # v1.1: a third of a second of the cold tone under that tick
+other = sd.pan(hum * (rise * sd.db(-12) + cable * sd.db(-31)) + cold * (rise * sd.db(-22) + touch * sd.db(-25)))
 bk = breaker(); click = np.zeros(mA.n); click[sd._n(CUT):sd._n(CUT) + len(bk)] = bk * sd.db(-9)
 music = music + other + sd.pan(click)
 music *= np.clip((DUR - t) / .8, 0, 1)[:, None]

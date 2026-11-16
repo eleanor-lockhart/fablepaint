@@ -24,3 +24,16 @@
    eye is struck when the tilt lands; the montage's Marisol got the cab's lit window behind her; Dee's queue was
    thinned and the punch struck. Second assembly: 40 of 52 in both. Dee's four punches still do not register as
    picture accents by the numbers; by eye the lit chad carries them.
+7. **Version 1 published** (git tag `op-v1`), then reviewed cold by an independent critic agent running on Claude
+   Opus (`CRITIQUE.md`): 5 out of 10. Two of the storyboard's six story beats landed, two half-landed, and the
+   two that failed were the plot. It also found a library bug in the director's own walk shot.
+8. **Version 1.1**, the critic's top fixes by value for effort. In the kit: `draw.rect` clips at every edge
+   (with a test); far limbs darker than the body; the master keeps other things' bloom off figures; the typeface
+   is an explicit choice. By the director: the walk rebuilt on a pier so the ground streams past; a one-second
+   insert where No. 4's eye dies straight after the snap; Continuity's tick at 21.5 s; the glass tone moved to
+   17.0 s. By the two animators, resumed with their context: the cable redrawn as a thick hose that bends under
+   the orca; Orrin's doze given twelve poses and the stage; Dee's passengers stop for the punch; the house's
+   light leaves while the cab is dim.
+9. **A cold reader for version 1.1.** A fresh agent that had read nothing looked at every pose in two-second
+   sheets, wrote down what it thought happened, and only then opened a list of questions. Its narration is in
+   `COLD_READ_v1.1.md`, scored against the storyboard's six beats in `RETROSPECTIVE.md`.

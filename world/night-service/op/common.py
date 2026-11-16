@@ -20,7 +20,7 @@ W, H = 1280, 720
 FPS, BPM, BEAT, BAR = 12, 120, 6, 24
 INK, DIM, RED, LAMP, COLD, GREEN = '#e9e2cf', '#8b97ad', '#b23b28', '#f2c56b', '#dbeeff', '#a6dc7e'
 NIGHT = ('#090f1b', ('#16263e', .34), ('#3a5673', .72), ('#2b425c', .86), '#1d2e44')
-FIG, EDGE = ('#243044', '#0e131c', '#0e131c'), '#35435c'
+FIG, EDGE = ('#080b11', '#0e131c', '#0e131c'), '#35435c'      # far limbs darker than the body, never lighter (v1 had them lighter and they read as ghost legs)
 DOCK = '#080b12'
 CAST = _cast.cast()                # keeper, red, dee, marisol, passenger, lang: dict(fig, pose, height, window, title, role[, colours, edge])
 ease = anim.ease
@@ -74,13 +74,18 @@ def sigil(img, x, y, s=56, lit=1.0):
 
 # ------------------------------------------------------------------ lettering
 _FONT = {}
-def font(size, style='Open Sans Condensed:style=ExtraBold'):
+FACE = 'Open Sans:style=Condensed Regular'      # the film's face. v1 asked for ExtraBold and was silently given Regular; Regular is now the choice, and a miss is an error
+_OLD_DEFAULT = 'Open Sans Condensed:style=ExtraBold'
+def font(size, style=FACE):
+    if style == _OLD_DEFAULT: style = FACE
     if (size, style) not in _FONT:
-        f = subprocess.run(['fc-match', '-f', '%{file}', style], capture_output=True, text=True).stdout.strip()
+        f, got = subprocess.run(['fc-match', '-f', '%{file}|%{style}', style], capture_output=True, text=True).stdout.strip().split('|')
+        if style == FACE and 'Condensed Regular' not in got:
+            raise RuntimeError(f'the film is set in Open Sans Condensed Regular; fontconfig offered {f} ({got}) instead')
         _FONT[(size, style)] = ImageFont.truetype(f, size)
     return _FONT[(size, style)]
 
-def text(xy, string, size, track=0, anchor='l', style='Open Sans Condensed:style=ExtraBold'):
+def text(xy, string, size, track=0, anchor='l', style=FACE):
     """Lettering as a matte. anchor: 'l' left, 'm' centred, 'r' right (of xy[0]); xy[1] is the top. track = extra pixels between letters."""
     f = font(size, style); im = Image.new('L', (W, H), 0); d = ImageDraw.Draw(im)
     widths = [d.textlength(ch, font=f) + track for ch in string]
@@ -135,9 +140,11 @@ def walk_pose(name, g, **over):
 def figure(img, name, pose=None, x=640, ground=640, size=420, flip=False, window=True, glow=5.0, colours=None, edge=None):
     """Draw a member of the cast. pose=None is their standing pose. size = pixel height of a figure of stature 1.0
     (each character is scaled by their own height). ground = pixel y of the floor under them. flip faces them left."""
-    c = CAST[name]
+    c = CAST[name]; before = img[..., :3].copy() if img.shape[:2] == (H, W) else None
     img = fg.draw_figure(img, c['fig'], c['pose'] if pose is None else pose, size * c['height'], (x, ground), colours=colours or c.get('colours', FIG),
                          edge=edge or c.get('edge', EDGE), edge_w=1.5, flip=flip, window=c['window'] if window else None)
+    if before is not None:
+        shadow((np.abs(img[..., :3] - before).sum(-1) > 1e-5).astype(np.float32))
     if glow:
         img[..., :3] += img[..., :3] * fg.draw_figure.lit[..., None] * glow
     return img
@@ -167,7 +174,7 @@ def no4(img, cx, waterline, height, colour='#13101b', eye=None, chest=None, cabl
     stencil: CONTINUITY painted dimly across its chest (it is the power company's machine). Parts are in _NO4, height = 1."""
     M = lambda pts: np.array([(cx + u * height, waterline - v * height) for u, v in pts])
     img = draw.paint(img, draw.raster([M(p) for p in _NO4], W, H), colour)
-    cw = max(2.0, height * .009)
+    cw = max(2.0, height * .027)                # v1.1: the cable is a hose as thick as a ferry's funnel, not a wire (see e_no4.HOSE_UV for the full drawing)
     if cable is True:
         img = draw.paint(img, draw.raster([sh.ribbon(M([(-.03, .63), (-.2, .46), (-.36, .2), (-.5, -.01)]), w=cw, taper=(0, 0), wob=0)], W, H), colour)
     elif cable == 'cut':
@@ -199,9 +206,28 @@ def heron(img, ox, oy, s=.46, colour='#10161f', flip=True, eye=True):
     return img
 
 # ------------------------------------------------------------------ the master's finishing pass
+_SIL = None
+def begin():
+    """The master calls this before each frame(i): forget the last frame's figures."""
+    global _SIL; _SIL = None
+
+def shadow(matte):
+    """Register a dark shape that must stay dark. The master will not let light from elsewhere in the frame bloom
+    over it (a huge moon turned thin figures olive-grey in v1); its own lights, such as a chest window, still glow.
+    C.figure does this for every figure it draws on a full frame."""
+    global _SIL
+    _SIL = matte.copy() if _SIL is None else np.maximum(_SIL, matte)
+
 def finish(img, i=0):
     """Applied by the master to every frame: lens, tone, film. Shots must not do this themselves."""
-    img = lab.bloom(img, r=10, strength=.55, threshold=1.0, layers=3)
+    global _SIL
+    glow = lambda x: lab.bloom(x, r=10, strength=.55, threshold=1.0, layers=3)[..., :3] - x[..., :3]
+    b = glow(img)
+    if _SIL is not None and _SIL.max() > 0:
+        s = _SIL[..., None]; own = img.copy(); own[..., :3] *= s            # the light that comes from inside the figures
+        b = b * (1 - s) + glow(own) * s
+    _SIL = None
+    img = img.copy(); img[..., :3] += b
     img = lab.tonemap(img, 'filmic', white=6)
     img = lab.vignette(img, .30, radius=.72)
     return lab.grain(img, .022, size=1.3, frame=i)

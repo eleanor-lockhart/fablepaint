@@ -12,7 +12,7 @@ unit = sys.argv[1]
 mod = importlib.import_module(unit)
 out = f'out/op/{unit}'
 def fr(i):
-    img = mod.frame(i)
+    C.begin(); img = mod.frame(i)
     assert img.shape == (C.H, C.W, 4), f'frame {i}: shape {img.shape}, wanted {(C.H, C.W, 4)}'
     return C.finish(img, i)
 pat = anim.render(fr, mod.N, out + '/frames', workers=4)

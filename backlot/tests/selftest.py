@@ -44,3 +44,9 @@ print('motion', {k: round(v, 3) for k, v in mm.items()})
 print('seam', {k: round(v, 4) for k, v in screen.loop_seam(pattern).items()})
 print('flicker', {k: round(v, 4) for k, v in screen.flicker(pattern)[1].items() if k != 'series'})
 print('stats', {k: round(v, 3) for k, v in screen.stats(f0).items()})
+
+
+# draw.rect must clip, not wrap: a rectangle wholly off the left or top edge is empty (it used to fill most of the frame)
+assert draw.rect(64, 48, -30, 10, -5, 20).sum() == 0 and draw.rect(64, 48, 10, -30, 20, -5).sum() == 0, 'draw.rect wraps negative far edges'
+assert draw.rect(64, 48, -10, -10, 8, 6).sum() == 48 and draw.rect(64, 48, 60, 40, 200, 200).sum() == 32, 'draw.rect clips wrongly'
+print('draw.rect clips at every edge')
