@@ -130,6 +130,15 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
+    ('Keepalive',
+     'Asked for as "something with a MYST vibe". An islet at dusk in stills: a jetty, a log book, a beacon with a lever and a numbered dial, a spyglass; and across the water a tower with one dark window. The book has three rules in green: I ANSWER WHAT IS WELL FORMED. ANSWER ONE MORE THAN YOU ARE SENT. I DO NOT WAVE. '
+     'You light the beacon and the far window blinks a number back; answer it by her rule and the window lights and stays lit. It is a three-way handshake done with lamps, and the link it opens carries nothing at all: every few seconds her lamp dips and yours dips back, which says only that the other end is still there. '
+     'This is stage 2 of the style, done at last: 640 by 360, every pixel exactly one of the sixteen colours, light and distance as ordered dither, the sea as colour cycling, and a dissolve made of pixels between one place and the next. The film is a recorded walk through a small game, and the game itself runs in the browser.',
+     [('styles/hex/keepalive/keepalive_poster.png', 'KEEPALIVE (press play; it has sound)', [('mp4', 'styles/hex/keepalive/keepalive.mp4'), ('PLAY IT', 'styles/hex/keepalive/play/index.html'), ('the brief', blob('styles/hex/keepalive/BRIEF.md')), ('the cold reading', blob('styles/hex/keepalive/COLD_READ.md')), ('journal', blob('styles/hex/journal.md')), ('the islands (code)', blob('styles/hex/keepalive/isle.py')), ('the places (code)', blob('styles/hex/keepalive/game.py')), ('the print (code)', blob('styles/hex/stage2.py')), ('the game (script)', blob('styles/hex/keepalive/play/play.js'))], 'styles/hex/keepalive/keepalive.mp4'),
+      ('styles/hex/keepalive/keepalive_places.png', 'The places you can stand. Click through them yourself: the game is the same stills', [('play it in the browser', 'styles/hex/keepalive/play/index.html')]),
+      ('styles/hex/keepalive/keepalive_cycling.png', 'Colour cycling: one still, four moments. Nothing is redrawn; a table of eight colours turns', [('how', blob('styles/hex/stage2.py'))]),
+      ('styles/hex/keepalive/keepalive_score.jpg', 'The sound, as the listening room sees it: the sea, the lamps, and a tune that waits until the far window lights', [('mp3', 'styles/hex/keepalive/keepalive.mp3')], None, 'styles/hex/keepalive/keepalive.mp3'),
+      ('styles/hex/keepalive/keepalive_sync.jpg', 'Picture against sound: 42 of 42 events land in both', [])]),
     ('Persistence',
      'The first Hex piece on a subject of the artist\'s own choosing. A showman\'s winter quarters, at night, in snow. In the shed is a set of gallopers: a roundabout with twenty-four wooden horses. Once a winter somebody runs it, for nobody, to see that it still runs. '
      'Going past him one at a time the horses turn out to be carved differently, each a little further through a stride than the one in front. So he wheels up a stroboscope, puts the lights out and opens the regulator. '
@@ -238,7 +247,7 @@ def main(sections=None, out='index.html', hexpage=False):
             if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera', 'base_case', 'persistence')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera', 'base_case', 'persistence', 'keepalive')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
             if audio and (ROOT / audio).exists():

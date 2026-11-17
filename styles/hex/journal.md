@@ -507,3 +507,80 @@ machine that says no, and bell codes are a score that already exists); a Jacquar
 is in, row by row; a tide-predicting machine. Each needs something I cannot do yet: the first a figure who
 pulls a lever with his whole weight, the second cloth, the third brass that looks like brass in sixteen
 registers.
+
+## Entry 10. *Keepalive*: stage 2 at last, and something you can play
+
+Ellie's ask: "make something with a MYST vibe to it. Open assignment beyond that."
+
+**What I took the vibe to be.** Alone on a small island. Stills, and a click to the next still. Little in a
+still moves. Machines whose logic can be worked out. A book. Somebody who is not here made all of it.
+
+**What I made of it.** An islet with a beacon, a dial and a spyglass, and a tower across the water with one
+dark window. The book gives three rules in her register: I ANSWER WHAT IS WELL FORMED. ANSWER ONE MORE THAN
+YOU ARE SENT. I DO NOT WAVE. You light the beacon; her window blinks three times; you answer three and are
+refused; you read rule 2 again, are sent five, answer six, and her window lights and stays lit. That is a
+three-way handshake done with lamps (the cast sheet has had a druid who "predates TCP/IP" since stage 1, and
+"standing stones as a network" has been in the motif table's next column since then). Through the spyglass she
+is at her desk. You wave. She does not. Then her lamp dips and the beacon dips back, every few seconds, for as
+long as both are there: a keepalive, which is a link that carries nothing except that the other end still
+exists. She is exactly as the guide says: never kind; the shelter is what her rule happens to produce.
+
+**Why this was the piece to do next: three things owed.**
+
+- *Stage 2 of the ladder* (640 x 360, colour cycling) was skipped on the way to depth. A film in stills is
+  where it belongs: the camera never moves, so ordered dither never crawls, and every pixel of every frame can
+  be exactly one of the sixteen registers. Even the change from one place to the next is a dissolve of pixels
+  and not a blend. `styles/hex/stage2.py`.
+- *Colour cycling*, in the motif table's next column under "complex systems". The sea is a phase map and
+  three tables of eight registers; time only turns the tables. A lit lamp puts a column of glints under itself.
+- *A hill that is not steps* (on the roadmap since the space study). The island is a height field.
+
+And one thing nobody asked for: **it can be played.** The places, the hot spots and her rule are one small
+table. The film is a recorded walk through it; `play/` is the same table with a canvas, fifty-three stills and
+about a hundred lines of script, and its colour cycling is real (the page turns the palette). An automated walk
+through the page in a headless browser ends with the log reading `> HELLO | < 1 | < 2 | < 3 | > 1 | > 2 | > 3 |
+> 4 | < YES. LINK UP. | < STILL HERE. | > STILL HERE. | > (YOU WAVE.) | <`.
+
+**What went wrong on the way.** The first stills were one violet: island, sea and sky all between registers
+2 and 3, and the far island invisible at night because haze pulled it toward the colour of the sky behind it
+(far land is darker than the sky, so haze now goes to half the horizon's colour). Her window faced due west
+and the spyglass looks at it fourteen degrees off, so half the window showed the inside of the wall: her tower
+is now turned to face the spyglass. The changes of place were eight-frame dissolves, which the sync measure
+could not find at all (15 of 42 events missing): they are now half at once, on the beat, and the rest in four
+frames.
+
+**By measurement.** 42 of 42 listed events land in both picture and sound. No one-frame accidents. The camera
+does not move, so there is nothing to measure for travel. -16 LUFS (quiet on purpose) over 27 LU. 17 MB.
+
+**My verdict, sealed.** *Works, I think:* the stills (jetty, lookout, the two lamps from the sea); the glint
+under a lit lamp; the dial; the refusal (she sends three, you send three, the beacon goes out); six for five;
+the spyglass and the witch not waving; the last line. *Weak, I think:* a stranger has to read three small
+green lines in a book to understand anything, and they are on screen for five seconds; "one more than you are
+sent" has to be connected to blinks of a far window a few pixels wide; the dips of the beacon are a whole
+picture going slightly darker; the hand is small; the beacon view has nothing behind it; the island is a
+grey lump with speckle, which is what a height field with one texture looks like; and I cannot hear it.
+*Prediction for the cold reader* (eight beats in the brief): 1, 2, 3, 6 and 8 land; 4 and 5 are half (they
+will count the blinks but not be sure why three was refused and six accepted); 7 is half (they will see a
+dip, and may not see the answer). Five and three.
+
+**The reading** (`keepalive/COLD_READ.md`). Eight of eight. I had predicted five and three halves, so I
+was wrong about three beats again, this time by expecting too little. The reader counted the blinks, saw that
+three was answered with three and refused, and wrote "This time the answer is one more than what was
+received." What did it, by their own account, was the log: "From here on I read '>' as what this side sends
+and '<' as what it receives." A puzzle that a watcher cannot play was made legible by one line of system type
+that counts. Rule 5 (leave the rule showing) has now carried three films' hardest beats.
+
+Three things the reader could not make out were fixed afterwards and have not been read again: the beacon
+going out when she refuses (the log now says YOUR LAMP IS OUT); "0 SENT" after a good deal of sending (it is
+0 WORDS SENT now: the handshake is not the message); and her spider, which was a "ragged blot" because it was
+drawn at 2.85 screen pixels to one of its own. The spyglass's lens is now chosen so that her five centimetres
+are exactly six pixels. A sprite seen through a lens wants a whole number of pixels to each of its own.
+
+What the reader was left unsure of is what I meant to leave: "It could be a person, a doll or a machine."
+
+**What is still weak.** The island is a grey lump: a height field with one speckled texture has no strata,
+no path worn into it, nothing growing. The beacon view has nothing behind it. The water's bands are regular
+enough to look like moire where they close up. The hand is small. In the game, nothing tells you that you may
+step back by clicking the bottom of the picture except a line under it. And I cannot hear it: whether the sea
+is a sea, whether the tune was worth holding back until the window lights, and whether her bell and your low
+string a fifth apart sound like a call and an answer.

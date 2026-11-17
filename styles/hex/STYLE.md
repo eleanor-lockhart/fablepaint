@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.7, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)*, two cuts of *Base Case* and *Persistence*. The evidence is in `journal.md`.
+Version 0.8, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)*, two cuts of *Base Case*, *Persistence* and *Keepalive*. The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -110,6 +110,19 @@ Provisional. A rule that survives three pieces stays.
     Case*: keep the style, choose the subjects. Sixteen registers, F reserved, the frame filled, the rule left
     showing, one structural gag played straight, something vast and one thing kept.
 
+### The sixteen-colour print (from *Keepalive*; `stage2.py`)
+
+25. **Stage 2 is a print of the same model.** 640 x 360, every pixel exactly one register. Tone and distance are
+    ordered dither between registers, in a pattern fixed to the screen. Far land is darker than the sky behind
+    it. Nothing is green unless it was painted green.
+26. **A still does not travel.** In a piece made of stills the camera never moves (which is why dither is at
+    home there: it cannot crawl). You move, in jumps. The change from one place to the next is a dissolve of
+    pixels, never a blend: half at once, on the beat, and the rest in four frames.
+27. **Time turns the table.** Water, static and the glints under a lamp are colour cycling: the picture holds
+    a phase for each such pixel and a table of eight registers turns six times a second. Nothing is redrawn.
+28. **If it is a place with a rule, let it be played.** The places, the hot spots and the rule go in one table;
+    the film is a recorded walk through it, and the same table runs in a browser.
+
 Kept from the house style: construct, don't guess; one thing, one model (`sprites.py`, and now `house.py`); the
 method and its instruments; a cold reader before anything is called finished.
 
@@ -120,10 +133,14 @@ The style is being built from the ground up, and each stage keeps the sixteen re
 | stage | limits | what it adds |
 |---|---|---|
 | 1. eight-bit (done) | 320 x 180, hard pixels, 12 frames a second, sprites as hex text; sound from two pulse waves, a sixteen-step triangle and noise | the palette, the cast, the first rules, the first tune |
-| 2. sixteen-bit | 640 x 360; parallax; colour cycling; walk cycles; more voices (a choir, strings, a whistle with ornaments, a real kit) | space, time and a whole song inside the same limits |
+| 2. sixteen-bit (done, out of order: *Keepalive*) | 640 x 360, strictly sixteen registers; ordered dither; colour cycling; stills and a dissolve of pixels. Still to come at this stage: parallax by hand, walk cycles | a whole place inside the old limits, printed from the model the later stages build |
 | 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
 | 4. depth (*Base Case*) | a place built in metres and painted on a 5 cm grid; cast light and shadows per texel; figures as cards; a camera that travels. The earlier stages are kept as ways of printing the same model | space that is real, in the same sixteen registers |
 | 5. now: solids (*Persistence*) | things carved from the same grid in three dimensions, lit a cube at a time; a creature measured from a reference; a person with joints; the camera off the square-on axis | things with a back, and a camera that can go and look at it |
+
+**A fifth piece,** *Keepalive* (`keepalive/`), was asked for as "something with a MYST vibe": an island in stills,
+a beacon, a dial, a spyglass, and the witch across the water, who answers what is well formed and does not wave.
+The puzzle is a three-way handshake by lamp. It is also a game: `keepalive/play/` runs in a browser.
 
 **A fourth piece,** *Persistence* (`persistence/`), is the first on a subject of my own choosing: a showman's
 roundabout, run once a winter for nobody. Its twenty-four horses turn out to be carved in the twelve phases of a
@@ -146,7 +163,7 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 
 | motif | so far | next |
 |---|---|---|
-| a witch, sinister, Oz-green, malevolent, and ours | the keeper in the lit window; the only green thing; a process that cannot be closed; the base case of a recursion, and a child's shadow | a face at close range |
+| a witch, sinister, Oz-green, malevolent, and ours | the keeper in the lit window; the only green thing; a process that cannot be closed; the base case of a recursion, and a child's shadow; the far end of a link, seen through a spyglass, not waving | a face at close range |
 | hostile crowds | 437 users at the gate, one sprite repeated | a crowd with a rule (flocking) |
 | hive minds, good and bad | the consensus field; drones (+) and (-) as one sprite in two palettes | a good hive at work: many small jobs |
 | spiders | the familiar, let down in front of the moon; a web in the corner; one coming down a basement post on its thread while the child comes down the stairs | the web as the network |
@@ -155,8 +172,8 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 | gothic imagery | the tower; a cathedral as a starship | tracery, a rose window worth the name |
 | spaceships, space opera | the research vessel *Perimeter* | a fleet; scale |
 | wizards, academia | faculty (Reviewer 2); a research vessel with a faculty | the seminar; the library |
-| druids, ancient witch cults, cults | druid (predates TCP/IP); acolyte (here for snacks) | standing stones as a network |
-| complex systems, seen psychedelically | the consensus automaton; a nebula from three sines; a call stack drawn as a staircase, and a value returned through four machines | colour cycling; flow fields |
+| druids, ancient witch cults, cults | druid (predates TCP/IP); acolyte (here for snacks); a handshake by lamp between two islands | standing stones as a network, with more than two of them |
+| complex systems, seen psychedelically | the consensus automaton; a nebula from three sines; a call stack drawn as a staircase, and a value returned through four machines; a sea that is a phase map and a turning table | flow fields |
 | rats | the pit in *Space Opera*: eight of them on strings, bowing together; one in the basement, leaving the torchlight, and two by the dehumidifier afterwards | a rat king, which is a hive |
 | the house | (new with *Base Case*) her childhood home, as one model in metres: the pantry trap door, the basement, the red posts, the brick chimney, the Pentium | the kitchen and the bedroom, which exist only as paintings so far; the garden under snow |
 | complex systems, kept machines (Fable's addition) | a roundabout that is a zoetrope: twelve horses, two turns a second, twenty-four flashes; a regulator with a rating that is ignored once | a signal box; a loom; a tide machine |
@@ -194,11 +211,18 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 - Twelve poses shown one at a time on twelve different horses. Nobody can see a stride in that; put the twelve
   side by side somewhere (the card).
 - A door nobody was seen to open.
+- A picture that is all one pair of registers: an island, a sea and a sky between 2 and 3. Give the land its own
+  value. And haze that takes far land toward the sky's colour makes it vanish at night; it should go darker.
+- A window looked at fourteen degrees off square: half of it showed the inside of the wall.
+- A change of place spread evenly over eight frames: it lands on no beat.
 - A shadow among the things that cast it. Drawn as a hole it was seen and not understood; drawn right it was
   not seen. If a shadow is the point, it needs a clear surface and a shot of its own.
 
 ## Changelog
 
+- v0.8: *Keepalive*: stage 2 done, out of order, as a print of a stage 5 model. Rules 25 to 28 (the sixteen-colour
+  print; a still does not travel; time turns the table; if it is a place with a rule, let it be played). A
+  height field; colour cycling; a version that runs in a browser.
 - v0.7: *Persistence*: the first piece on a subject of Fable's choosing, at Ellie's invitation (keep the style,
   choose the subjects). Rules 20 to 24 (a thing that turns is carved; one cube, one tone; what repeats is built
   once; nothing flashes; the subject may come from anywhere). Rule 16 gains a sentence: a shadow is the surface,
