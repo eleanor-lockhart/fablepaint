@@ -113,3 +113,28 @@ assert _same.sum() > 20 and np.ptp(_open[_same]) < 1e-6, 'every pixel of one tex
 _hole = _sq.copy(); _hole[3:7, 3:7] = _dp.HOLE; _g = _dp.gbuffer([_dp.card('front', _hole, (0, 2, 1.25), (1, 0, 0)), _dp.card('back', _sq, (0, 3, 1.0), (1, 0, 0), texel=.1)], _cam)
 assert _g['names'][_g['solid'][360, 640]] == 'back' and (_g['solid'] == 0).sum() > 100, 'a hole in a card should show what stands behind it'
 print('depth: parallax, texels, cast shadows and cut-outs are right')
+
+# backlot.carve and depth.block: a carved cube is a box; it turns with its paint; a ball is round; a thin limb is never broken; one cube, one tone
+from backlot import carve as _cv
+_fz = lambda g: np.where(np.isfinite(g['depth']), g['depth'], 0)
+_cam4 = _sp.Camera((2.2, -3.1, 1.6), look=(0, 0, .25), lens=35, size=(640, 360))
+_cube = _cv.Carving((-.25, -.25, 0), (.25, .25, .5)); _cube.box((-.25, -.25, 0), (.25, .25, .5), 0xA); _B = _sp.Set('b'); _B.box('cube', (-.25, .25), (-.25, .25), (0, .5))
+assert np.abs(_fz(_dp.gbuffer([_cube.block('c', (0, 0, 0))], _cam4)) - _fz(_dp.gbuffer(_B.solids, _cam4))).max() < 1e-6, 'a cube carved from 5 cm cubes should be the same as a box, to the pixel'
+assert np.abs(_fz(_dp.gbuffer([_cube.block('c', (0, 0, 0), turn=30)], _cam4)) - _fz(_dp.gbuffer([_dp.turned(_B.solids[0], 30)], _cam4))).max() < 1e-6, 'and the same again when both are turned thirty degrees'
+_ball = _cv.Carving((-.6, -.6, 0), (.6, .6, 1.2)); _ball.ball((0, 0, .6), .5, 0xA)
+assert abs(_ball.count() / (4 / 3 * np.pi * .5 ** 3 / .05 ** 3) - 1) < .03, 'a carved ball should hold as many cubes as its volume'
+_g = _dp.gbuffer([_ball.block('ball', (0, 0, 0))], _cam4); _m = _g['hit']
+assert np.abs(np.linalg.norm(_g['normal'][_m], axis=-1) - 1).max() < 1e-3 and (((_g['centre'][_m] - (0, 0, .6)) * _g['normal'][_m]).sum(-1) > .3).mean() > .97, 'a cube of a ball should face away from the middle of the ball'
+_one = (_g['centre'] == _g['centre'][180, 320]).all(-1) & _m; _lv = _dp.lighting(_g, [_dp.Light((2, -2, 3), 1.2, 4, shadow=False)], ambient=.1)
+assert _one.sum() > 4 and np.ptp(_lv[_one]) < 1e-6, 'every pixel of one cube should get one level of light'
+_thin = _cv.Carving((0, 0, 0), (1, 1, 1)); _thin.limb((.03, .07, .02), (.93, .81, .88), .01, .01, 9)
+from scipy import ndimage as _ndi
+assert _ndi.label(_thin.grid != _dp.HOLE, structure=np.ones((3, 3, 3)))[1] == 1 and _thin.count() >= 18, 'a limb thinner than a cube should still be one unbroken line of cubes'
+_deck = _dp.paint(_sp.Set('d').box('deck', (.5, 2), (-.5, .5), (0, .1)), skin=(np.indices((8, 8)).sum(0) % 2 * 9).astype(np.uint8)); _top = _sp.Camera((0, 0, 12), look=(0.001, 0, 0), lens=35, size=(640, 360))
+_g0 = _dp.gbuffer([_deck], _top); _g1 = _dp.gbuffer([_dp.turned(_deck, 90)], _top); _rr = np.random.default_rng(1)
+_Pd = np.c_[(np.floor(_rr.uniform(.55, 1.95, 300) / .05) + .5) * .05, (np.floor(_rr.uniform(-.45, .45, 300) / .05) + .5) * .05, np.full(300, .1)]; _Qd = np.c_[-_Pd[:, 1], _Pd[:, 0], _Pd[:, 2]]
+_a, _b = _top.project(_Pd).astype(int), _top.project(_Qd).astype(int); _ia, _ib = _g0['index'][_a[:, 1], _a[:, 0]], _g1['index'][_b[:, 1], _b[:, 0]]
+assert (_ia != _dp.HOLE).all() and (_ia == _ib).all() and 100 < (_ia == 9).sum() < 200, 'a painted deck turned a quarter should take its paint round with it'
+_rod = _cv.Carving((-.1, -.1, 0), (.1, .1, 1)); _rod.limb((0, 0, .05), (0, 0, .95), .01, .01, 9); _g = _dp.gbuffer([_rod.block('rod', (0, 0, 0))], _cam4)
+assert _g['hit'].sum() > 50 and _dp.lighting(_g, [_dp.Light(_cam4.eye, 1.5, 6, shadow=False)], ambient=.05)[_g['hit']].mean() > .4, 'a rod one cube thick, lit from where it is seen, should be lit (it has no shape round it to face any other way)'
+print('carve: a carved thing is solid, round, unbroken, lit a cube at a time, and turns with its paint')

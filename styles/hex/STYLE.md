@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.6, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)* and two cuts of *Base Case*. The evidence is in `journal.md`.
+Version 0.7, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)*, two cuts of *Base Case* and *Persistence*. The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -53,6 +53,7 @@ Provisional. A rule that survives three pieces stays.
    be argued out of it, and nothing in the picture can suppress her. We are on her side most of the time. She
    never does anything nice. The shelter is what her perimeter happens to produce, and whatever sweetness there
    is belongs to the small things living inside it, never to her.
+   A piece she is not in has no green in it at all (*Persistence*).
 4. **Fill the frame.** Something structural reaches every edge: a lattice of stars, a crowd, a field of cells.
    No empty quarter. Where the house style wants busy against quiet, here the quiet is made of a great many
    small identical things.
@@ -82,6 +83,8 @@ Provisional. A rule that survives three pieces stays.
 16. **Light has no colour.** It only moves a thing between the void (register 0) and itself, in five or six
     flat steps, worked out once per texel so that a shadow has the same square edge as the paint. Colour
     belongs to things. F is still the only thing that glows, and a lamp is seen by what it lands on.
+    A shadow is the surface it falls on, one or two steps up from the void, never the void itself: at register
+    0 a shadow is a hole, and two cold readers have taken one for a thing (a fir tree; "black masses").
 17. **A figure is a card,** standing in the place: the place hides it, lights it, and takes its shadow. So a
     shadow can tell the truth about someone that the sprite does not.
 18. **The camera travels on ones, on a path of its own.** Sprites may hold a pose for six frames; the camera
@@ -89,6 +92,23 @@ Provisional. A rule that survives three pieces stays.
 19. **One model, however many machines.** An older picture of the same place is the same model printed
     differently (fewer colours, one bit, lines), never a second drawing. What a machine cannot show, it does not
     show: before RETURN the older machines have no register F at all.
+
+### Solids (from *Persistence*; `backlot/carve.py`, `puppet.py`)
+
+20. **A thing that turns is carved.** A card is right from one side, and a film of cards is shot square-on.
+    Whatever will be walked round, or goes round, is carved from the same 5 cm grid in three dimensions, round
+    bones, and measured before it is carved (the horse is off Muybridge's plate, bone by bone). Rule 17 still
+    holds for what is only ever seen from the front.
+21. **One cube, one tone.** A carved thing is lit by the way its shape faces at each cube, never by a cube's
+    own sides. Lit by its sides, every slope is a zebra.
+22. **What repeats is built once and repeated exactly.** One twelfth of the ride, turned twelve times; one
+    horse, posed twelve ways. Then the arithmetic on the status bar is true in the picture: turned by a
+    twelfth, the only thing that has changed is which horse it is.
+23. **Nothing flashes.** A light that flickers is shown held, the way an eye holds it, and a thing too fast to
+    see is shown as the smear an eye would keep. A strobe drawn honestly is a hazard to some of the audience.
+24. **The subject may come from anywhere; the surface does not change.** Ellie's instruction after *Base
+    Case*: keep the style, choose the subjects. Sixteen registers, F reserved, the frame filled, the rule left
+    showing, one structural gag played straight, something vast and one thing kept.
 
 Kept from the house style: construct, don't guess; one thing, one model (`sprites.py`, and now `house.py`); the
 method and its instruments; a cold reader before anything is called finished.
@@ -102,7 +122,13 @@ The style is being built from the ground up, and each stage keeps the sixteen re
 | 1. eight-bit (done) | 320 x 180, hard pixels, 12 frames a second, sprites as hex text; sound from two pulse waves, a sixteen-step triangle and noise | the palette, the cast, the first rules, the first tune |
 | 2. sixteen-bit | 640 x 360; parallax; colour cycling; walk cycles; more voices (a choir, strings, a whistle with ornaments, a real kit) | space, time and a whole song inside the same limits |
 | 3. about the year 2000 (begun: *Uptime*) | full resolution; the desktop as a stage: windows, glossy title bars, pill buttons, soft shadows, a glow, a flare. Still to come: clear plastic, low-polygon models | the contemporary finish. Every colour still comes out of the table, and only F glows |
-| 4. now: depth (*Base Case*) | a place built in metres and painted on a 5 cm grid; cast light and shadows per texel; figures as cards; a camera that travels. The earlier stages are kept as ways of printing the same model | space that is real, in the same sixteen registers |
+| 4. depth (*Base Case*) | a place built in metres and painted on a 5 cm grid; cast light and shadows per texel; figures as cards; a camera that travels. The earlier stages are kept as ways of printing the same model | space that is real, in the same sixteen registers |
+| 5. now: solids (*Persistence*) | things carved from the same grid in three dimensions, lit a cube at a time; a creature measured from a reference; a person with joints; the camera off the square-on axis | things with a back, and a camera that can go and look at it |
+
+**A fourth piece,** *Persistence* (`persistence/`), is the first on a subject of my own choosing: a showman's
+roundabout, run once a winter for nobody. Its twenty-four horses turn out to be carved in the twelve phases of a
+gallop, so at two turns a second under a lamp that flashes twenty-four times a second the ride stands still and
+the horses run. The film is 1728 pictures and says so.
 
 **A third piece,** *Base Case* (`basecase/`), is a fairy tale told as a recursion, in her childhood home (the one painted in `gallery/house`):
 down through the pantry trap door to the basement, into the computer that is on down there, and into the one
@@ -133,6 +159,7 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 | complex systems, seen psychedelically | the consensus automaton; a nebula from three sines; a call stack drawn as a staircase, and a value returned through four machines | colour cycling; flow fields |
 | rats | the pit in *Space Opera*: eight of them on strings, bowing together; one in the basement, leaving the torchlight, and two by the dehumidifier afterwards | a rat king, which is a hive |
 | the house | (new with *Base Case*) her childhood home, as one model in metres: the pantry trap door, the basement, the red posts, the brick chimney, the Pentium | the kitchen and the bedroom, which exist only as paintings so far; the garden under snow |
+| complex systems, kept machines (Fable's addition) | a roundabout that is a zoetrope: twelve horses, two turns a second, twenty-four flashes; a regulator with a rating that is ignored once | a signal box; a loom; a tide machine |
 | symphonic metal, celtic music | the GATE.EXE tune: three bars of jig over a drone, then twin leads, a gallop and chords as arpeggios | done twice: the score of *Uptime*, and the song of *Space Opera*, which also writes down every note it plays so that the picture can be drawn from the list |
 
 ## Faults seen so far
@@ -155,9 +182,27 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 - A rat that ran with the camera, at the camera's speed, and so "stays there".
 - An event at 32.8 seconds. There is no frame at 32.8 seconds at 24 a second. Times go on the frame grid.
 - A torch with no beam: nobody knew she carried one.
+- A carved slope lit by its cubes' sides: a zebra.
+- A horse too long for its ring. Twelve horses 2.2 m long need a ring 4.7 m in radius before they stop
+  overlapping; the ride had to grow to fit the arithmetic.
+- A shot from under a horse, looking up: a belly and a ceiling. And a plan lit from the side by the one lamp
+  in the story: a dark ring. A view that explains is allowed its own light and a cutaway.
+- A building that was one blank wall filling the frame. A shed needs a roof, a door, a sign and some sky.
+- The keeper standing exactly behind the lamp stand, as seen from the only camera that could see him.
+- A ride at an in-between speed under a strobe: a different picture every frame all over the screen. See rule 23.
+- A limb one cube thick, lit as if it faced nowhere: the legs of a galloping horse, too dark to read.
+- Twelve poses shown one at a time on twelve different horses. Nobody can see a stride in that; put the twelve
+  side by side somewhere (the card).
+- A door nobody was seen to open.
+- A shadow among the things that cast it. Drawn as a hole it was seen and not understood; drawn right it was
+  not seen. If a shadow is the point, it needs a clear surface and a shot of its own.
 
 ## Changelog
 
+- v0.7: *Persistence*: the first piece on a subject of Fable's choosing, at Ellie's invitation (keep the style,
+  choose the subjects). Rules 20 to 24 (a thing that turns is carved; one cube, one tone; what repeats is built
+  once; nothing flashes; the subject may come from anywhere). Rule 16 gains a sentence: a shadow is the surface,
+  darker, never the void. Stage 5 on the ladder. Two cold readings: five of eight beats landed, then seven.
 - v0.6: *Base Case*: the style gets depth. Rules 15 to 19 (a pixel is five centimetres; light has no colour;
   a figure is a card; the camera on its own path; one model, however many machines). Stage 4 on the ladder. A
   cold reading (six of eight beats landed, one half, one missed) and a second cut.

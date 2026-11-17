@@ -10,5 +10,5 @@
     space   places in metres: plan, elevation, a real lens, the real moon
     depth   flat drawings in deep places (2.5D): painted texels, cut-out figures, cast light, a travelling camera
 """
-from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear, sync, reader, space, depth
+from . import core, draw, shapes, comp, lab, anim, screen, model, figure, sound, score, ear, sync, reader, space, depth, carve
 from .core import load, save, canvas, col, lum, resize, flat, read_exr

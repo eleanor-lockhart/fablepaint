@@ -335,3 +335,175 @@ as the camera). -14.8 LUFS, range 20 LU.
   tune when the beeper has it, and whether the F major chord at RETURN is a relief or a jingle.
 - Not tested: the second cut's first half has not been read (its beats landed in the first cut, and it has
   changed: a notice, a beam, a rat, a lifting pose).
+
+## Entry 8. *Persistence*: a subject of my own, and things that turn
+
+After *Base Case* Ellie's instruction was: keep working in this style; the thematics are optional; pick new
+subjects and new projects, teach yourself more, refine the style. So this is the first Hex piece whose subject
+is mine to choose.
+
+**What I picked, and why.** A showman's roundabout in its winter shed, run once a year for nobody to see that
+it still runs. Its horses turn out to be carved in the twelve phases of a gallop, so at the right speed under
+a flashing lamp the ride stands still and the horses run. Three reasons.
+
+- The deepest line in the statement is the longing for the numinous that only "a finite, intelligible system
+  producing grace" can satisfy. This is that sentence as a machine: twelve horses, two turns a second,
+  twenty-four flashes a second. Nothing is hidden and it is still a small miracle.
+- It is about the medium. A film is pictures that do not move; so is a zoetrope; so, it turns out, is this
+  ride. The last card says so, in system type, with a straight face.
+- It could not be made with what I had. *Base Case* was shot square-on because its figures were cards, its
+  furniture was boxes, and its child had two walking poses. A roundabout shows every side of everything on it.
+  So the subject forced the three skills I most lacked: solids that turn, a creature built from a reference,
+  and a figure with joints.
+
+No witch, so nothing is green; rule 3 is kept by leaving her out. The keeper is chrome, like everybody else.
+What is vast is the winter night; what is kept is the ride.
+
+**What had to be learned** (the tools are in `backlot/carve.py`, `backlot/depth.py`, `puppet.py`; the general
+account is entry 4 of `studies/space/JOURNAL.md`).
+
+- *Carving.* A solid is the paint grid in three dimensions: 5 cm cubes, each a register. The renderer walks
+  every ray through the grid, so a carved cube is a box to the pixel and throws the shadow of its real shape.
+- *One cube, one tone.* My first carved horse was a zebra from any oblique angle: lit by the cubes' own sides,
+  alternate cubes on a slope face the lamp and face away. Lit by the way the shape faces at each cube, it is
+  round in flat steps. That is rule 16 again, one dimension up.
+- *A horse from a plate.* Muybridge's card of Sallie Gardner (1878) enlarged under a grid; the slope of each
+  leg bone read off in each frame; the table joined into curves and sampled twelve times. The legs I measured.
+  The pitch of the back, the reach of the neck and the tail I made up, and the horse is a long sausage with a
+  small head compared with a carver's horse: it reads as a horse and not yet as a carousel horse.
+- *One twelfth.* The ride is one slice, turned twelve times, so that turned by thirty degrees it is the same
+  ride. Then "one horse per flash" is exact: locked, the only thing that differs between two pictures is which
+  horse is where. The cranks are geared two to one so that, locked, the horses also rise and fall once a stride.
+- *The ride had to grow to fit the arithmetic.* Twelve horses 2.2 m long do not fit a ring until it is 4.7 m
+  in radius. The ride is 13.8 m across and has two rings, not three.
+
+**Decisions.**
+
+1. *No flash is drawn.* An honest stroboscope is a black frame between every two pictures: dangerous to some
+   viewers and unpleasant to all. The film holds each picture, as an eye does. That is the title.
+2. *The smear.* Between slow and locked, under the lamp, the whole ride is a different picture every frame,
+   and my first render of that was eight consecutive frames each as different from the last as a cut. Now the
+   film keeps a little of the last three pictures in each one there, so the ride is a smear of ghosts that
+   comes sharp as it locks. I think it is also the better picture: the lock is the moment it comes into focus.
+3. *The numbers.* Every horse of the outer ring carries its number over its head, in system type. Slow, they
+   pass in order. Locked, the number over one place changes every picture. That is the rule left showing,
+   and it is what lets anyone check the claim by pausing.
+4. *The drum is a screen.* The middle of the ride was mirrors; shadows on mirrors were mud. It is pale canvas
+   now, and the black shadows of the horses gallop on it behind them.
+5. *A view that explains may have its own light.* The plan from the rafters, lit by the one lamp in the
+   story, was a dark ring. The view from above is now a cutaway with the canopy off and flat light.
+6. *The lock is on a cut.* The measurement could not see the ride stop (every locked frame differs from the
+   last by a horse), and neither, I thought, would an eye. So the acceleration is one take, and at 36.0, on the
+   first beat of the galop, the film cuts to the exact view the numbered horses went past in.
+7. *RATED 6.* The window says TURNS 120.0 /MIN (RATED 6), in the hostile register. No real ride does this.
+
+**The score** keeps one beat (half a second) throughout. A waltz for the ride as it always was (a band organ:
+pipes, a bell, an oom and two pahs); at 27.0 it stops dead and there is only the lamp ticking twenty-four
+times a second; then a rise, and at 36.0 a galop, which is the right word twice over. A stride is one beat.
+The hooves are where the plate puts them, four close together and then air, and the guitars play the gallop
+that metal already had. The ride has a sound of its own, a puff of air for every horse that passes: 1.2 a
+second at first, and a note of 24 Hz when it is locked.
+
+**By measurement.** 20 of 20 listed events land in both picture and sound (first pass: 13 of 19; the misses
+were all under the lamp, and fixing them made the film clearer: a dark gap before the lamp comes on, a close
+shot of the hand on the regulator, the lock on a cut). No one-frame accidents. The largest step is 3.1% of the
+width a frame, and it is not the camera: it is the horses going past a still lens at six turns a minute, which
+I have left. -14.1 LUFS over 15 LU. 53 MB, which is too big, because the middle of the film is a different
+picture every frame on purpose.
+
+**My verdict, sealed before anyone else has seen it.** *Works, I think:* the yard (a shed, a sign, a wagon
+with the one lit window); the dark shed with a lamp finding a horse; the numbered horses going past side on;
+the lights going out and the lamp's hard shadows; the smear coming sharp; the horses galloping on the spot
+with a new number every picture; their shadows on the drum; the view from above; RATED 6; the last card.
+*Weak, I think:* the keeper is small and grey and does small things, so a stranger may not know who made the
+ride go fast; the stroboscope is a box on a pole, and that it flashes is said only by the window; "each horse
+is a different pose" may be read as "the horses are moving" during the slow pass, because they are also
+moving; whether the ride has stopped or only seems to is the whole point and rests on four words in the
+window; nobody is told why he does it; the horse is a sausage; the close shot of the regulator is big crude
+cubes; I cannot hear it.
+*Prediction for the cold reader:* of the eight beats in the brief, six land (1, 2, 4, 5, 7, 8) and two are
+half: 3 (they will say the horses are numbered and not that each is carved differently) and 6 (they will say
+the horses gallop in place and take the ride to have stopped).
+
+## Entry 9. *Persistence*: a cold reading and a second cut
+
+The reading is in `persistence/COLD_READ.md`, unedited. One reader, the whole first cut, every fifth picture
+plus twelve consecutive ones.
+
+**Five beats landed and three were half.** I had predicted six and two, and had three of the eight wrong.
+
+- *Beat 6 landed, and I had it down as half.* "Each 1/24 s the next horse lands in exactly the same spot, so
+  the carousel turns a full circle in half a second while looking still." The reader got there from the
+  numbers over the horses and worked out the rest unprompted: twelve to a ring, 1.2 a second at the rated
+  speed, 24 a second at 120 turns, and 1728 = 72 x 24 for the last card. The rule left showing did the work
+  that I thought four words in a window would have to do.
+- *Beat 5 was half, and I had it down as landed.* "I could not confirm from the stills that the twelve
+  positions make one smooth stride." Of course not: the poses are only ever seen one at a time, on twelve
+  different horses. I knew they were a stride because I made them.
+- *Beat 7 was half, and I had it down as landed.* "Big black horse-shaped masses ... might be the lamp's
+  shadows, or unlit horses of another ring." This is the second film in a row in which I rated a shadow as
+  working and a stranger could not say what it was, and for the same reason both times: where no light fell I
+  drew register 0, and at register 0 a shadow is a hole in the picture. A shadow is the surface it lies on,
+  darker. That is now in rule 16.
+
+Smaller things: nobody was seen to open the door; the keeper could not be found in two shots because, from
+the one camera that might have seen him, he stood behind the lamp stand.
+
+**The second cut.**
+
+1. *The card.* From 15.0 a strip along the bottom is Muybridge's card, redrawn. Each horse that passes the
+   lamp's place is put on it, in its own cell; by the time the lamp is lit it reads ONE STRIDE, IN TWELVE
+   HORSES. Locked, a mark runs along it at twenty-four a second. It is the third way this film leaves its rule
+   showing, and the only place the twelve are ever side by side.
+2. *Shadows are surfaces.* More ambient under the lamp, so the shadowed drum is its own panel one step up
+   from the void, frame and all.
+3. *Legs.* Looking at the plate of one place I saw that the legs, which are the gallop, were the darkest
+   thing in the picture. A limb one cube thick has no shape round it, so "the way the shape faces" was
+   nowhere. The library now lights such a cube by the side of it that is seen (`depth.facing`, `thin=`), the
+   lower legs are the coat's colour, and the hooves are gilt.
+4. *The horse.* A bigger head, an arched neck, a deeper chest and haunch. Still not a carver's horse.
+5. *The door* is slid open at 5.0 and shut at 66.0. *The keeper* is clear of the stand and lit by its spill.
+6. The encode is 35 MB (it was 53).
+
+**By measurement, second cut.** 17 of 20 listed events land in both picture and sound by the detector, where
+the first cut had 20. Nothing was moved: the three it no longer counts are plain cuts (18.0, 24.0, 52.0)
+between two busy shots, and brighter horses and the card made the pictures round those cuts busier, so each
+cut is now 1.9 to 2.0 times its neighbours where the test asks for more than 2. I have left them: a cut is a
+cut. No one-frame accidents. Largest step 1.7% of the width. -14.1 LUFS.
+
+**Sealed before the second reader.** I expect beats 3 and 5 to land now (the card), beat 7 to land (they will
+say "shadows"), the door to be seen opening, and the keeper to be found in every shot he is in: eight of
+eight, or seven with beat 7 still half. What I think is still weak: the keeper never reacts, so it is still
+not shown that *he* sees it; the close shot of the regulator is crude; the first thirty seconds are setting up.
+
+**The second reading** (`persistence/COLD_READ_v2.md`). Seven beats landed and one was missed. Beats 3 and
+5 landed, as predicted, and by the means intended: "Read in order, the twelve silhouettes make one gallop",
+and "the carousel would look frozen while its horses gallop in place, one stride every half second. I take
+this to be the point of the film." The door was seen to open; the keeper was found in every shot.
+
+Beat 7 I had wrong again, in a new way. With the shadows as black holes, the first stranger saw them and did
+not know what they were. With the shadows as darker panels, which is right, the second stranger did not see
+them. Three predictions about shadows across two films, three wrong. What I take from it: a shadow among the
+things that cast it is texture. To be an event it needs a clear surface, a shot of its own and nothing else in
+the frame, and this ride has two rings of horses standing in front of the only surface its shadows fall on. I
+did not find that shot, so the film has seven beats and a texture.
+
+After the reading I changed one shot (the move round the ride at 44 s, which the reader found grey and
+purposeless): it keeps its numbers now and goes round the lit side, away from the lamp. Measured again
+afterwards: 16 of 20 by the detector, the four it does not count all being plain cuts inside sections where
+every frame is a different picture on purpose (each is a change of 0.57 to 0.74, a whole cut, against
+neighbours of 0.3 to 0.4). No one-frame accidents. 28.8 MB.
+
+**What is still weak.** The keeper never reacts, so it is not shown that he sees what the lens sees (the
+first reader said so). The dark shed before the lights is guessed at, correctly, by both readers. Nobody can
+count the horses. The horse is better and is still not a carver's horse. The legs alias a little where a limb
+one cube thick crosses the grid. The close shot of the regulator is crude at that size, which is what five
+centimetres costs when the camera comes close, and is the next thing the style has to answer (a face at close
+range is still on the list). And I cannot hear the score: whether the waltz sounds like an organ, whether the
+galop is a release or a noise, and whether twenty-four ticks a second under everything is a lamp or a headache.
+
+**What I would pick next,** since picking is now part of the job: a signal box at night (a lever frame is a
+machine that says no, and bell codes are a score that already exists); a Jacquard loom weaving the frame it
+is in, row by row; a tide-predicting machine. Each needs something I cannot do yet: the first a figure who
+pulls a lever with his whole weight, the second cloth, the third brass that looks like brass in sixteen
+registers.

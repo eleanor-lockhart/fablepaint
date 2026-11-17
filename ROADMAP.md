@@ -44,7 +44,9 @@ State after the first stretch (journal entries 0 to 2):
       through the ground, and one house printed four ways from one model
 - [x] cast shadows (my own, not Blender's); surfaces with more than one texture; a crane and a push-in
 - [ ] it reads, as a plan: a cold reader lists what is where from three frames (it has been read as a story)
-- [ ] a hill that is not steps; a figure walking toward the lens (waits for a turnaround from the bones study)
+- [x] things that turn (journal entry 4): `backlot/carve.py`, `depth.block`, `depth.turned`. Solids carved from the same
+      5 cm grid, lit a cube at a time; a horse measured off Muybridge's plate; a person with joints. Exam: *Persistence*
+- [ ] a hill that is not steps; a figure walking toward the lens in the house style (the Hex keeper can; the cast cannot yet)
 - [ ] Tern Point, Mount Vesper, the car deck
 - [ ] the same four rules in the house style: NIGHT SERVICE figures as cards in Ebb Landing, lit by its lamps
 

@@ -303,3 +303,68 @@ gets one level; a hole in a card shows what is behind it.
 
 What is still by feel: how bright a lamp is and how far it reaches (I tuned them by looking); and how much of a
 frame should be dark.
+
+## Entry 4. Things that turn
+
+Entry 3 ended with one item not done: a figure walking toward the lens. A card faces the lens, so a film made
+of cards is shot square-on, and I had noticed that most of *Base Case* was. The next assignment (keep working
+in Hex, pick the subjects, learn more) I spent on exactly that, with a subject that could not be done any
+other way: a roundabout. Things on a roundabout show every side they have.
+
+### What a solid is, here
+
+The first rule of entry 3 was that a texel is a size in the world. A solid is the same rule in three
+dimensions: a small box of 5 cm cubes, each holding a palette index (`backlot/carve.py`). You carve in metres:
+a ball, a limb (a bone with flesh on it), a block, a rule that recolours what is there. The renderer
+(`depth.block`) walks each ray through the grid cube by cube, so the result is exact: a carved cube is the same
+as a box to the pixel, from any side, and it hides, is hidden, is lit and throws the shadow of its real shape.
+
+Three things I had to find out.
+
+- **One cube, one tone.** Lit by its own six sides, a carved slope is a zebra: alternate cubes show a side
+  that faces the lamp and a side that does not. Lit by the way the *shape* faces at that cube (the gradient of
+  the filled volume, smoothed over about a cube and a half), each cube takes a single tone and a round thing
+  looks round, in flat steps. This is rule 2 of entry 3 (light is worked out per texel) again.
+- **A thing one cube thick faces nowhere.** A horse's cannon bone is one cube across, so there is no shape
+  round it to take a direction from, and it was lit as if it faced away from everything: the legs, which are
+  the whole of a gallop, were the darkest things in the picture. Such a cube is now lit by the side of it that
+  is seen. I found this by looking at twelve consecutive frames of one horse, not by any measurement.
+- **Paint has to turn with the thing.** A painted deck turned thirty degrees with its paint left behind is a
+  deck sliding over a pattern. `depth.turned` rotates every face's texel grid with the face.
+- **Build one slice.** Anything that repeats round an axis is built as one slice and turned. Then the object
+  turned by one slice is the same object, exactly, and a claim like "at this speed the only thing that changes
+  is which horse it is" is true in the picture and not approximately true.
+
+### A creature, measured
+
+The house rule is never to draw an animal from memory when it matters. The horse is from Muybridge's card of
+the mare Sallie Gardner (1878, public domain, kept out of the repository). I enlarged each of his frames
+under a grid and read off the slope of each leg bone against the vertical: forearm and cannon for a foreleg;
+femur, gaskin and cannon for a hind leg. One stride is about nine and a half of his frames. Those numbers,
+joined into curves and sampled at twelve equal steps, are the twelve horses (`styles/hex/persistence/horse.py`;
+the table is at the top of the file). The second foreleg runs two frames ahead of the leading one and the
+second hind leg a frame and a half behind the first, which is what the plate shows. What I did not measure
+and made up: how much the back pitches, how the neck reaches, the tail.
+
+The person (`styles/hex/puppet.py`) is carved round bones the same way, with a stride and half a dozen
+working poses, and can be seen from anywhere.
+
+### Tests
+
+In `backlot/tests/selftest.py`: a carved cube is a box to the pixel, and again when both are turned thirty
+degrees; a carved ball holds as many cubes as its volume; each of its cubes faces away from its middle; every
+pixel of one cube gets one level of light; a limb thinner than a cube is one unbroken line of cubes; a painted
+deck turned a quarter takes its paint with it.
+
+### The list now
+
+| goal | state |
+|---|---|
+| a figure walking toward the lens | possible: the keeper in *Persistence* is a solid and walks at any heading. Not yet done in the house style |
+| a camera off the square-on axis | done: a rim shot, an arc round the ride, over a shoulder, a cutaway from above |
+| a creature from a reference | done once: a horse, twelve poses of a gallop |
+| it reads, as a plan | not done; the cutaway view of the ride is the nearest thing |
+| a hill that is not steps; Tern Point, Mount Vesper, the car deck | not done |
+
+Cost: a block is about a tenth of a second whatever its size. Twenty-four horses, a keeper and about three
+hundred painted faces take five to eight seconds a frame.

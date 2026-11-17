@@ -40,7 +40,8 @@ converted on the way in. Values above 1.0 are normal until `lab.tonemap` brings 
 | `sync` | picture against sound, accidents, camera speed | `check(points, frames, wav)` `events(points, frames, out)` `pops` `travel` |
 | `reader` | the cold reader: what does the picture say to a stranger | `pack_film(frames, questions, intent)` `pack_stills(images, task)` |
 | `space` | places in metres: one model, drawn and photographed | `Set` (`box` `prism` `cylinder` `hexa` `gable` `tube` `card` `face`), `drawing(S, 'plan')`, `Camera(eye, az=, lens=)` `.place` `.sky` `.horizon`, `render` `positions` `pools` `matte`, `moon(when, lat, lon)`, `blender_check` |
-| `depth` | flat drawings in deep places (2.5D): painted texels, cut-out figures, cast light, a travelling camera | `paint(solid, skin=)` `card(name, sprite, foot, cam.right)` `panel` `gbuffer(things, cam)` `Light(pos, power, reach, aim=, cone=).bake(solids)` `lighting(g, lights, moving=)` `fly(keys, t)` `flakes` `edges` |
+| `depth` | flat drawings in deep places (2.5D): painted texels, cut-out figures, cast light, a travelling camera | `paint(solid, skin=)` `card(name, sprite, foot, cam.right)` `panel` `gbuffer(things, cam)` `Light(pos, power, reach, aim=, cone=).bake(solids)` `lighting(g, lights, moving=)` `fly(keys, t)` `flakes` `edges`; things that turn: `block` `turned` `facing` |
+| `carve` | things carved from the paint grid in three dimensions, so the camera can go round them | `Carving(lo, hi)` `.ball` `.limb` `.box` `.dots` `.paint(rule, colour)` `.mirror` `.block(name, at, turn)` `.print(view)`; `hull(side, front)` |
 | `model` | the bridge to Blender | `Spec(...)` with `.material` `.sheet` `.panel` `.light` `.haze` `.camera` `.key` `.render`; `passes(exr)` |
 
 ## How a shot is put together
@@ -163,6 +164,35 @@ house as a 1989 game, a 1987 one-bit card and a 1980 line drawing.
 
 A static lamp is baked once (`bake`); a lamp that moves is baked every frame (a spot is one 384 px map and costs a
 tenth of a second; an all-round lamp is six). About a second a frame at 1280 x 720 for a set of a thousand faces.
+
+### Things that turn (backlot.carve, depth.block, depth.turned)
+
+A card is right from one side, so a film made of cards is shot square-on. Three more rules get the camera off
+its rails:
+
+5. **A thing that turns is carved.** `carve.Carving(lo, hi)` is a small box of 5 cm cubes, each holding a
+   palette index; carve in metres with `ball`, `limb` (a bone with flesh: never broken, however thin), `box`,
+   `dots`, recolour by rule with `paint`, and hand it over with `.block(name, at, turn)`. The renderer walks
+   every ray through the grid, so a carved cube is the same as a box to the pixel, it hides and is hidden, and
+   it throws the shadow of its real shape from every side. `carve.hull(side, front)` makes one from two drawings.
+6. **One cube, one tone.** A cube is lit by which way the shape round it faces (`depth.facing`), never by its
+   own six sides: lit by its sides, every slope is striped like a zebra. A part one cube thick has no shape round
+   it and is lit by the side that is seen (`facing(grid, thin=)`). Set `block.round = False` for a crate.
+7. **Paint turns with the thing.** `turned(solid, degrees, about)` gives a copy rotated about an upright axis
+   with every face's texel grid rotated too, so the boards of a turntable go round with it. Build anything
+   that repeats round an axis as one slice and turn the slice: then turned by one slice it is the same object.
+
+```python
+from backlot.carve import Carving
+c = Carving((-.6, -.3, 0), (.6, .3, 1.2)); c.ball((0, 0, .7), (.5, .2, .3), 0xA); c.limb((.3, .1, .6), (.35, .1, .05), .06, .04, 9)
+horse = c.block('horse', at=(4, 0, .5), turn=30)                    # into gbuffer(...) with everything else
+deck = [D.turned(s, theta + 30 * k) for k in range(12) for s in slice_of_deck]
+```
+
+Measure a creature before carving it: `styles/hex/persistence/horse.py` takes a gallop off Muybridge's plate as the
+slope of every leg bone in every frame, and `styles/hex/puppet.py` is a person with a walk. A block costs about a
+tenth of a second however many cubes it has; twenty-four horses, a keeper and three hundred faces is about
+five seconds a frame.
 
 ## Finishing a frame with figures in it
 

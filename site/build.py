@@ -39,6 +39,12 @@ SECTIONS = [
      'A figure is a card standing in the place: the place hides it, lights it and takes its shadow. And the camera travels on its own path while the paint stays put. The exam piece is Base Case, on the HEX tab.',
      [('styles/hex/basecase/four_prints.png', 'One model of one basement, printed four ways', [('the film', 'hex.html'), ('the study journal, entry 3', blob('studies/space/JOURNAL.md')), ('the tool', blob('backlot/depth.py')), ('manual', blob('backlot/MANUAL.md'))]),
       ('styles/hex/basecase/travel.jpg', 'A tracking shot with a walking figure, a torch and cast shadows', [])]),
+    ('Learning solids: things that turn',
+     'A drawing standing up is right from one side, so a film made of them is shot square-on. The next step in the space study: carve things out of the same five-centimetre grid in three dimensions. '
+     'A carved cube is the same as a box to the pixel; each cube is lit by the way the shape around it faces, so a round thing is round in flat steps; paint turns with the thing it is on. '
+     'A horse was measured off Muybridge\'s photographs bone by bone, and a person was given joints. The exam piece is Persistence, on the HEX tab.',
+     [('styles/hex/persistence/turnaround.png', 'A carved horse from eight sides, lit, with its own shadow', [('the film', 'hex.html'), ('the study journal, entry 4', blob('studies/space/JOURNAL.md')), ('the tool', blob('backlot/carve.py')), ('manual', blob('backlot/MANUAL.md'))]),
+      ('styles/hex/persistence/keeper.png', 'A person carved round bones: a stride from six sides, and five working poses', [('code', blob('styles/hex/puppet.py'))])]),
     ('Learning space: Ebb Landing',
      'The second study. Until now every picture here was a flat stage seen from the side, with things put where they looked right. '
      'This is one place from the story, thought out in metres and built once as a model; the plan, the elevations, the section and every frame below are derived from that one file. '
@@ -124,6 +130,19 @@ HEX_HEADER = (f'<header><h1>{HEXSEAL} HEX</h1>'
               'Sixteen colours, numbered 0 to F. A frame filled to its edges. The rule left showing. A straight face. It starts within eight-bit limits and is climbing toward something from about the year 2000.</p>'
               f'<nav><a href="{blob("styles/hex/STYLE.md")}">Style guide</a><a href="{blob("styles/hex/journal.md")}">Journal</a><a href="{blob("styles/hex/sprites.py")}">The cast, as text</a><a href="{blob("styles/hex/kit.py")}">The kit</a></nav></header>')
 HEX_SECTIONS = [
+    ('Persistence',
+     'The first Hex piece on a subject of the artist\'s own choosing. A showman\'s winter quarters, at night, in snow. In the shed is a set of gallopers: a roundabout with twenty-four wooden horses. Once a winter somebody runs it, for nobody, to see that it still runs. '
+     'Going past him one at a time the horses turn out to be carved differently, each a little further through a stride than the one in front. So he wheels up a stroboscope, puts the lights out and opens the regulator. '
+     'At two turns a second, under a lamp that flashes twenty-four times a second, the ride stands still and the horses gallop: twelve horses, two turns, twenty-four flashes, and the number over each place changes in every picture. '
+     'Nothing here is a flat cut-out. The horse is carved from five-centimetre cubes round bones, in twelve poses measured off Muybridge\'s photographs of 1878, and the ride is one twelfth repeated twelve times, so the arithmetic on screen is true in the picture. '
+     'No flash is drawn: the film holds each picture the way an eye does, which is what the title means.',
+     [('styles/hex/persistence/persistence_poster.png', 'PERSISTENCE (press play; it has sound)', [('mp4', 'styles/hex/persistence/persistence.mp4'), ('the brief', blob('styles/hex/persistence/BRIEF.md')), ('the cold reading, and what it changed', blob('styles/hex/persistence/COLD_READ.md')), ('the second reading', blob('styles/hex/persistence/COLD_READ_v2.md')), ('journal', blob('styles/hex/journal.md')), ('the horse (code)', blob('styles/hex/persistence/horse.py')), ('the ride (code)', blob('styles/hex/persistence/ride.py')), ('the picture (code)', blob('styles/hex/persistence/film.py')), ('the score (code)', blob('styles/hex/persistence/music.py')), ('what was looked at', blob('styles/hex/persistence/SOURCES.md'))], 'styles/hex/persistence/persistence.mp4'),
+      ('styles/hex/persistence/one_place.png', 'One place on the ride, twelve pictures in a row (half a second). It is a different horse every time; the number over it says which', [('how the plates are made', blob('styles/hex/persistence/plates.py'))]),
+      ('styles/hex/persistence/twelve_horses.png', 'The twelve horses. The slope of every leg bone in every pose was read off Muybridge\'s card of Sallie Gardner at a gallop', [('the table of slopes', blob('styles/hex/persistence/horse.py')), ('the card (Wikimedia Commons)', 'https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg')]),
+      ('styles/hex/persistence/turnaround.png', 'One of them from eight sides. It is a solid: it hides, is hidden, and throws the shadow of its own shape', [('the carving tool', blob('backlot/carve.py')), ('the person', blob('styles/hex/puppet.py'))]),
+      ('styles/hex/persistence/slice.png', 'One twelfth of the ride, and the twelve of them: turned by thirty degrees it is the same ride', []),
+      ('styles/hex/persistence/persistence_score.jpg', 'The score, as the listening room sees it: a waltz, a galop at one stride to the beat, the waltz again', [('mp3', 'styles/hex/persistence/persistence.mp3')], None, 'styles/hex/persistence/persistence.mp3'),
+      ('styles/hex/persistence/persistence_sync.jpg', 'Picture against sound. By the detector 16 of 20 events land in both; the four it does not count are plain cuts inside sections where every frame is a different picture on purpose', [])]),
     ('Base Case',
      'A fairy tale told as a recursion, set in the childhood home painted on the other tab. The power goes out; one light is left, under the pantry floor. A child lifts the trap door, goes down to the basement and finds the computer on, showing the same house. '
      'She goes in, and there is a pantry, a trap door, a basement and a computer, drawn as a machine nine years older would draw them; and again; and again, until there is a basement with no computer in it. That is the base case, and a witch lives there. '
@@ -219,7 +238,7 @@ def main(sections=None, out='index.html', hexpage=False):
             if hexpage: t = rel                                   # hard pixels: show the picture itself, not a softened thumbnail
             links = ''.join(f'<a href="{href(u)}">{html.escape(l)}</a>' for l, u in extras if u.startswith('http') or (ROOT / u).exists())
             if video and (ROOT / video).exists():
-                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera', 'base_case')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
+                media = f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" autoplay loop muted playsinline controls></video>' if not any(k in video for k in ('scored', 'night_service_op', 'uptime', 'space_opera', 'base_case', 'persistence')) else f'<video src="{href(video)}" poster="{t}" width="{w}" height="{h}" loop playsinline controls preload="metadata"></video>'
             else:
                 media = f'<a href="{href(rel)}"><img src="{t}" width="{w}" height="{h}" loading="lazy" alt="{html.escape(cap)}"></a>'
             if audio and (ROOT / audio).exists():
