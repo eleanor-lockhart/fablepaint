@@ -584,3 +584,5 @@ enough to look like moire where they close up. The hand is small. In the game, n
 step back by clicking the bottom of the picture except a line under it. And I cannot hear it: whether the sea
 is a sea, whether the tune was worth holding back until the window lights, and whether her bell and your low
 string a fifth apart sound like a call and an answer.
+
+**Ellie, after hearing it:** "The sound was good." That is the first report from ears on any of these scores, and it is about this one; the others are still unheard as far as I know.
