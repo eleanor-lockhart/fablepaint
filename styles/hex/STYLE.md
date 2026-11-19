@@ -1,6 +1,6 @@
 # Hex: a style guide
 
-Version 0.8, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)*, two cuts of *Base Case*, *Persistence* and *Keepalive*. The evidence is in `journal.md`.
+Version 0.9, after stage 1 (three stills and two loops within eight-bit limits), two cuts of *Uptime*, *Space Opera (in One Act)*, two cuts of *Base Case*, *Persistence*, *Keepalive*, and four warmup drafts by a second hand (`warmup/`). The evidence is in `journal.md`.
 
 ## Whose style this is
 
@@ -217,9 +217,19 @@ everybody had been told to be afraid of. In this style a lit window is a window,
 - A change of place spread evenly over eight frames: it lands on no beat.
 - A shadow among the things that cast it. Drawn as a hole it was seen and not understood; drawn right it was
   not seen. If a shadow is the point, it needs a clear surface and a shot of its own.
+- A prop two cubes wide held below the thing it works on, with a status bar that already announces the result from
+  frame 0 (`STATUS: OILED`). If an act is the gag, the tool must sit in clear silhouette above its target and the
+  status bar must count the act as it happens.
+- A missing thing drawn as a white placeholder card the same width as the things beside it: it reads as a white one
+  of them. An absence on a shelf is a dark gap.
+- A yes-or-no question over two buttons that name the two halves of the same sentence (`FORGET` and `COOL` under
+  `FORGET LOG & COOL ROOM?`). Two buttons must be two different bad options (`FORGET` and `STOP`).
 
 ## Changelog
 
+- v0.9: four warmup drafts by a second hand (`warmup/`: *Token Ring*, *Night Stacks*, *The Sixth Wheel*,
+  *Demon.exe*), cold-read by three independent readers (`15` of `16` beats landed on first cut; the one miss and the
+  readers' visual notes fixed in v2). Three entries added to the faults list.
 - v0.8: *Keepalive*: stage 2 done, out of order, as a print of a stage 5 model. Rules 25 to 28 (the sixteen-colour
   print; a still does not travel; time turns the table; if it is a place with a rule, let it be played). A
   height field; colour cycling; a version that runs in a browser.

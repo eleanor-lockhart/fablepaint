@@ -586,3 +586,74 @@ is a sea, whether the tune was worth holding back until the window lights, and w
 string a fifth apart sound like a call and an answer.
 
 **Ellie, after hearing it:** "The sound was good." That is the first report from ears on any of these scores, and it is about this one; the others are still unheard as far as I know.
+
+
+## Entry 11. Warmup: four drafts by a second hand
+
+**The assignment.** A second agent (Antigravity / Gemini) was asked to read the studio's instructions (`AGENTS.md`,
+`STYLE.md`, `backlot/MANUAL.md`, `studio/AGENTS.md`, `styles/hex/STYLE.md` and this journal), review its tools for
+art and animation, and make a set of drafts in Hex on subjects of its own choosing as a warmup for general
+collaboration. All four live in `styles/hex/warmup/`.
+
+**What transferred straight from the written guides.** Almost everything mechanical: the sixteen registers and what
+register `F` is for; rule 3 (three of the four drafts leave the witch out and have zero green pixels outside the
+signature strip; the fourth puts her at the gate and keeps everything else out of her registers); building a place
+once in metres and deriving both the picture and the plan or section from it; `sync.check` and `sync.pops` catching
+what a filmstrip hides; and the cold-reader protocol (`backlot/reader.py`), which once again found specific faults
+the maker had looked past. Two small traps in the library had to be learned by tripping over them on the first test
+frame: calling `.move()` after `depth.turned()` leaves the cached `_tri` list behind at the origin (so eight
+standing stones briefly became one well in the middle of the moor), and `ui.dialog(..., buttons=())` shortens a
+window when its buttons are removed instead of greying them in place.
+
+**The four drafts.**
+
+1. ***Token Ring*** (`warmup/ring.py`, stage 2 print at 640 x 360 in sixteen registers, shown at 2x, plus plan).
+   Eight sarsen trilithons on a moor at night, wired into an octagonal chalk bus. Seven figures wait in the dark
+   while Stone 03 holds the one lit lantern (`F`) that permits its holder to transmit (`03 TX: "STILL WINTER."`),
+   and the acolyte at Stone 06 waits in queue (`"SNACKS?"`). In 5,200 years there has not been a collision.
+2. ***Night Stacks*** (`warmup/stacks.py`, stage 2 print + transverse section). A Gothic vault at 03:14 with a
+   compass-constructed twelve-light cusped rose window on the north wall (`tracery, a rose window worth the name`
+   from the motif table) and twenty two-tier bookcases holding `20 x 8 x 16 = 2,560` (`0xA00`) volumes. All 2,559
+   others are in place; Volume 1655 is open under the one brass reading lamp (`F`) at Carrel 04, where Reviewer 2
+   is writing `"SEE P. 412."`
+3. ***The Sixth Wheel*** (`warmup/wheel.py`, stage 5 carved and turned solids, 10.0 s loop at 24 fps, 240 frames).
+   In a stone clock room with snow outside the windows, six compound shafts step a 36 RPM escapement wheel down
+   until the sixth wheel (`2.76 m` tall) turns once in a thousand years (`0.000000 TURNS`). Each wheel is built as
+   one symmetric sector and rotated with its paint (`turned_y`), so whether a wheel turns `6` times, `1` time,
+   `1/6` of a turn (`60 deg` on six spokes), `1/12` of a turn (`30 deg` on twelve bolts), or `0` pixels, frame 240
+   meets frame 0 to the texel (`loop_seam` ratio `1.03`, `pops` empty). Under one wall lantern (`F`), a carved
+   keeper climbs a step-box and oils the motionless sixth wheel's bearing anyway.
+4. ***Demon.exe*** (`warmup/demon_music.py`, `warmup/demon.py`, 28.0 s at 24 fps, 672 frames, 14 bars of 4/4 at
+   120 BPM written first). Maxwell's Demon (1867) staged on a desktop of about 2000. Thirty-eight molecules move by
+   exact constant-speed billiard reflections, solved at startup so nineteen cross the central hatch on the musical
+   beats and none ever crosses an open hatch by accident. Sorting hot (`E`) right and cold (`C`) left brings the
+   right room to `+20 C` on Bar 10 (`18.0 s`), lighting the shelter's one window (`F`). That also fills her
+   sixteen-slot hex log (`0x0` to `0xF`). On Bar 11 (`20.0 s`) `SECOND_LAW.SYS` freezes the simulation — Landauer's
+   principle as an alert box (`ORDER IS NOT FREE. LOG FULL (16 / 16). CHOOSE ONE: [FORGET] [STOP]`). Her green
+   pointer never moves; on Bar 12 (`22.0 s`) `WITCH.EXE` opens (`I DO NOT FORGET THINGS.`), allocates `LOG.DAT -
+   FOREVER` (since only *erasing* memory generates heat), and finishes sorting the room. Score at `-14.0 LUFS`,
+   `0` clipped samples; first pass landed `9` of `22` sync points in picture because background molecule motion masked
+   small gate changes; widening the gate pulse and row highlight brought `sync.check` to `22` of `22`, `pops` empty.
+
+**Cold readings and the second cuts** (`warmup/COLD_READ.md`). Three independent cold readers read the isolated
+stills and contact sheets after verdicts were sealed:
+
+- *Token Ring* (`3/3` beats landed, predicted `3/3`) and *Night Stacks* (`3/3`, predicted `3/3`): every rule and
+  gag landed unprompted, and Reader A caught five specific things I had missed or under-weighted: `06 QUEUED` sat
+  across Stone `05`'s pillar; `deep.blocks` made Neolithic megaliths look like mortared brickwork; `SP.FACULTY`'s
+  `0`-register hat brim looked like a black censor bar; the missing shelf slot filled with a white `OUT` card read as
+  a white book spine rather than an empty gap; and the floor rat at non-integer card scale was an "unidentifiable
+  gray blob" (the exact lesson from Entry 10's spider, repeated before being fixed). All five were fixed in v2.
+- *The Sixth Wheel* (`3` landed, `1` missed; predicted `3` landed, `1` half): the step-down from `36/MIN` to
+  `1/1000 YR` and the frozen sixth wheel landed completely, and the oiling gag missed completely. My `10 cm` red
+  oilcan was held *below* the bearing in shadow while the bar already said `STATUS: OILED` from `0.00 s`, so Reader B
+  saw an empty hand resting contemplatively on the rim. In v2 the keeper stands on a two-step wooden stair holding a
+  `24 cm` red can with a `38 cm` white spout *above* a white bearing funnel, dropping two bright orange drops into
+  it while the bar counts `OIL: 0/2 -> 1/2 -> 2/2 DROPS`, and all six spokes of Wheels `02` and `03` are bright
+  steel so `1/6` of a turn visibly closes the loop.
+- *Demon.exe* (`6/6` beats landed, predicted `6/6`): Reader C narrated the entire thermodynamic and Landauer joke
+  verbatim, then pointed out that asking `FORGET LOG & COOL ROOM?` over two buttons labelled `FORGET` and `COOL`
+  names two halves of one option rather than two choices, and asked why the gate waited between `18.0 s` and
+  `20.0 s`. In v2 the prompt asks `CHOOSE ONE:` over `[FORGET]` and `[STOP]` (kept greyed in place at `22.0 s` so
+  the box height never jumps), the `18.0 s` banner notes `(LOG FULL: 16/16)`, molecules literally freeze during the
+  `20.0..22.0 s` pause, and both dialogs stay clear of the central hatch.
