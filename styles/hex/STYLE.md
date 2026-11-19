@@ -224,9 +224,20 @@ everybody had been told to be afraid of. In this style a lit window is a window,
   of them. An absence on a shelf is a dark gap.
 - A yes-or-no question over two buttons that name the two halves of the same sentence (`FORGET` and `COOL` under
   `FORGET LOG & COOL ROOM?`). Two buttons must be two different bad options (`FORGET` and `STOP`).
+- A proximity warning staged by drawing the enemy searchlight *already inside* the room two seconds before the lamp is
+  shuttered: the viewer sees two seconds in which the patrol caught them red-handed and did nothing. Warn on an
+  instrument first, walk to the lamp, shutter it, and only *then* bring the searchlight across the dark room.
+- Arterial blood drawn as a straight diagonal line in the same register (`D`) as targeting lasers: it reads as a stray
+  laser bolt. Lasers are ruled straight lines; blood is a gravity-curved parabolic fan of droplets settling into a dark
+  `2` pool with a `1px D` wet rim (`kaledathela/COMBAT.md`).
 
 ## Changelog
 
+- v0.10: **Kaledathela** (`kaledathela/STYLE.md`, `kit_kal.py`) established as a recurring visual/thematic setting
+  (East/West Texas toxic megamoon under a giant Primary and ancient Worm subspace border; The Pastor's Inquisition vs.
+  a hidden Coven; *Shuttered Lamp*), paired with a soft-R gothic combat & chromatic blood grammar
+  (`kaledathela/COMBAT.md`; *Reliquary Drop*). Cold-read across three independent readers and revised to v2 (`14/14`
+  sync on both films, `0` pops).
 - v0.9: four warmup drafts by a second hand (`warmup/`: *Token Ring*, *Night Stacks*, *The Sixth Wheel*,
   *Demon.exe*), cold-read by three independent readers (`15` of `16` beats landed on first cut; the one miss and the
   readers' visual notes fixed in v2). Three entries added to the faults list.

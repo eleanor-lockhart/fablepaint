@@ -657,3 +657,66 @@ stills and contact sheets after verdicts were sealed:
   `20.0 s`. In v2 the prompt asks `CHOOSE ONE:` over `[FORGET]` and `[STOP]` (kept greyed in place at `22.0 s` so
   the box height never jumps), the `18.0 s` banner notes `(LOG FULL: 16/16)`, molecules literally freeze during the
   `20.0..22.0 s` pause, and both dialogs stay clear of the central hatch.
+
+## Entry 12. *Kaledathela*: a visual setting for future films, and soft-R gothic combat (`kaledathela/`)
+
+Ellie asked for two things in sequence: first, a **visual and thematic setting** (explicitly *not* lore-heavy
+worldbuilding — names and histories left vague and archetypical) on an Earth-gravity toxic megamoon in the Kaledathela
+system at the edge of an ancient Worm subspace tunnel route, resembling **East Texas** in its populated/refinery areas
+and **West Texas** in its desert wastes, stacked with dead empires under a current authoritarian dominion where a
+religious-technological Inquisition led by **The Pastor** hunts a hidden coven of witches; and second, once the planet
+design was complete, a **soft-R gothic combat and blood/gore grammar** tested through an Inquisition dropship raid
+inspired by *The Matrix* and *The Raid: Redemption*, where both sides take casualties.
+
+**1. Why the setting fits Hex's sixteen registers like a lock (`kaledathela/STYLE.md`, `kit_kal.py`).**
+Because the megamoon's toxic piney bayous and desert scrub sit exclusively in `0, 1, 2, 3, 8` (**zero natural green**),
+Rule 3 (*only witches are green*) becomes a literal optical law of the planet: witches (`5, 6, 7`) really are the only
+green things on the ground, and The Pastor's Censer-drones hunt them by scanning for `0x5..0x7` and un-registered
+hearth lamps (`0xF`). Every faction owns a slice of the table:
+- **Sky (`draw_sky_canvas`):** Giant half-lit banded Primary (`Kaledathela`, `1, 2, 3, 8, 9`) + straight ruled
+  **Worm Subspace Border** (`B, C` containment rails and perspective rings).
+- **Two Texases:** East Texas (`draw_loblolly` with bare lower two-thirds, `draw_cypress` with buttresses, knees and
+  moss, chemical sloughs, `E`/`D` refinery flares, concrete overpasses) vs. West Texas (caprock mesas, endless
+  two-lane blacktop, four-bar kinematic `draw_pumpjack_2d`, sunken storm cellars).
+- **Four strata in one frame:** Curved Worm-ribs (carrying dormant `0xC` conduit nodes to visibly link them to the
+  sky-rail) -> broken stone arches of dead empires -> Texas tin/pipe/pumpjacks -> Dominion concrete & `0xA` crosses.
+- **Light as stealth:** Crosses (`+`) belong strictly to The Pastor (`0xA`/`0xD`); Coven shelter windows use horizontal
+  shutter slats (`=`) so a `0xF` window never accidentally forms a cross.
+
+**2. Soft-R gothic violence inside sixteen registers (`kaledathela/COMBAT.md`).**
+Even in a lethal firefight, **register `F` (`#ffd870`) never appears in muzzle flashes, thrusters or explosions** — it
+stays reserved for the defended sanctum lamp so the stakes remain legible on screen:
+- **Strobe & destructible stone (*The Matrix* + *The Raid*):** Directional `0xA`+`0xE` muzzle cones (`>`, never `+`)
+  act as stroboscopic flash lighting in dark stone halls (`0, 1`), ejecting `0xE` -> `8` brass and **permanently
+  cratering** carved stone columns (`draw_scarred_pillar`).
+- **Arterial `0xD` & mutual cost:** Register `0xD` (`#e0407a`) is both the Inquisition's targeting laser and spilled
+  mortal blood, settling into persistent dark `0x2` wine pools with a `1px 0xD` wet meniscus (`draw_blood_pool`). When
+  a witch falls (`WITCH_WOUNDED`), she bleeds `0xD` while her bright `0x6` green dims to `0x4` (`#18404a`) deep
+  verdigris — mortal flesh, extinguished green.
+
+**3. Cold readings and what they changed (`COLD_READ.md`, `COLD_READ_RAID.md`).**
+Three isolated cold readers (`ae6067d3` on the setting plates, `2ab682c0` on *Shuttered Lamp*, `1b0c2432` on *Reliquary
+Drop*) read the work blind after maker verdicts were sealed:
+- *Setting plates (`concept_sheet.png`, `east_bayou.png`, `west_wastes.png`):* Reader `ae6067d3` named East Texas
+  Beaumont/Piney Slough and West Texas Caprock/Permian Basin unprompted, decoded the 16-register hunt law, and caught
+  three tangencies/leaks fixed in v2: `K2`'s cyan sky-rail touched the corner of the highway cross-gate, `HUNTER`'s
+  tiny dish-rifle used `0xC` cyan (breaking `B+C = Worm Border`), and the storm cellar had no visible cable tying it to
+  the Worm-rib above it.
+- ***Shuttered Lamp*** (`kaledathela_concept.mp4`, `32.0 s`, `14/14` sync, `0` pops): Reader `2ab682c0` narrated the
+  four-shot stealth arc accurately and caught a major story-logic contradiction I had looked right past: at `18.0 s`
+  (`PROXIMITY ALERT`), I had already drawn the white searchlight pouring *inside* the vault for two full seconds while
+  the `0xF` lamp was still blazing open before snapping dark at `20.0 s` without anyone walking over to touch it, and
+  hovering Censer-drones in Shot 2 sat directly in front of vertical grey flare pipes so they read as T-topped masts.
+  In v2, `18.0 s` flashes *only* the Worm-tap radar CRT (`0xD`) while Runner physically walks to the central pedestal
+  and slams the iron hood down at `20.0 s` — right as a flying Censer-drone glides across the sky grate above
+  (`20.0..23.9 s`), casting ray-traced grate shadows to the floor (`0 LIGHTS FOUND`).
+- ***Reliquary Drop*** (`raid_concept.mp4`, `32.0 s`, `14/14` sync, `0` pops): Reader `1b0c2432` narrated every beat
+  of the dropship breach, Sister Thorn's death (`10 s`), Signal's bullet-catching `0x6` Hex-Lattice (`12 s`) and
+  reversal (`14 s`), Bayou's ceiling drop and pillar-vault slash (`16–18 s`), Runner's grazed ankle-wire trade (`20 s`),
+  the retreat (`22–24 s`), and the `0xF` sanctum pietà & `0x7` memorial blade (`26–30 s`), then handed back two sharp
+  shape rules for `COMBAT.md`: (1) **straight diagonal `0xD` blood lines look identical to `0xD` laser beams** — blood
+  must be a **gravity-curved parabolic fan of discrete droplets** (`draw_blood_arc` v2), while aiming lasers are dashed;
+  and (2) flat 4-row grey corpses look like stone rubble — `HUNTER_DOWN` v2 keeps the knocked-off wide-brim hat, dark
+  coat, `0xD` chest wound, and sideways boots. Every continuity gap (`6.00..6.15 s` squad frame gap, visible ceiling
+  floodlight shattered by an upward ricochet at `14.1 s`, thrown `0x7` knife visibly wounding Hunter #4 at `22.0 s`,
+  and hex-bolt scorching the retreating Reliquary at `24.0 s`) was fixed in v2 (`14/14` sync, `0` pops, `0` strobing).
